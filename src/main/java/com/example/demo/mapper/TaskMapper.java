@@ -1,5 +1,5 @@
 package com.example.demo.mapper;
 
-public class TaskMapper {
+public interface TaskMapper {
 
 }
