@@ -6,12 +6,12 @@ import java.util.Date;
 
 @Alias("category")
 public class Category {
-    private int id;
+    private Integer id;
     private String name;
     private Date createTime;
     private Date updateTime;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -39,7 +39,7 @@ public class Category {
         this.updateTime = updateTime;
     }
 
-    public Category(int id, String name) {
+    public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

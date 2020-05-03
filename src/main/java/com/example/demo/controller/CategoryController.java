@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("our-task")
 public class CategoryController {
@@ -27,7 +29,7 @@ public class CategoryController {
      * 根据id删除一个清单分类
      * */
     @GetMapping("deleteCategoryById")
-    void deleteCategoryById(int id){
+    void deleteCategoryById(Integer id){
         categoryMapper.deleteCategoryById(id);
     }
 
@@ -35,9 +37,17 @@ public class CategoryController {
      * 对清单分类的名称进行修改
      * */
     @GetMapping("updateCategory")
-    void updateCategory(int id, String name){
+    void updateCategory(Integer id, String name){
         Category category = new Category(id, name);
         categoryMapper.updateCategory(category);
+    }
+
+    /**
+     * 查询所有的分类名称
+     * */
+    @GetMapping("getCategoryList")
+    List<Category> getCategoryList(){
+        return categoryMapper.getCategoryList();
     }
 
 

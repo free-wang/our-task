@@ -3,24 +3,24 @@ package com.example.demo.entity;
 import java.util.Date;
 
 public class Task {
-    private int id;
-    private int category_id;
+    private Integer id;
+    private Integer categoryId;
     private String name;
     private String description;
     private Date createTime;
     private Date updateTime;
-    private int run;
+    private Integer run;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -55,11 +55,40 @@ public class Task {
         this.updateTime = updateTime;
     }
 
-    public int getRun() {
+    public Integer getRun() {
         return run;
     }
 
-    public void setIsRun(int isRun) {
+    public void setIsRun(Integer isRun) {
+        this.run = run;
+    }
+
+    public Task(Integer id, Integer categoryId, String name, String description, Integer run) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.run = run;
+    }
+
+    /**
+     * 如果不加这个无参构造器，可能会提示没有找到构造器的错误
+     * */
+    public Task() {
+    }
+
+    public Task(Integer categoryId, Integer run) {
+        this.categoryId = categoryId;
+        this.run = run;
+    }
+
+    public Task(Integer id, Integer categoryId, String name, String description, Date createTime, Date updateTime, Integer run) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
         this.run = run;
     }
 }

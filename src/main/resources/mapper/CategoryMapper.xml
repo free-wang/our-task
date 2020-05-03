@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.CategoryMapper">
-    <resultMap id="category" type="com.example.demo.mapper.CategoryMapper"/>
-    <parameterMap id="category" type="com.example.demo.mapper.CategoryMapper"/>
+    <resultMap id="category" type="com.example.demo.entity.Category"/>
+    <parameterMap id="category" type="com.example.demo.entity.Category"/>
 
     <insert id="addCategory" parameterType="String">
         INSERT INTO category (name) VALUES(#{name})
     </insert>
 
-    <delete id="deleteCategoryById" parameterType="int">
+    <delete id="deleteCategoryById" parameterType="Integer">
         DELETE FROM category WHERE id = #{id}
     </delete>
 
     <update id="updateCategory" parameterType="category">
         UPDATE category SET name=#{name} WHERE id=#{id}
     </update>
+
+    <select id="getCategoryList" resultType="category">
+        SELECT * FROM category
+    </select>
 </mapper>

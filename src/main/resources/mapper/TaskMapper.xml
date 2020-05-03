@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.TaskMapper">
+    <resultMap id="task" type="com.example.demo.entity.Task">
+<!--        由于数据库的is_run字段和对象字段run不能直接匹配，需要配置result-->
+<!--        然后在查询语句的返回值中设置resultMap,而不是resultType-->
+        <result property="run" column="is_run"/>
+    </resultMap>
+
+    <parameterMap id="task" type="com.example.demo.entity.Task"/>
+
+    <insert id="addTask" parameterType="String">
+        INSERT INTO task (name) VALUES (#{name})
+    </insert>
+
+    <delete id="deleteTaskById" parameterType="Integer">
+        DELETE FROM task WHERE id = #{id}
+    </delete>
+
+    <update id="updateTask" parameterType="task">
+        UPDATE task
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                category_id = #{categoryId},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="run != null and run != ''">
+                is_run = #{run},
+            </if>
+            id = #{id}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getTaskList" parameterType="task" resultMap="task">
+        SELECT * FROM task
+        <where>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="run != null">
+                and is_run = #{run}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

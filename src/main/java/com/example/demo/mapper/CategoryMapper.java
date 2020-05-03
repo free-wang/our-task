@@ -3,6 +3,8 @@ package com.example.demo.mapper;
 import com.example.demo.entity.Category;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface CategoryMapper {
     /**
@@ -19,6 +21,11 @@ public interface CategoryMapper {
      * 对清单分类的名称进行修改
      * */
     void updateCategory(Category category);
+
+    /**
+     * 查询所有的分类
+     * */
+    List<Category> getCategoryList();
 
 }
 
