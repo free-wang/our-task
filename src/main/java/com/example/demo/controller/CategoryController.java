@@ -1,4 +1,44 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Category;
+import com.example.demo.mapper.CategoryMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("our-task")
 public class CategoryController {
+    @Autowired(required = false)
+    private CategoryMapper categoryMapper;
+
+    /**
+     * 添加一个清单分类
+     * */
+    @GetMapping("addCategory")
+    public void addCategory(String name){
+        categoryMapper.addCategory(name);
+
+    }
+
+    /**
+     * 根据id删除一个清单分类
+     * */
+    @GetMapping("deleteCategoryById")
+    void deleteCategoryById(int id){
+        categoryMapper.deleteCategoryById(id);
+    }
+
+    /**
+     * 对清单分类的名称进行修改
+     * */
+    @GetMapping("updateCategory")
+    void updateCategory(int id, String name){
+        Category category = new Category(id, name);
+        categoryMapper.updateCategory(category);
+    }
+
+
 }

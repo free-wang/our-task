@@ -1,7 +1,10 @@
 package com.example.demo.entity;
 
+import org.apache.ibatis.type.Alias;
+
 import java.util.Date;
 
+@Alias("category")
 public class Category {
     private int id;
     private String name;
@@ -34,5 +37,10 @@ public class Category {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 }

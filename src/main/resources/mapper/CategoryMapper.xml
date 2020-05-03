@@ -4,8 +4,8 @@
     <resultMap id="category" type="com.example.demo.mapper.CategoryMapper"/>
     <parameterMap id="category" type="com.example.demo.mapper.CategoryMapper"/>
 
-    <insert id="addCategory" parameterType="category">
-        INSERT INTO category (id, name, create_time) VALUES(#{id}, #{name}, #{createTime})
+    <insert id="addCategory" parameterType="String">
+        INSERT INTO category (name) VALUES(#{name})
     </insert>
 
     <delete id="deleteCategoryById" parameterType="int">
@@ -13,6 +13,6 @@
     </delete>
 
     <update id="updateCategory" parameterType="category">
-        UPDATE category SET name=#{name} and update_time= WHERE id=#{id}
+        UPDATE category SET name=#{name} WHERE id=#{id}
     </update>
 </mapper>

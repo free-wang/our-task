@@ -1,12 +1,14 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Category;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CategoryMapper {
     /**
      * 添加一个清单分类
      * */
-    void addCategory(Category category);
+    void addCategory(String name);
 
     /**
      * 根据id删除一个清单分类
