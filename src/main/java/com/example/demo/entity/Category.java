@@ -43,4 +43,14 @@ public class Category {
         this.id = id;
         this.name = name;
     }
+
+    public Category() {
+    }
+
+    public Category(Integer id, String name, Date createTime, Date updateTime) {
+        this.id = id;
+        this.name = name;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 }

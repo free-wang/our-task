@@ -13,14 +13,31 @@ import java.util.List;
 @RequestMapping("our-task")
 public class TaskController {
     @Autowired(required = false)
-    TaskMapper taskMapper;
+    private TaskMapper taskMapper;
 
+    /**
+     * 添加一个新的清单
+     * */
+    void addTask(String name){
+        taskMapper.addTask(name);
+    }
+
+    void deleteTaskById(Integer id){
+        taskMapper.deleteTaskById(id);
+    }
+
+    /**
+     * 对清单进行更新
+     * */
     @GetMapping("updateTask")
     void updateTask(Integer id, Integer categoryId, String name, String description, Integer run){
         Task task = new Task(id, categoryId, name, description, run);
         taskMapper.updateTask(task);
     }
 
+    /**
+     * 根据条件查询某些清单
+     * */
     @GetMapping("getTaskList")
     List<Task> getTaskList(Integer categoryId, Integer run){
         Task task = new Task(categoryId, run);
