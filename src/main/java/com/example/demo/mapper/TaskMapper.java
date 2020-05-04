@@ -10,7 +10,7 @@ public interface TaskMapper {
     /**
      * 添加一个新的清单
      * */
-    void addTask(String name);
+    void addTask(Integer categoryId, String name);
     /**
      * 通过id删除一个清单
      * */

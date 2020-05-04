@@ -7,10 +7,21 @@
         <result property="run" column="is_run"/>
     </resultMap>
 
-    <parameterMap id="task" type="com.example.demo.entity.Task"/>
+    <parameterMap id="task" type="com.example.demo.entity.Task">
+    </parameterMap>
+
+
 
     <insert id="addTask" parameterType="String">
-        INSERT INTO task (name) VALUES (#{name})
+        INSERT INTO task (
+        <if test="categoryId != null">
+            category_id,
+        </if>
+         name) VALUES (
+         <if test="categoryId != null">
+             #{categoryId},
+         </if>
+         #{name})
     </insert>
 
     <delete id="deleteTaskById" parameterType="Integer">
@@ -29,7 +40,8 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
-            <if test="run != null and run != ''">
+--             这里run是无符号数字，所以就不能判断是否等于空字符串了
+            <if test="run != null">
                 is_run = #{run},
             </if>
             id = #{id}
