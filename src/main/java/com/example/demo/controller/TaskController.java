@@ -5,6 +5,7 @@ import com.example.demo.mapper.TaskMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,12 +20,12 @@ public class TaskController {
     /**
      * 添加一个新的清单
      * */
-    @GetMapping("addTask")
+    @PostMapping("addTask")
     void addTask(Integer categoryId, String name){
         taskMapper.addTask(categoryId, name);
     }
 
-    @GetMapping("deleteTaskById")
+    @PostMapping("deleteTaskById")
     void deleteTaskById(Integer id){
         taskMapper.deleteTaskById(id);
     }
@@ -32,7 +33,7 @@ public class TaskController {
     /**
      * 对清单进行更新
      * */
-    @GetMapping("updateTask")
+    @PostMapping("updateTask")
     void updateTask(Integer id, Integer categoryId, String name, String description, Integer run){
         Task task = new Task(id, categoryId, name, description, run);
         taskMapper.updateTask(task);
