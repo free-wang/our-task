@@ -32,7 +32,6 @@ public class CategoryController {
     void deleteCategoryById(Integer id){
         categoryMapper.deleteCategoryById(id);
     }
-
     /**
      * 对清单分类的名称进行修改
      * */
@@ -41,7 +40,6 @@ public class CategoryController {
         Category category = new Category(id, name);
         categoryMapper.updateCategory(category);
     }
-
     /**
      * 查询所有的分类名称
      * */
