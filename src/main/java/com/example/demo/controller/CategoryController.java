@@ -37,6 +37,7 @@ public class CategoryController {
      * */
     @PostMapping("updateCategory")
     void updateCategory(Integer id, String name){
+
         Category category = new Category(id, name);
         categoryMapper.updateCategory(category);
     }
