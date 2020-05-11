@@ -13,5 +13,4 @@ import javax.servlet.annotation.WebServlet;
                 @WebInitParam(name="loginPassword",value="admin")// 登录druid管理页面密码
         })
 public class DruidServlet extends StatViewServlet {
-
 }

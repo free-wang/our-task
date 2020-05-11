@@ -40,12 +40,21 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+
+                    <li class="nav-item" th:each="category : ${categoryList}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p th:text="${category.name}"></p>
+                        </a>
+                    </li>
+
+
+
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 今天
-
                             </p>
                         </a>
                     </li>
@@ -54,7 +63,6 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 明天
-
                             </p>
                         </a>
                     </li>
