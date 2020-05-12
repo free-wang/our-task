@@ -35,7 +35,7 @@ public class CommonController {
         List<Task> taskListForToday = new ArrayList<>();
         Task taskForToday = new Task(1, 1);
         taskListForToday = taskMapper.getTaskList(taskForToday);
-        model.addAttribute("taskListForToday", taskListForToday);
+        model.addAttribute("taskList", taskListForToday);
         return "index";
     }
 }

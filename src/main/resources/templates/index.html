@@ -117,76 +117,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr th:each="task : ${taskList}">
                                         <td>
                                             <div class="col-lg-6">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <input type="checkbox">
-                              </span>
+                                                      <span class="input-group-text">
+                                                        <input type="checkbox">
+                                                      </span>
                                                     </div>
-                                                    <input type="text" class="form-control" >
-                                                </div>
-                                                <!-- /input-group -->
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                                显示详情
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-lg-6">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <input type="checkbox">
-                              </span>
-                                                    </div>
-                                                    <input type="text" class="form-control" >
-                                                </div>
-                                                <!-- /input-group -->
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                                显示详情
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-lg-6">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <input type="checkbox" >
-                              </span>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <!-- /input-group -->
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                                显示详情
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-lg-6">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <input type="checkbox" >
-                              </span>
-                                                    </div>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" th:placeholder="${task.name}">
                                                 </div>
                                                 <!-- /input-group -->
                                             </div>
