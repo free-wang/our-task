@@ -30,7 +30,6 @@ public class CommonController {
         List<Category> categoryList = new ArrayList<>();
         categoryList = categoryMapper.getCategoryList();
         model.addAttribute("categoryList", categoryList);
-
         //默认是显示今天这个分类下的清单
         List<Task> taskListForToday = new ArrayList<>();
         Task taskForToday = new Task(1, 1);
