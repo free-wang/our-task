@@ -4,6 +4,7 @@ import com.example.demo.entity.Category;
 import com.example.demo.entity.Task;
 import com.example.demo.mapper.CategoryMapper;
 import com.example.demo.mapper.TaskMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,16 +26,22 @@ public class CommonController {
     @Autowired(required = false)
     TaskMapper taskMapper;
     @RequestMapping("index")
-    public String index(Model model){
+    public String index(Model model, @Param("categoryId") String categoryId){
         //得到所有的分类
         List<Category> categoryList = new ArrayList<>();
         categoryList = categoryMapper.getCategoryList();
         model.addAttribute("categoryList", categoryList);
-        //默认是显示今天这个分类下的清单
-        List<Task> taskListForToday = new ArrayList<>();
-        Task taskForToday = new Task(1, 1);
-        taskListForToday = taskMapper.getTaskList(taskForToday);
-        model.addAttribute("taskList", taskListForToday);
+        //如果没有输入的话，默认显示今天的清单
+        List<Task> taskList = new ArrayList<>();
+        Task taskCondition = new Task();
+        if (categoryId == null || categoryId.equals("")){
+            taskCondition = new Task(1, 1);
+        }
+        else {
+            taskCondition = new Task(Integer.valueOf(categoryId), 1);
+        }
+        taskList = taskMapper.getTaskList(taskCondition);
+        model.addAttribute("taskList", taskList);
         return "index";
     }
 }
