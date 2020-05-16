@@ -4,6 +4,8 @@ import com.example.demo.entity.Task;
 import com.example.demo.mapper.TaskMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("our-task")
 public class TaskController {
     @Autowired(required = false)
@@ -33,10 +35,12 @@ public class TaskController {
     /**
      * 对清单进行更新
      * */
-    @PostMapping("updateTask")
-    void updateTask(Integer id, Integer categoryId, String name, String description, Integer run){
+    @RequestMapping("updateTask")
+    String updateTask(Integer id, Integer categoryId, String name, String description, Integer run){
         Task task = new Task(id, categoryId, name, description, run);
         taskMapper.updateTask(task);
+        //重定向到主页
+        return "redirect:/index";
     }
 
     /**

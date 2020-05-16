@@ -94,6 +94,7 @@
                                     <thead>
                                     <tr>
                                         <th>清单名称</th>
+                                        <th>更新名称</th>
                                         <th>详情</th>
                                     </tr>
                                     </thead>
@@ -107,10 +108,18 @@
                                                         <input type="checkbox">
                                                       </span>
                                                     </div>
-                                                    <input type="text" class="form-control" th:value="${task.name}">
+                                                    <input id="taskName" type="text" class="form-control" th:value="${task.name}">
                                                 </div>
                                                 <!-- /input-group -->
                                             </div>
+                                        </td>
+                                        <td>
+                                            <form id="updateTask" method="post" th:action="@{/our-task/updateTask}">
+                                                <input type="hidden" name="id" th:value="${task.getId()}">
+                                                <input type="hidden" name="name">
+                                                <input type="submit" class="btn btn-block btn-success" value="确认更新">
+<!--                                                <button type="submit" class="btn btn-block btn-success">确认更新</button>-->
+                                            </form>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">

@@ -26,7 +26,7 @@ public class CommonController {
     @Autowired(required = false)
     TaskMapper taskMapper;
     @RequestMapping("index")
-    public String index(Model model, @Param("categoryId") String categoryId){
+    public String index(Model model, @Param("categoryId") Integer categoryId){
         //得到所有的分类
         List<Category> categoryList = new ArrayList<>();
         categoryList = categoryMapper.getCategoryList();
@@ -34,11 +34,11 @@ public class CommonController {
         //如果没有输入的话，默认显示今天的清单
         List<Task> taskList = new ArrayList<>();
         Task taskCondition = new Task();
-        if (categoryId == null || categoryId.equals("")){
+        if (categoryId == null){
             taskCondition = new Task(1, 1);
         }
         else {
-            taskCondition = new Task(Integer.valueOf(categoryId), 1);
+            taskCondition = new Task(categoryId, 1);
         }
         taskList = taskMapper.getTaskList(taskCondition);
         model.addAttribute("taskList", taskList);
