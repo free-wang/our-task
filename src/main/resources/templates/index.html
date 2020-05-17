@@ -116,7 +116,7 @@
                                         <td>
                                             <form id="updateTask" method="post" th:action="@{/our-task/updateTask}">
                                                 <input type="hidden" name="id" th:value="${task.getId()}">
-                                                <input type="hidden" name="name">
+                                                <input type="hidden" name="name" value="">
                                                 <input type="submit" class="btn btn-block btn-success" value="确认更新">
 <!--                                                <button type="submit" class="btn btn-block btn-success">确认更新</button>-->
                                             </form>
@@ -201,6 +201,7 @@
 <script th:src="@{/js/jquery-ui.min.js}"></script>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/adminlte.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 
 </body>
 </html>
