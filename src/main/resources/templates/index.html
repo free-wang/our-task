@@ -12,6 +12,14 @@
     <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{/css/OverlayScrollbars.min.css}">
 
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/adminlte.js}"></script>
+<!--    加入th:inline是为了在JS中使用thymeleaf-->
+    <script th:src="@{/js/common.js}" th:inline="javascript"></script>
+
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -108,18 +116,23 @@
                                                         <input type="checkbox">
                                                       </span>
                                                     </div>
-                                                    <input id="taskName" type="text" class="form-control" th:value="${task.name}">
+
+                                                    <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
+                                                        <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
+                                                        <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">
+                                                    </form>
+
                                                 </div>
                                                 <!-- /input-group -->
                                             </div>
                                         </td>
+                                        <script th:inline="javascript">
+                                            function confirmUpdateTask(taskId) {
+                                                $("#updateTask" + taskId).submit();
+                                            }
+                                        </script>
                                         <td>
-                                            <form id="updateTask" method="post" th:action="@{/our-task/updateTask}">
-                                                <input type="hidden" name="id" th:value="${task.getId()}">
-                                                <input type="hidden" name="name" value="">
-                                                <input type="submit" class="btn btn-block btn-success" value="确认更新">
-<!--                                                <button type="submit" class="btn btn-block btn-success">确认更新</button>-->
-                                            </form>
+                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
@@ -195,13 +208,6 @@
     </footer>
 </div>
 <!-- ./wrapper -->
-
-
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-ui.min.js}"></script>
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/js/adminlte.js}"></script>
-<script th:src="@{/js/common.js}"></script>
 
 </body>
 </html>

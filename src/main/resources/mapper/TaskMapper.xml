@@ -40,7 +40,6 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
---             这里run是无符号数字，所以就不能判断是否等于空字符串了
             <if test="run != null">
                 is_run = #{run},
             </if>

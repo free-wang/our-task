@@ -1,4 +1,8 @@
-function getInputValueById() {
-    var value = document.getElementById("taskName").value;
-    return value;
-}
+// function confirmUpdateTask() {
+//     $("#updateTask" + [[${task.getId()}]]).submit();
+// }
+
+// function confirmUpdateTask() {
+//     $("#updateTask").submit();
+// }
+
