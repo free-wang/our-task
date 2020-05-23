@@ -132,7 +132,8 @@
                                             }
                                         </script>
                                         <td>
-                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
+<!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
+                                            <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">

@@ -79,6 +79,12 @@
             <version>1.9.22</version>
         </dependency>
 
+<!--        加入热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
