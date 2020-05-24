@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("our-task")
 public class CategoryController {
     @Autowired(required = false)
@@ -20,9 +20,10 @@ public class CategoryController {
     /**
      * 添加一个清单分类
      * */
-    @PostMapping("addCategory")
-    public void addCategory(String name){
+    @RequestMapping("addCategory")
+    public String addCategory(String name, Integer categoryId){
         categoryMapper.addCategory(name);
+        return "redirect:/index?categoryId=" + categoryId;
     }
 
     /**
