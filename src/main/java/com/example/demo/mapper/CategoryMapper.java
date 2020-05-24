@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Category;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -26,6 +27,11 @@ public interface CategoryMapper {
      * 查询所有的分类
      * */
     List<Category> getCategoryList();
+
+    /**
+     * 查询当前分类下的信息，也就是返回当前分类的对象
+     * */
+    Category getCategoryById(Integer categoryId);
 
 }
 

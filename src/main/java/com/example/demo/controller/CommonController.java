@@ -34,12 +34,17 @@ public class CommonController {
         //如果没有输入的话，默认显示今天的清单
         List<Task> taskList = new ArrayList<>();
         Task taskCondition = new Task();
+        //把当前查询的那个分类传递给前台
+        Category currentCategory = null;
         if (categoryId == null){
             taskCondition = new Task(1, 1);
+            currentCategory = categoryMapper.getCategoryById(1);
         }
         else {
+            currentCategory = categoryMapper.getCategoryById(categoryId);
             taskCondition = new Task(categoryId, 1);
         }
+        model.addAttribute("currentCategory", currentCategory);
         taskList = taskMapper.getTaskList(taskCondition);
         model.addAttribute("taskList", taskList);
         return "index";

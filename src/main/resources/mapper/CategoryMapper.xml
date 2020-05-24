@@ -19,4 +19,8 @@
     <select id="getCategoryList" resultType="category">
         SELECT * FROM category
     </select>
+
+    <select id="getCategoryById" resultType="category">
+        SELECT * FROM category WHERE id = #{categoryId}
+    </select>
 </mapper>

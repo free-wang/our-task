@@ -28,11 +28,11 @@ public class CategoryController {
     /**
      * 根据id删除一个清单分类
      * */
-    @PostMapping("deleteCategoryById")
+    @GetMapping("deleteCategoryById")
     void deleteCategoryById(Integer id){
         categoryMapper.deleteCategoryById(id);
     }
-    /**
+    /**h
      * 对清单分类的名称进行修改
      * */
     @PostMapping("updateCategory")
@@ -47,6 +47,14 @@ public class CategoryController {
     @GetMapping("getCategoryList")
     List<Category> getCategoryList(){
         return categoryMapper.getCategoryList();
+    }
+
+    /**
+     * 根据categoryId查询当前分类下的所有信息，也就是返回当前的category对象
+     * */
+    @GetMapping("getCategoryById")
+    Category getCategoryById(Integer categoryId){
+        return categoryMapper.getCategoryById(categoryId);
     }
 
 

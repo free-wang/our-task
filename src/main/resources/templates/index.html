@@ -50,9 +50,9 @@
                          with font-awesome or any other icon font library -->
 
                     <li class="nav-item" th:each="category : ${categoryList}">
-                        <a href="#" class="nav-link">
+                        <a th:href="'/index?categoryId=' + ${category.getId()}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
-                            <p th:text="${category.name}"></p>
+                            <p th:text="${category.getName()}"></p>
                         </a>
                     </li>
                 </ul>
@@ -119,6 +119,7 @@
 
                                                     <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
                                                         <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
+                                                        <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
                                                         <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">
                                                     </form>
 
