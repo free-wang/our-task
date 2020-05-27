@@ -86,7 +86,7 @@
                         <div class="card">
                             <div class="card-header">
 <!--                                这个th:text好像会覆盖标签里面的文本内容-->
-                                <h3 class="card-title" th:text="${currentCategory.getName()} + ' 的 清单'"></h3>
+                                <h3 class="card-title" th:text="${currentCategory.getName()}"></h3>
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right" placeholder="搜索">
@@ -101,46 +101,55 @@
                             <div class="card-body table-responsive p-0" style="height: 500px;">
                                 <table class="table table-head-fixed text-nowrap">
                                     <thead>
-                                    <tr>
-                                        <th>清单名称</th>
-                                        <th>更新名称</th>
-                                        <th>详情</th>
-                                    </tr>
+                                        <tr>
+                                            <th>清单名称</th>
+                                            <th>详情</th>
+                                            <th>更新清单</th>
+                                        </tr>
                                     </thead>
+                                    <script th:inline="javascript">
+
+                                        function completeTask(taskId){
+                                            $("#complete" + taskId).submit();
+                                        }
+
+                                        function confirmUpdateTask(taskId) {
+                                            $("#updateTask" + taskId).submit();
+                                        }
+                                    </script>
                                     <tbody>
                                     <tr th:each="task : ${taskList}">
-                                        <td>
-                                            <div class="col-lg-6">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                      <span class="input-group-text">
-                                                        <input type="checkbox">
-                                                      </span>
-                                                    </div>
-
-                                                    <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
-                                                        <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
-                                                        <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+                                        <form th:id="'complete' + ${task.getId()}" name="complete" method="post" th:action="@{/our-task/deleteTaskById}">
+                                            <input th:id="'success' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
+                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+                                        </form>
+                                        <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
+                                            <td>
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                          <span class="input-group-text">
+                                                              <input th:id="'checkbox' + ${task.getId()}" type="checkbox" th:onclick="'javascript:completeTask('+${task.getId()}+');'">
+                                                          </span>
+                                                        </div>
                                                         <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">
-                                                    </form>
-
+                                                    </div>
+                                                    <!-- /input-group -->
                                                 </div>
-                                                <!-- /input-group -->
-                                            </div>
-                                        </td>
-                                        <script th:inline="javascript">
-                                            function confirmUpdateTask(taskId) {
-                                                $("#updateTask" + taskId).submit();
-                                            }
-                                        </script>
+                                            </td>
+                                            <td>
+                                                <div class="col-12">
+                                                    <input th:id="'taskDescription' + ${task.getId()}" type="text" class="form-control" name="description" th:value="${task.getDescription()}">
+                                                </div>
+                                            </td>
+
+                                            <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
+                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+
+                                        </form>
+                                        <!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
                                         <td>
-<!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
                                             <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                                显示详情
-                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>

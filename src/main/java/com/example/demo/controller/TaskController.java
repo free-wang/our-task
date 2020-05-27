@@ -29,9 +29,11 @@ public class TaskController {
         taskMapper.addTask(categoryId, name);
     }
 
-    @PostMapping("deleteTaskById")
-    void deleteTaskById(Integer id){
+    @RequestMapping("deleteTaskById")
+    String deleteTaskById(Integer id, Integer categoryId){
         taskMapper.deleteTaskById(id);
+        //重定向到主页,并且带有分类的id，不然默认就会跳转到今天这个分类去了
+        return "redirect:/index?categoryId=" + categoryId;
     }
 
     /**
