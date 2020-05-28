@@ -118,40 +118,69 @@
                                         }
                                     </script>
                                     <tbody>
-                                    <tr th:each="task : ${taskList}">
-                                        <form th:id="'complete' + ${task.getId()}" name="complete" method="post" th:action="@{/our-task/deleteTaskById}">
-                                            <input th:id="'success' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
-                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
-                                        </form>
-                                        <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
+                                        <tr th:each="task : ${taskList}">
+                                            <form th:id="'complete' + ${task.getId()}" name="complete" method="post" th:action="@{/our-task/deleteTaskById}">
+                                                <input th:id="'success' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
+                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+                                            </form>
+                                            <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
+                                                <td>
+                                                    <div class="col-6">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                              <span class="input-group-text">
+                                                                  <input th:id="'checkbox' + ${task.getId()}" type="checkbox" th:onclick="'javascript:completeTask('+${task.getId()}+');'">
+                                                              </span>
+                                                            </div>
+                                                            <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">
+                                                        </div>
+                                                        <!-- /input-group -->
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col-12">
+                                                        <input th:id="'taskDescription' + ${task.getId()}" type="text" class="form-control" name="description" th:value="${task.getDescription()}">
+                                                    </div>
+                                                </td>
+
+                                                <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
+                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+
+                                            </form>
+                                            <!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
+                                            <td>
+                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
+                                            </td>
+                                        </tr>
+
+
+
+                                        <tr>
                                             <td>
                                                 <div class="col-6">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                          <span class="input-group-text">
-                                                              <input th:id="'checkbox' + ${task.getId()}" type="checkbox" th:onclick="'javascript:completeTask('+${task.getId()}+');'">
-                                                          </span>
+                                                              <span class="input-group-text">
+                                                                  <input id="checkbox" type="checkbox" th:onclick="">
+                                                              </span>
                                                         </div>
-                                                        <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">
+                                                        <input id="taskName" type="text" class="form-control" name="name" placeholder="请输入清单名称">
                                                     </div>
                                                     <!-- /input-group -->
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="col-12">
-                                                    <input th:id="'taskDescription' + ${task.getId()}" type="text" class="form-control" name="description" th:value="${task.getDescription()}">
+                                                    <input id="taskDescription" type="text" class="form-control" name="description" placeholder="请输入清单描述">
                                                 </div>
                                             </td>
+                                            <td>
+                                                <button id="addTask" type="submit" class="btn btn-block btn-success">确认更新</button>
+                                            </td>
+                                        </tr>
 
-                                            <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
-                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
 
-                                        </form>
-                                        <!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
-                                        <td>
-                                            <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
-                                        </td>
-                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
