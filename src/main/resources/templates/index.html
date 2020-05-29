@@ -149,38 +149,28 @@
                                             </form>
                                             <!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
                                             <td>
-                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-success" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
+                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-primary" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
                                             </td>
                                         </tr>
 
-
-
-                                        <tr>
-                                            <td>
-                                                <div class="col-6">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                              <span class="input-group-text">
-                                                                  <input id="checkbox" type="checkbox" th:onclick="">
-                                                              </span>
-                                                        </div>
-                                                        <input id="taskName" type="text" class="form-control" name="name" placeholder="请输入清单名称">
+                                        <form name="addNewTask" method="post" th:action="@{/our-task/addTask}">
+                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+                                            <tr>
+                                                <td>
+                                                    <div class="col-6">
+                                                        <input id="newTaskName" type="text" class="form-control" name="name" placeholder="添加新的清单名称">
                                                     </div>
-                                                    <!-- /input-group -->
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-12">
-                                                    <input id="taskDescription" type="text" class="form-control" name="description" placeholder="请输入清单描述">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button id="addTask" type="submit" class="btn btn-block btn-success">确认更新</button>
-                                            </td>
-                                        </tr>
-
-
-
+                                                </td>
+                                                <td>
+                                                    <div class="col-12">
+                                                        <input id="newtTaskDescription" type="text" class="form-control" name="description" placeholder="添加新的清单描述">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button id="addTask" type="submit" class="btn btn-block btn-primary">添加</button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </tbody>
                                 </table>
                             </div>

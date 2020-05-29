@@ -25,7 +25,7 @@ public class TaskController {
      * 添加一个新的清单
      * */
     @PostMapping("addTask")
-    void addTask(Integer categoryId, String name){
+    void addTask(Integer categoryId, String name, String ){
         taskMapper.addTask(categoryId, name);
     }
 
