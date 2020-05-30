@@ -31,10 +31,11 @@
 
     <!-- 这是左侧菜单 -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-<!--            <img th:src="@{img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"-->
-<!--                 style="opacity: .8">-->
+            <img th:src="@{img/user2-160x160.jpg}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
             <span class="brand-text font-weight-light">清单列表</span>
         </a>
 
@@ -90,10 +91,6 @@
                                 <a href="#" type="button" data-toggle="modal" data-target="#delete-category" class="d-block">
                                     <h3 class="card-title" th:text="'删除该分类：' + ${currentCategory.getName()}"></h3>
                                 </a>
-
-
-
-
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right" placeholder="搜索">
@@ -105,13 +102,13 @@
                                 </div>
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0" style="height: 500px;">
+                            <div class="card-body table-responsive p-0" >
                                 <table class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>清单名称</th>
-                                            <th>详情</th>
-                                            <th>更新清单</th>
+                                            <th class="text-center" width="25%">清单名称</th>
+                                            <th class="text-center">详情</th>
+                                            <th class="text-center" width="15%">更新清单</th>
                                         </tr>
                                     </thead>
                                     <script th:inline="javascript">
@@ -132,7 +129,7 @@
                                             </form>
                                             <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
                                                 <td>
-                                                    <div class="col-6">
+                                                    <div class="col-12">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                               <span class="input-group-text">
@@ -164,7 +161,7 @@
                                             <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
                                             <tr>
                                                 <td>
-                                                    <div class="col-6">
+                                                    <div class="col-12">
                                                         <input id="newTaskName" type="text" class="form-control" name="name" placeholder="添加新的清单名称">
                                                     </div>
                                                 </td>
@@ -249,7 +246,7 @@
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 1.0.0   </div>
-        <strong>Copyright © 2020 <a href="#">冷小风的IT生活</a>.</strong> All rights
+        <strong>Copyright © 2020 <a href="http://www.daxingyong.cn/">冷小风的IT生活</a>.</strong> All rights
         reserved.
     </footer>
 </div>
