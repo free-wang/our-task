@@ -14,14 +14,14 @@
 
     <insert id="addTask" parameterType="String">
         INSERT INTO task (
-        <if test="categoryId != null">
-            category_id,
+        <if test="description != null">
+            description,
         </if>
-         name) VALUES (
-         <if test="categoryId != null">
-             #{categoryId},
+         category_id, name) VALUES (
+         <if test="description != null">
+             #{description},
          </if>
-         #{name})
+         #{categoryId}, #{name})
     </insert>
 
     <delete id="deleteTaskById" parameterType="Integer">

@@ -24,9 +24,10 @@ public class TaskController {
     /**
      * 添加一个新的清单
      * */
-    @PostMapping("addTask")
-    void addTask(Integer categoryId, String name, String ){
-        taskMapper.addTask(categoryId, name);
+    @RequestMapping("addTask")
+    String addTask(Integer categoryId, String name, String description){
+        taskMapper.addTask(categoryId, name, description);
+        return "redirect:/index?categoryId=" + categoryId;
     }
 
     @RequestMapping("deleteTaskById")
