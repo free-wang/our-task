@@ -28,6 +28,10 @@
         DELETE FROM task WHERE id = #{id}
     </delete>
 
+    <delete id="deleteTaskByCategoryId" parameterType="Integer">
+        DELETE FROM task WHERE category_id = #{categoryId}
+    </delete>
+
     <update id="updateTask" parameterType="task">
         UPDATE task
         <set>

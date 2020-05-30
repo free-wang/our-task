@@ -16,6 +16,11 @@ public interface TaskMapper {
      * */
     void deleteTaskById(Integer id);
     /**
+     * 通过categoryId删除该分类下所有的清单
+     * */
+    void deleteTaskByCategoryId(Integer categoryId);
+
+    /**
      * 对清单信息进行更新
      * */
     void updateTask(Task task);

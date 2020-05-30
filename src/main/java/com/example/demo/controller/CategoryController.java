@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Category;
 import com.example.demo.mapper.CategoryMapper;
+import com.example.demo.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,9 @@ public class CategoryController {
     @Autowired(required = false)
     private CategoryMapper categoryMapper;
 
+    @Autowired(required = false)
+    private TaskMapper taskMapper;
+
     /**
      * 添加一个清单分类
      * */
@@ -29,9 +33,12 @@ public class CategoryController {
     /**
      * 根据id删除一个清单分类
      * */
-    @GetMapping("deleteCategoryById")
-    void deleteCategoryById(Integer id){
+    @RequestMapping("deleteCategoryById")
+    String deleteCategoryById(Integer id){
         categoryMapper.deleteCategoryById(id);
+        //删除一个分类之后，该分类下所有的清单都将消失
+        taskMapper.deleteTaskByCategoryId(id);
+        return "redirect:/index";
     }
     /**h
      * 对清单分类的名称进行修改
