@@ -50,7 +50,8 @@
                          with font-awesome or any other icon font library -->
 
                     <li class="nav-item" th:each="category : ${categoryList}">
-                        <a th:href="'/index?categoryId=' + ${category.getId()}" class="nav-link">
+<!--                        使用Thymeleaf的条件判断来激活相应的当前分类的导航栏-->
+                        <a th:href="'/index?categoryId=' + ${category.getId()}" th:class="${category.getId() == currentCategory.getId() ? 'nav-link active' : 'nav-link'}">
 <!--                            图标留着，以后弄-->
 <!--                            <i class="far fa-circle nav-icon"></i>-->
                             <span class="glyphicon glyphicon-menu-hamburger"></span>
