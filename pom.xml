@@ -91,6 +91,13 @@
             <artifactId>hutool-all</artifactId>
             <version>5.1.0</version>
         </dependency>
+
+<!--        加入Elasticsearch项目配置-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
