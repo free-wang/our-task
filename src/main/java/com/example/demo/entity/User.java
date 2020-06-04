@@ -4,7 +4,9 @@ import java.util.Date;
 
 public class User {
 
+    //用户id
     private Integer id;
+    //用户姓名
     private String name;
     private String accountNumber;
     private String password;
