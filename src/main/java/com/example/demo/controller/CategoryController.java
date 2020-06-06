@@ -5,10 +5,7 @@ import com.example.demo.mapper.CategoryMapper;
 import com.example.demo.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,37 +21,38 @@ public class CategoryController {
     /**
      * 添加一个清单分类
      * */
-    @RequestMapping("addCategory")
-    public String addCategory(String name, Integer categoryId){
-        categoryMapper.addCategory(name);
-        return "redirect:/index?categoryId=" + categoryId;
+    @PostMapping("addCategory")
+    public void addCategory(Integer userId, String name){
+        Category category = new Category(userId, name);
+        categoryMapper.addCategory(category);
+//        return "redirect:/index?categoryId=" + category.getId();
     }
 
     /**
      * 根据id删除一个清单分类
      * */
-    @RequestMapping("deleteCategoryById")
-    String deleteCategoryById(Integer id){
-        categoryMapper.deleteCategoryById(id);
-        //删除一个分类之后，该分类下所有的清单都将消失
-        taskMapper.deleteTaskByCategoryId(id);
-        return "redirect:/index";
+    @GetMapping("deleteCategory")
+    void deleteCategoryById(Integer id){
+        categoryMapper.deleteCategory(id);
+//        删除一个分类之后，该分类下所有的清单都将消失
+//        taskMapper.deleteTaskByCategoryId(id);
+//        return "redirect:/index";
     }
     /**h
      * 对清单分类的名称进行修改
      * */
     @PostMapping("updateCategory")
-    void updateCategory(Integer id, String name){
+    void updateCategory(Integer id, Integer userId, String name){
 
-        Category category = new Category(id, name);
+        Category category = new Category(id, userId, name);
         categoryMapper.updateCategory(category);
     }
     /**
      * 查询所有的分类名称
      * */
     @GetMapping("getCategoryList")
-    List<Category> getCategoryList(){
-        return categoryMapper.getCategoryList();
+    List<Category> getCategoryListByUserId(Integer userId){
+        return categoryMapper.getCategoryListByUserId(userId);
     }
 
     /**
@@ -64,6 +62,5 @@ public class CategoryController {
     Category getCategoryById(Integer categoryId){
         return categoryMapper.getCategoryById(categoryId);
     }
-
 
 }

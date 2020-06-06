@@ -10,15 +10,15 @@ public interface TaskMapper {
     /**
      * 添加一个新的清单
      * */
-    void addTask(Integer categoryId, String name, String description);
+    void addTask(Task task);
     /**
-     * 通过id删除一个清单
+     * 通过id删除一个清单(逻辑删除)
      * */
     void deleteTaskById(Integer id);
     /**
-     * 通过categoryId删除该分类下所有的清单
+     * 通过userId和categoryId删除该用户分类下所有的清单(逻辑删除)
      * */
-    void deleteTaskByCategoryId(Integer categoryId);
+    void deleteTaskByUserIdAndCategoryId(Integer userId, Integer categoryId);
 
     /**
      * 对清单信息进行更新

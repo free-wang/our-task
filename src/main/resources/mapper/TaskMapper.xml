@@ -12,25 +12,25 @@
 
 
 
-    <insert id="addTask" parameterType="String">
+    <insert id="addTask" parameterType="task">
         INSERT INTO task (
         <if test="description != null">
             description,
         </if>
-         category_id, name) VALUES (
+         user_id, category_id, name) VALUES (
          <if test="description != null">
              #{description},
          </if>
-         #{categoryId}, #{name})
+         #{user_Id}, #{categoryId}, #{name})
     </insert>
 
-    <delete id="deleteTaskById" parameterType="Integer">
-        DELETE FROM task WHERE id = #{id}
-    </delete>
+    <update id="deleteTaskById" parameterType="Integer">
+        UPDATE task SET run = 0 WHERE id = #{id}
+    </update>
 
-    <delete id="deleteTaskByCategoryId" parameterType="Integer">
-        DELETE FROM task WHERE category_id = #{categoryId}
-    </delete>
+    <update id="deleteTaskByCategoryId" parameterType="Integer">
+        UPDATE task SET run = 0 WHERE user_id = #{userId} AND category_id = #{categoryId}
+    </update>
 
     <update id="updateTask" parameterType="task">
         UPDATE task
@@ -55,6 +55,9 @@
     <select id="getTaskList" parameterType="task" resultMap="task">
         SELECT * FROM task
         <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
             <if test="categoryId != null">
                 and category_id = #{categoryId}
             </if>

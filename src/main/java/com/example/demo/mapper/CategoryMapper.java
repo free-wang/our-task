@@ -11,23 +11,22 @@ public interface CategoryMapper {
     /**
      * 添加一个清单分类
      * */
-    void addCategory(String name);
+    void addCategory(Category category);
 
     /**
-     * 根据id删除一个清单分类
+     * 删除一个分类，删除之后，所包含的清单也会一起被删除（都是逻辑删除）
      * */
-
-    void deleteCategoryById(int id);
+    void deleteCategory(Integer id);
 
     /**
-     * 对清单分类的名称进行修改
+     * 对分类进行更新
      * */
     void updateCategory(Category category);
 
     /**
-     * 查询所有的分类
+     * 通过用户Id查询当前用户所有的分类
      * */
-    List<Category> getCategoryList();
+    List<Category> getCategoryListByUserId(Integer userId);
 
     /**
      * 查询当前分类下的信息，也就是返回当前分类的对象

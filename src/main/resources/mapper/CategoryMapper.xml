@@ -4,23 +4,30 @@
     <resultMap id="category" type="com.example.demo.entity.Category"/>
     <parameterMap id="category" type="com.example.demo.entity.Category"/>
 
-    <insert id="addCategory" parameterType="String">
-        INSERT INTO category (name) VALUES(#{name})
+    <insert id="addCategory" parameterType="category">
+        INSERT INTO category (user_id, name) VALUES(#{userId}, #{name})
     </insert>
 
-    <delete id="deleteCategoryById" parameterType="Integer">
-        DELETE FROM category WHERE id = #{id}
-    </delete>
-
-    <update id="updateCategory" parameterType="category">
-        UPDATE category SET name=#{name} WHERE id=#{id}
+    <update id="deleteCategory">
+        UPDATE category SET run = 0 WHERE id = #{id}
     </update>
 
-    <select id="getCategoryList" resultType="category">
-        SELECT * FROM category
+    <update id="updateCategory" parameterType="category">
+        UPDATE category
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            id = #{id}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getCategoryListByUserId" parameterType="Integer" resultType="category">
+        SELECT * FROM category WHERE user_id = #{userId}
     </select>
 
-    <select id="getCategoryById" resultType="category">
+    <select id="getCategoryById" parameterType="Integer" resultType="category">
         SELECT * FROM category WHERE id = #{categoryId}
     </select>
 </mapper>

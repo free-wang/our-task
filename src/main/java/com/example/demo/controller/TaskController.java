@@ -25,35 +25,36 @@ public class TaskController {
      * 添加一个新的清单
      * */
     @RequestMapping("addTask")
-    String addTask(Integer categoryId, String name, String description){
-        taskMapper.addTask(categoryId, name, description);
-        return "redirect:/index?categoryId=" + categoryId;
+    void addTask(Integer userId, Integer categoryId, String name, String description){
+        Task task = new Task(userId, categoryId, name, description);
+        taskMapper.addTask(task);
+//        return "redirect:/index?categoryId=" + categoryId;
     }
 
     @RequestMapping("deleteTaskById")
-    String deleteTaskById(Integer id, Integer categoryId){
+    void deleteTaskById(Integer id, Integer categoryId){
         taskMapper.deleteTaskById(id);
         //重定向到主页,并且带有分类的id，不然默认就会跳转到今天这个分类去了
-        return "redirect:/index?categoryId=" + categoryId;
+//        return "redirect:/index?categoryId=" + categoryId;
     }
 
     /**
      * 对清单进行更新
      * */
     @RequestMapping("updateTask")
-    String updateTask(Integer id, Integer categoryId, String name, String description, Integer run){
-        Task task = new Task(id, categoryId, name, description, run);
+    void updateTask(Integer id, Integer userId,  Integer categoryId, String name, String description, Integer run){
+        Task task = new Task(id, userId, categoryId, name, description, run);
         taskMapper.updateTask(task);
         //重定向到主页,并且带有分类的id，不然默认就会跳转到今天这个分类去了
-        return "redirect:/index?categoryId=" + categoryId;
+//        return "redirect:/index?categoryId=" + categoryId;
     }
 
     /**
      * 根据条件查询某些清单
      * */
     @GetMapping("getTaskList")
-    List<Task> getTaskList(Integer categoryId, Integer run){
-        Task task = new Task(categoryId, run);
+    List<Task> getTaskList(Integer userId, Integer categoryId, Integer run){
+        Task task = new Task(userId, categoryId, run);
         List<Task> result = taskMapper.getTaskList(task);
         return result;
     }

@@ -1,256 +1,256 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>our-task</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
-    <link rel="stylesheet" th:href="@{/css/OverlayScrollbars.min.css}">
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <title>our-task</title>-->
+<!--    &lt;!&ndash; Tell the browser to be responsive to screen width &ndash;&gt;-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    &lt;!&ndash; Font Awesome &ndash;&gt;-->
+<!--    <link rel="stylesheet" th:href="@{/css/all.min.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/OverlayScrollbars.min.css}">-->
 
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/jquery-ui.min.js}"></script>
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/adminlte.js}"></script>
-<!--    加入th:inline是为了在JS中使用thymeleaf-->
-    <script th:src="@{/js/common.js}"></script>
-
-
-
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-
-    <!-- 这是头部导航 -->
-
-    <!-- /.navbar -->
-
-    <!-- 这是左侧菜单 -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-        <!-- Brand Logo -->
-        <div class="brand-link">
-            <img th:src="@{img/user2-160x160.jpg}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
-            <span class="brand-text font-weight-light">清单列表</span>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
+<!--    <script th:src="@{/js/jquery.min.js}"></script>-->
+<!--    <script th:src="@{/js/jquery-ui.min.js}"></script>-->
+<!--    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>-->
+<!--    <script th:src="@{/js/adminlte.js}"></script>-->
+<!--&lt;!&ndash;    加入th:inline是为了在JS中使用thymeleaf&ndash;&gt;-->
+<!--    <script th:src="@{/js/common.js}"></script>-->
 
 
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
 
-                    <li class="nav-item" th:each="category : ${categoryList}">
-<!--                        使用Thymeleaf的条件判断来激活相应的当前分类的导航栏-->
-                        <a th:href="'/index?categoryId=' + ${category.getId()}" th:class="${category.getId() == currentCategory.getId() ? 'nav-link active' : 'nav-link'}">
-<!--                            图标留着，以后弄-->
-<!--                            <i class="far fa-circle nav-icon"></i>-->
-                            <span class="glyphicon glyphicon-menu-hamburger"></span>
-                            <p th:text="${category.getName()}"></p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+<!--</head>-->
+<!--<body class="hold-transition sidebar-mini layout-fixed">-->
+<!--<div class="wrapper">-->
 
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-<!--                <div class="image">-->
-<!--                    <img th:src="@{img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">-->
+<!--    &lt;!&ndash; 这是头部导航 &ndash;&gt;-->
+
+<!--    &lt;!&ndash; /.navbar &ndash;&gt;-->
+
+<!--    &lt;!&ndash; 这是左侧菜单 &ndash;&gt;-->
+<!--    <aside class="main-sidebar sidebar-dark-primary elevation-4">-->
+
+<!--        &lt;!&ndash; Brand Logo &ndash;&gt;-->
+<!--        <div class="brand-link">-->
+<!--            <img th:src="@{img/user2-160x160.jpg}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"-->
+<!--                 style="opacity: .8">-->
+<!--            <span class="brand-text font-weight-light">清单列表</span>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--        <div class="sidebar">-->
+<!--            &lt;!&ndash; Sidebar user panel (optional) &ndash;&gt;-->
+
+
+<!--            &lt;!&ndash; Sidebar Menu &ndash;&gt;-->
+<!--            <nav class="mt-2">-->
+<!--                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">-->
+<!--                    &lt;!&ndash; Add icons to the links using the .nav-icon class-->
+<!--                         with font-awesome or any other icon font library &ndash;&gt;-->
+
+<!--                    <li class="nav-item" th:each="category : ${categoryList}">-->
+<!--&lt;!&ndash;                        使用Thymeleaf的条件判断来激活相应的当前分类的导航栏&ndash;&gt;-->
+<!--                        <a th:href="'/index?categoryId=' + ${category.getId()}" th:class="${category.getId() == currentCategory.getId() ? 'nav-link active' : 'nav-link'}">-->
+<!--&lt;!&ndash;                            图标留着，以后弄&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="far fa-circle nav-icon"></i>&ndash;&gt;-->
+<!--                            <span class="glyphicon glyphicon-menu-hamburger"></span>-->
+<!--                            <p th:text="${category.getName()}"></p>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+
+<!--            <div class="user-panel mt-3 pb-3 mb-3 d-flex">-->
+<!--&lt;!&ndash;                <div class="image">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <img th:src="@{img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <div class="info">-->
+<!--                    <a type="button" data-toggle="modal" data-target="#create-category" class="d-block">-->
+<!--                        添加新的清单分类-->
+<!--                    </a>-->
 <!--                </div>-->
-                <div class="info">
-                    <a type="button" data-toggle="modal" data-target="#create-category" class="d-block">
-                        添加新的清单分类
-                    </a>
-                </div>
-            </div>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
+<!--            </div>-->
+<!--            &lt;!&ndash; /.sidebar-menu &ndash;&gt;-->
+<!--        </div>-->
+<!--        &lt;!&ndash; /.sidebar &ndash;&gt;-->
+<!--    </aside>-->
 
-    <!-- 这是中间的内容-->
-    <div class="content-wrapper">
+<!--    &lt;!&ndash; 这是中间的内容&ndash;&gt;-->
+<!--    <div class="content-wrapper">-->
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-<!--                                这个th:text好像会覆盖标签里面的文本内容-->
-                                <a href="#" type="button" data-toggle="modal" data-target="#delete-category" class="d-block">
-                                    <h3 class="card-title" th:text="'删除该分类：' + ${currentCategory.getName()}"></h3>
-                                </a>
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="搜索">
+<!--        &lt;!&ndash; Main content &ndash;&gt;-->
+<!--        <section class="content">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header">-->
+<!--&lt;!&ndash;                                这个th:text好像会覆盖标签里面的文本内容&ndash;&gt;-->
+<!--                                <a href="#" type="button" data-toggle="modal" data-target="#delete-category" class="d-block">-->
+<!--                                    <h3 class="card-title" th:text="'删除该分类：' + ${currentCategory.getName()}"></h3>-->
+<!--                                </a>-->
+<!--                                <div class="card-tools">-->
+<!--                                    <div class="input-group input-group-sm" style="width: 150px;">-->
+<!--                                        <input type="text" name="table_search" class="form-control float-right" placeholder="搜索">-->
 
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0" >
-                                <table class="table table-head-fixed text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" width="25%">清单名称</th>
-                                            <th class="text-center">详情</th>
-                                            <th class="text-center" width="15%">更新清单</th>
-                                        </tr>
-                                    </thead>
-                                    <script th:inline="javascript">
+<!--                                        <div class="input-group-append">-->
+<!--                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; /.card-header &ndash;&gt;-->
+<!--                            <div class="card-body table-responsive p-0" >-->
+<!--                                <table class="table table-head-fixed text-nowrap">-->
+<!--                                    <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th class="text-center" width="25%">清单名称</th>-->
+<!--                                            <th class="text-center">详情</th>-->
+<!--                                            <th class="text-center" width="15%">更新清单</th>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <script th:inline="javascript">-->
 
-                                        function completeTask(taskId){
-                                            $("#complete" + taskId).submit();
-                                        }
+<!--                                        function completeTask(taskId){-->
+<!--                                            $("#complete" + taskId).submit();-->
+<!--                                        }-->
 
-                                        function confirmUpdateTask(taskId) {
-                                            $("#updateTask" + taskId).submit();
-                                        }
-                                    </script>
-                                    <tbody>
-                                        <tr th:each="task : ${taskList}">
-                                            <form th:id="'complete' + ${task.getId()}" name="complete" method="post" th:action="@{/our-task/deleteTaskById}">
-                                                <input th:id="'success' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
-                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
-                                            </form>
-                                            <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">
-                                                <td>
-                                                    <div class="col-12">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                              <span class="input-group-text">
-                                                                  <input th:id="'checkbox' + ${task.getId()}" type="checkbox" th:onclick="'javascript:completeTask('+${task.getId()}+');'">
-                                                              </span>
-                                                            </div>
-                                                            <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">
-                                                        </div>
-                                                        <!-- /input-group -->
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-12">
-                                                        <input th:id="'taskDescription' + ${task.getId()}" type="text" class="form-control" name="description" th:value="${task.getDescription()}">
-                                                    </div>
-                                                </td>
+<!--                                        function confirmUpdateTask(taskId) {-->
+<!--                                            $("#updateTask" + taskId).submit();-->
+<!--                                        }-->
+<!--                                    </script>-->
+<!--                                    <tbody>-->
+<!--                                        <tr th:each="task : ${taskList}">-->
+<!--                                            <form th:id="'complete' + ${task.getId()}" name="complete" method="post" th:action="@{/our-task/deleteTaskById}">-->
+<!--                                                <input th:id="'success' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">-->
+<!--                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">-->
+<!--                                            </form>-->
+<!--                                            <form th:id="'updateTask' + ${task.getId()}" name="updateTask" method="post" th:action="@{/our-task/updateTask}">-->
+<!--                                                <td>-->
+<!--                                                    <div class="col-12">-->
+<!--                                                        <div class="input-group">-->
+<!--                                                            <div class="input-group-prepend">-->
+<!--                                                              <span class="input-group-text">-->
+<!--                                                                  <input th:id="'checkbox' + ${task.getId()}" type="checkbox" th:onclick="'javascript:completeTask('+${task.getId()}+');'">-->
+<!--                                                              </span>-->
+<!--                                                            </div>-->
+<!--                                                            <input th:id="'taskName' + ${task.getId()}" type="text" class="form-control" name="name" th:value="${task.name}">-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; /input-group &ndash;&gt;-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <div class="col-12">-->
+<!--                                                        <input th:id="'taskDescription' + ${task.getId()}" type="text" class="form-control" name="description" th:value="${task.getDescription()}">-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
 
-                                                <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">
-                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
+<!--                                                <input th:id="'taskId' + ${task.getId()}" type="hidden" name="id" th:value="${task.getId()}">-->
+<!--                                                <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">-->
 
-                                            </form>
-                                            <!--                                            这里在thymeleaf中给JS函数传入形参，需要注意-->
-                                            <td>
-                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-primary" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>
-                                            </td>
-                                        </tr>
+<!--                                            </form>-->
+<!--                                            &lt;!&ndash;                                            这里在thymeleaf中给JS函数传入形参，需要注意&ndash;&gt;-->
+<!--                                            <td>-->
+<!--                                                <button th:id="'confirmUpdate' + ${task.getId()}" type="submit" class="btn btn-block btn-primary" th:onclick="'javascript:confirmUpdateTask('+${task.getId()}+');'">确认更新</button>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
 
-                                        <form name="addNewTask" method="post" th:action="@{/our-task/addTask}">
-                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
-                                            <tr>
-                                                <td>
-                                                    <div class="col-12">
-                                                        <input id="newTaskName" type="text" class="form-control" name="name" placeholder="添加新的清单名称">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-12">
-                                                        <input id="newtTaskDescription" type="text" class="form-control" name="description" placeholder="添加新的清单描述">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button id="addTask" type="submit" class="btn btn-block btn-primary">添加</button>
-                                                </td>
-                                            </tr>
-                                        </form>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    </div>
+<!--                                        <form name="addNewTask" method="post" th:action="@{/our-task/addTask}">-->
+<!--                                            <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">-->
+<!--                                            <tr>-->
+<!--                                                <td>-->
+<!--                                                    <div class="col-12">-->
+<!--                                                        <input id="newTaskName" type="text" class="form-control" name="name" placeholder="添加新的清单名称">-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <div class="col-12">-->
+<!--                                                        <input id="newtTaskDescription" type="text" class="form-control" name="description" placeholder="添加新的清单描述">-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button id="addTask" type="submit" class="btn btn-block btn-primary">添加</button>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                        </form>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; /.card-body &ndash;&gt;-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; /.card &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    </div>-->
 
 
-                <!-- 添加新的清单分类的弹框-->
-                <div class="modal fade" id="create-category" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content bg-primary">
-                            <div class="modal-header">
-                                <h4 class="modal-title">请输入分类名称</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span></button>
-                            </div>
-                            <form action="our-task/addCategory" method="post">
-                                <div class="modal-body">
-                                    <input id="categoryName" name="name" type="text" class="form-control" placeholder="Enter ...">
-                                    <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
-                                    <button type="submit" class="btn btn-outline-light">确认添加</button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
+<!--                &lt;!&ndash; 添加新的清单分类的弹框&ndash;&gt;-->
+<!--                <div class="modal fade" id="create-category" style="display: none;" aria-hidden="true">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content bg-primary">-->
+<!--                            <div class="modal-header">-->
+<!--                                <h4 class="modal-title">请输入分类名称</h4>-->
+<!--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                    <span aria-hidden="true">×</span></button>-->
+<!--                            </div>-->
+<!--                            <form action="our-task/addCategory" method="post">-->
+<!--                                <div class="modal-body">-->
+<!--                                    <input id="categoryName" name="name" type="text" class="form-control" placeholder="Enter ...">-->
+<!--                                    <input type="hidden" name="categoryId" th:value="${currentCategory.getId()}">-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer justify-content-between">-->
+<!--                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>-->
+<!--                                    <button type="submit" class="btn btn-outline-light">确认添加</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--                </div>-->
 
-                <!-- 删除当前分类的弹框-->
-                <div class="modal fade" id="delete-category" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content bg-primary">
-                            <div class="modal-header">
-                                <h4 class="modal-title">确认删除该分类吗？</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <form action="our-task/deleteCategoryById" method="post" th:action="@{/our-task/deleteCategoryById}">
-                                <div class="modal-body">
-                                    <p style="font-size: 20px">删除后该分类下所有的清单都将消失</p>
-                                </div>
-                                <input type="hidden" name="id" th:value="${currentCategory.getId()}">
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>
-                                    <button type="submit" class="btn btn-outline-light">确认删除</button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
+<!--                &lt;!&ndash; 删除当前分类的弹框&ndash;&gt;-->
+<!--                <div class="modal fade" id="delete-category" style="display: none;" aria-hidden="true">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content bg-primary">-->
+<!--                            <div class="modal-header">-->
+<!--                                <h4 class="modal-title">确认删除该分类吗？</h4>-->
+<!--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                    <span aria-hidden="true">×</span>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <form action="our-task/deleteCategoryById" method="post" th:action="@{/our-task/deleteCategoryById}">-->
+<!--                                <div class="modal-body">-->
+<!--                                    <p style="font-size: 20px">删除后该分类下所有的清单都将消失</p>-->
+<!--                                </div>-->
+<!--                                <input type="hidden" name="id" th:value="${currentCategory.getId()}">-->
+<!--                                <div class="modal-footer justify-content-between">-->
+<!--                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">关闭</button>-->
+<!--                                    <button type="submit" class="btn btn-outline-light">确认删除</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--                </div>-->
 
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+<!--                &lt;!&ndash; /.row &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--        </section>-->
+<!--        &lt;!&ndash; /.content &ndash;&gt;-->
+<!--    </div>-->
+<!--    &lt;!&ndash; /.content-wrapper &ndash;&gt;-->
 
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 1.0.0   </div>
-        <strong>Copyright © 2020 <a href="http://www.daxingyong.cn/" target="_blank">冷小风的IT生活</a>.</strong> All rights
-        reserved.
-    </footer>
-</div>
-<!-- ./wrapper -->
+<!--    <footer class="main-footer">-->
+<!--        <div class="float-right d-none d-sm-block">-->
+<!--            <b>Version</b> 1.0.0   </div>-->
+<!--        <strong>Copyright © 2020 <a href="http://www.daxingyong.cn/" target="_blank">冷小风的IT生活</a>.</strong> All rights-->
+<!--        reserved.-->
+<!--    </footer>-->
+<!--</div>-->
+<!--&lt;!&ndash; ./wrapper &ndash;&gt;-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

@@ -1,56 +1,38 @@
 package com.example.demo.entity;
 
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
-@Alias("category")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
+    //分类id
+    @NonNull
     private Integer id;
+    //所属用户id
+    @NonNull
+    private Integer userId;
+    //分类名称
+    @NonNull
     private String name;
+    //分类创建时间
     private Date createTime;
+    //分类修改时间
     private Date updateTime;
+    //分类是否还在使用
+    private Integer run;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Category(@NonNull Integer userId, @NonNull String name) {
+        this.userId = userId;
         this.name = name;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Category(Integer id, String name) {
+    public Category(@NonNull Integer id, @NonNull Integer userId, @NonNull String name) {
         this.id = id;
+        this.userId = userId;
         this.name = name;
-    }
-
-    public Category() {
-    }
-
-    public Category(Integer id, String name, Date createTime, Date updateTime) {
-        this.id = id;
-        this.name = name;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 }

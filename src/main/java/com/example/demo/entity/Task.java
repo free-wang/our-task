@@ -1,94 +1,53 @@
 package com.example.demo.entity;
 
+import lombok.*;
+
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
+    //清单id
+    @NonNull
     private Integer id;
+    //用户id
+    @NonNull
+    private Integer userId;
+    //分类id
+    @NonNull
     private Integer categoryId;
+    //清单名称
+    @NonNull
     private String name;
+    //清单描述
     private String description;
+    //清单创建时间
     private Date createTime;
+    //清单更新时间
     private Date updateTime;
+    //清单是否还在使用
     private Integer run;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
+    public Task(@NonNull Integer userId, @NonNull Integer categoryId, Integer run) {
+        this.userId = userId;
         this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getRun() {
-        return run;
-    }
-
-    public void setIsRun(Integer isRun) {
         this.run = run;
     }
 
-    public Task(Integer id, Integer categoryId, String name, String description, Integer run) {
+    public Task(@NonNull Integer userId, @NonNull Integer categoryId, @NonNull String name, String description) {
+        this.userId = userId;
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Task(@NonNull Integer id, @NonNull Integer userId, @NonNull Integer categoryId, @NonNull String name, String description, Integer run) {
         this.id = id;
+        this.userId = userId;
         this.categoryId = categoryId;
         this.name = name;
         this.description = description;
-        this.run = run;
-    }
-
-    /**
-     * 如果不加这个无参构造器，可能会提示没有找到构造器的错误
-     * */
-    public Task() {
-    }
-
-    public Task(Integer categoryId, Integer run) {
-        this.categoryId = categoryId;
-        this.run = run;
-    }
-
-    public Task(Integer id, Integer categoryId, String name, String description, Date createTime, Date updateTime, Integer run) {
-        this.id = id;
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
         this.run = run;
     }
 }
