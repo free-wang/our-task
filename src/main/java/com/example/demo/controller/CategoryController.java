@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("our-task")
+@RestController
+@RequestMapping("category")
 public class CategoryController {
     @Autowired(required = false)
     private CategoryMapper categoryMapper;
@@ -38,7 +38,7 @@ public class CategoryController {
 //        taskMapper.deleteTaskByCategoryId(id);
 //        return "redirect:/index";
     }
-    /**h
+    /**
      * 对清单分类的名称进行修改
      * */
     @PostMapping("updateCategory")
@@ -50,7 +50,7 @@ public class CategoryController {
     /**
      * 查询所有的分类名称
      * */
-    @GetMapping("getCategoryList")
+    @GetMapping("/getCategoryListByUserId")
     List<Category> getCategoryListByUserId(Integer userId){
         return categoryMapper.getCategoryListByUserId(userId);
     }
@@ -58,9 +58,10 @@ public class CategoryController {
     /**
      * 根据categoryId查询当前分类下的所有信息，也就是返回当前的category对象
      * */
-    @GetMapping("getCategoryById")
+    @GetMapping("/getCategoryById")
     Category getCategoryById(Integer categoryId){
         return categoryMapper.getCategoryById(categoryId);
     }
+
 
 }

@@ -15,8 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("our-task")
+@RestController
+@RequestMapping("task")
 public class TaskController {
     @Autowired(required = false)
     private TaskMapper taskMapper;
