@@ -22,9 +22,10 @@ public class CategoryController {
      * 添加一个清单分类
      * */
     @PostMapping("addCategory")
-    public void addCategory(Integer userId, String name){
+    public String addCategory(Integer userId, String name){
         Category category = new Category(userId, name);
         categoryMapper.addCategory(category);
+        return "addCategory success";
 //        return "redirect:/index?categoryId=" + category.getId();
     }
 
@@ -32,10 +33,13 @@ public class CategoryController {
      * 根据id删除一个清单分类
      * */
     @GetMapping("deleteCategory")
-    void deleteCategoryById(Integer id){
+    public String deleteCategoryById(Integer id){
         categoryMapper.deleteCategory(id);
+
 //        删除一个分类之后，该分类下所有的清单都将消失
+//        taskMapper.delete
 //        taskMapper.deleteTaskByCategoryId(id);
+        return "deleteCategory success";
 //        return "redirect:/index";
     }
     /**
