@@ -21,15 +21,15 @@
          <if test="description != null">
              #{description},
          </if>
-         #{user_Id}, #{categoryId}, #{name})
+         #{userId}, #{categoryId}, #{name})
     </insert>
 
     <update id="deleteTaskById" parameterType="Integer">
-        UPDATE task SET run = 0 WHERE id = #{id}
+        UPDATE task SET is_run = 0 WHERE id = #{id}
     </update>
 
     <update id="deleteTaskByCategoryId" parameterType="Integer">
-        UPDATE task SET run = 0 WHERE user_id = #{userId} AND category_id = #{categoryId}
+        UPDATE task SET is_run = 0 WHERE category_id = #{categoryId}
     </update>
 
     <update id="updateTask" parameterType="task">

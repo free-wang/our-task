@@ -18,7 +18,7 @@ public interface TaskMapper {
     /**
      * 通过userId和categoryId删除该用户分类下所有的清单(逻辑删除)
      * */
-    void deleteTaskByUserIdAndCategoryId(Integer userId, Integer categoryId);
+    void deleteTaskByCategoryId(Integer categoryId);
     /**
      * 对清单信息进行更新
      * */

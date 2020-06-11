@@ -16,7 +16,7 @@ public interface CategoryMapper {
     /**
      * 删除一个分类，删除之后，所包含的清单也会一起被删除（都是逻辑删除）
      * */
-    void deleteCategory(Integer id);
+    void deleteCategoryById(Integer id);
 
     /**
      * 对分类进行更新

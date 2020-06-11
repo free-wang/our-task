@@ -25,12 +25,17 @@ public class TaskController {
      * 添加一个新的清单
      * */
     @RequestMapping("addTask")
-    void addTask(Integer userId, Integer categoryId, String name, String description){
+    public String addTask(Integer userId, Integer categoryId, String name, String description){
         Task task = new Task(userId, categoryId, name, description);
         taskMapper.addTask(task);
+        return "addTask success";
+
 //        return "redirect:/index?categoryId=" + categoryId;
     }
 
+    /**
+     * 根据清单id删除一个清单（逻辑删除）
+     * */
     @RequestMapping("deleteTaskById")
     void deleteTaskById(Integer id, Integer categoryId){
         taskMapper.deleteTaskById(id);

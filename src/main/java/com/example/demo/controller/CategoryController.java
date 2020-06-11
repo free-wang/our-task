@@ -32,24 +32,22 @@ public class CategoryController {
     /**
      * 根据id删除一个清单分类
      * */
-    @GetMapping("deleteCategory")
+    @GetMapping("deleteCategoryById")
     public String deleteCategoryById(Integer id){
-        categoryMapper.deleteCategory(id);
-
-//        删除一个分类之后，该分类下所有的清单都将消失
-//        taskMapper.delete
-//        taskMapper.deleteTaskByCategoryId(id);
+        categoryMapper.deleteCategoryById(id);
+        //删除一个分类之后，该分类下所有的清单都将消失
+        taskMapper.deleteTaskByCategoryId(id);
         return "deleteCategory success";
 //        return "redirect:/index";
     }
     /**
-     * 对清单分类的名称进行修改
+     * 对清单的分类进行更新
      * */
     @PostMapping("updateCategory")
-    void updateCategory(Integer id, Integer userId, String name){
-
+    String updateCategory(Integer id, Integer userId, String name){
         Category category = new Category(id, userId, name);
         categoryMapper.updateCategory(category);
+        return "updateCategory success";
     }
     /**
      * 查询所有的分类名称

@@ -8,8 +8,8 @@
         INSERT INTO category (user_id, name) VALUES(#{userId}, #{name})
     </insert>
 
-    <update id="deleteCategory">
-        UPDATE category SET run = 0 WHERE id = #{id}
+    <update id="deleteCategoryById">
+        UPDATE category SET is_run = 0 WHERE id = #{id}
     </update>
 
     <update id="updateCategory" parameterType="category">
