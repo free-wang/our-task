@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <resultMap id="user" type="com.example.demo.entity.User">
+        <!--        由于数据库的is_run字段和对象字段run不能直接匹配，需要配置result-->
+        <!--        然后在查询语句的返回值中设置resultMap,而不是resultType-->
+        <result property="freeze" column="is_freeze"/>
+    </resultMap>
+
+    <parameterMap id="user" type="com.example.demo.entity.User">
+    </parameterMap>
+
+    <insert id="addUser" parameterType="user">
+        INSERT INTO user(
+        name, telephone, password
+        )VALUES (
+        #(name), #(telephone), #(password)
+        )
+    </insert>
+
+    <update id="deleteUserById" parameterType="Integer">
+        UPDATE user SET is_freeze = 0 WHERE id = #{id}
+    </update>
+
+
+    <update id="updateUser" parameterType="user">
+        UPDATE user
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="telephone != null and telephone != ''">
+                telephone = #{telephone},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="headPortrait != null and headPortrait != ''">
+                head_portrait = #{headPortrait},
+            </if>
+            <if test="freeze != null">
+                is_freeze = #{freeze},
+            </if>
+            id = #{id}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getUserById" parameterType="Integer" resultType="user">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <select id="getUserListByAuthority" parameterType="Integer" resultType="user">
+        SELECT * FROM user
+        <where>
+            <if test="authority != null">
+                authority = #{authority} AND
+            </if>
+            1 = 1
+        </where>
+    </select>
+
+
+</mapper>

@@ -24,7 +24,7 @@ public class TaskController {
     /**
      * 添加一个新的清单
      * */
-    @RequestMapping("addTask")
+    @PostMapping("addTask")
     public String addTask(Integer userId, Integer categoryId, String name, String description){
         Task task = new Task(userId, categoryId, name, description);
         taskMapper.addTask(task);
@@ -36,9 +36,10 @@ public class TaskController {
     /**
      * 根据清单id删除一个清单（逻辑删除）
      * */
-    @RequestMapping("deleteTaskById")
-    void deleteTaskById(Integer id, Integer categoryId){
+    @GetMapping("deleteTaskById")
+    public String deleteTaskById(Integer id){
         taskMapper.deleteTaskById(id);
+        return "deleteTaskById success";
         //重定向到主页,并且带有分类的id，不然默认就会跳转到今天这个分类去了
 //        return "redirect:/index?categoryId=" + categoryId;
     }
@@ -46,10 +47,11 @@ public class TaskController {
     /**
      * 对清单进行更新
      * */
-    @RequestMapping("updateTask")
-    void updateTask(Integer id, Integer userId,  Integer categoryId, String name, String description, Integer run){
+    @PostMapping("updateTask")
+    public String updateTask(Integer id, Integer userId,  Integer categoryId, String name, String description, Integer run){
         Task task = new Task(id, userId, categoryId, name, description, run);
         taskMapper.updateTask(task);
+        return "updateTask success";
         //重定向到主页,并且带有分类的id，不然默认就会跳转到今天这个分类去了
 //        return "redirect:/index?categoryId=" + categoryId;
     }
