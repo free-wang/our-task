@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,5 +28,5 @@ public interface UserMapper {
     /**
      * 查询当前系统下的用户，包括（查询管理员用户、普通用户或者所有用户）
      * */
-    List<User> getUserListByAuthority(Integer authority);
+    List<User> getUserListByAuthority(@Param("authority") Integer authority);
 }

@@ -27,7 +27,7 @@ public class User {
     //用户头像
     private String headPortrait;
     //用户是否被冻结
-    private Integer freeze;
+    private Integer run;
 
     public User(String telephone, @NonNull String name, @NonNull String password) {
         this.telephone = telephone;
@@ -35,12 +35,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String telephone, @NonNull String name, @NonNull String password, String email, String headPortrait, Integer freeze) {
+    public User(Integer id, String telephone, @NonNull String name, @NonNull String password, String email, String headPortrait, Integer run) {
+        this.id = id;
         this.telephone = telephone;
         this.name = name;
         this.password = password;
         this.email = email;
         this.headPortrait = headPortrait;
-        this.freeze = freeze;
+        this.run = run;
     }
 }

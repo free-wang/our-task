@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
 import lombok.NonNull;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class UserController {
      * 添加一个新的用户
      * */
     @PostMapping("addUser")
-    public String addUser(String telephone, String name, String password){
+    public String addUser(@Param("telephone") String telephone, @Param("name")String name,
+                          @Param("password")String password){
         User user = new User(telephone, name, password);
         userMapper.addUser(user);
         return "addUser success";
@@ -40,9 +42,9 @@ public class UserController {
      * 对用户信息进行更新
      * */
     @PostMapping("updateUser")
-    public String updateUser(String telephone, String name, String password, String email, String headPortrait,
-                             Integer freeze){
-        User user = new User(telephone, name, password, email, headPortrait, freeze);
+    public String updateUser(Integer id, String telephone, String name, String password, String email, String headPortrait,
+                             Integer run){
+        User user = new User(id, telephone, name, password, email, headPortrait, run);
         userMapper.updateUser(user);
         return "updateUser success";
     }

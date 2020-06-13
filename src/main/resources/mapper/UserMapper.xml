@@ -4,7 +4,7 @@
     <resultMap id="user" type="com.example.demo.entity.User">
         <!--        由于数据库的is_run字段和对象字段run不能直接匹配，需要配置result-->
         <!--        然后在查询语句的返回值中设置resultMap,而不是resultType-->
-        <result property="freeze" column="is_freeze"/>
+        <result property="run" column="is_run"/>
     </resultMap>
 
     <parameterMap id="user" type="com.example.demo.entity.User">
@@ -14,12 +14,12 @@
         INSERT INTO user(
         name, telephone, password
         )VALUES (
-        #(name), #(telephone), #(password)
+        #{name}, #{telephone}, #{password}
         )
     </insert>
 
     <update id="deleteUserById" parameterType="Integer">
-        UPDATE user SET is_freeze = 0 WHERE id = #{id}
+        UPDATE user SET is_run = 0 WHERE id = #{id}
     </update>
 
 
@@ -41,8 +41,8 @@
             <if test="headPortrait != null and headPortrait != ''">
                 head_portrait = #{headPortrait},
             </if>
-            <if test="freeze != null">
-                is_freeze = #{freeze},
+            <if test="run != null">
+                is_run = #{run},
             </if>
             id = #{id}
         </set>
@@ -56,10 +56,14 @@
     <select id="getUserListByAuthority" parameterType="Integer" resultType="user">
         SELECT * FROM user
         <where>
-            <if test="authority != null">
-                authority = #{authority} AND
-            </if>
-            1 = 1
+            <choose>
+                <when test="authority != null">
+                    authority = #{authority}
+                </when>
+                <otherwise>
+                    1 = 1
+                </otherwise>
+            </choose>
         </where>
     </select>
 
