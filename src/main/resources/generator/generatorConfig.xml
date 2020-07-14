@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+<!--    这里的properties是为了把数据库连接配置抽出来，放到generator.properties里面-->
+    <properties resource="generator/generator.properties"/>
+
+    <context id="MySqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value=" "/>
+        <property name="endingDelemiter" value=" "/>
+
+<!--        这是注释生成器，并且禁止在注释中生成日期-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!--配置数据库连接-->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+            <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+<!--        配置生成的实体包名是entity，路径是src\main\java-->
+        <javaModelGenerator targetPackage="com.example.demo.mbg.model"
+        targetProject="src\main\java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+<!--        配置生成Mapper.xml文件的位置-->
+        <sqlMapGenerator targetPackage="mapper"
+        targetProject="src\main\resources\mbg"/>
+
+<!--        配置生成de Mapper接口的位置，采用XMLMAPPER是为了接口和XML完全分离-->
+        <javaClientGenerator type="XMLMAPPER"
+        targetPackage="com.example.demo.mbg.mapper"
+        targetProject="src\main\java"/>
+
+<!--        配置数据库的表名，如果是%，则表示匹配该数据库中所有的表-->
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+    </context>
+</generatorConfiguration>
