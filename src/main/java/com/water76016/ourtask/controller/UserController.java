@@ -3,6 +3,7 @@ package com.water76016.ourtask.controller;
 
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Api
 public class UserController {
     @Autowired
     UserService userService;

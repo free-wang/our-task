@@ -5,6 +5,18 @@ spring:
     url: jdbc:mysql://localhost:3306/our-task?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: abc+!@#123
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    jedis:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+    timeout: 3000ms # 连接超时时间（毫秒）
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
 
@@ -12,10 +24,17 @@ shiro-redis:
   enabled: true
   redis-manager:
     host: 127.0.0.1:6379
-markerhub:
+config:
   jwt:
     #加密密钥
-    secret: f4e2e52034348f86b67cde581c0f9eb5
+    secret: f4e2e52034348f86b67cde581c0f9eb564645646464
     #token:有效时长  7天，单位秒
     expire: 604800
     header: Authorization
+# 自定义redis key
+redis:
+  key:
+    prefix:
+      authCode: "portal:authCode:"
+    expire:
+      authCode: 120 # 验证码超期时间
