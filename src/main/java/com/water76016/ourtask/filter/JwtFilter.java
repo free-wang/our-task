@@ -21,6 +21,7 @@ public class JwtFilter extends GenericFilter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest)servletRequest;
         //获得http的头
+        //todo:由于这里没传值，这里是空指针异常
         String jwtToken = req.getHeader("authorization");
         String token = new String(jwtToken.getBytes("ISO-8859-1"), "UTF-8");
         System.out.println("-----------     " + token + "          -----------");
