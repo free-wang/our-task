@@ -19,6 +19,9 @@ spring:
     timeout: 3000ms # 连接超时时间（毫秒）
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+  configuration:
+    # 是否将sql打印到控制面板(该配置会将sql语句和查询的结果都打印到控制台)
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 shiro-redis:
   enabled: true

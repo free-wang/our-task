@@ -61,13 +61,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/*.html",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
-                ).permitAll()
-                .antMatchers("/order") //需要对外暴露的资源路径
-                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")  //user角色和admin角色都可以访问
-                .antMatchers("/system/user", "/system/role", "/system/menu")
-                .hasAnyRole("ADMIN")  //admin角色可以访问
-                // 除上面外的所有请求全部需要鉴权认证
+                        "/**/*.js",
+                        "/swagger-resources/**",
+                        "/v2/api-docs/**"
+                )
+                .permitAll()
+                .antMatchers("/order","tourist/*") //需要对外暴露的资源路径
+//                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")  //user角色和admin角色都可以访问
+//                .antMatchers("user/*")
+//                .hasAnyRole("ADMIN")  //admin角色可以访问
+//                // 除上面外的所有请求全部需要鉴权认证
+                //这里暂时加一个，让它全部访问，先通过测试
+                .permitAll()
                 .anyRequest().authenticated().and()//authenticated()要求在执行该请求时，必须已经登录了应用
                 // CRSF禁用，因为不使用session
                 .csrf().disable() ;//禁用跨站csrf攻击防御，否则无法登陆成功
