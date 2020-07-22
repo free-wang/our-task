@@ -27,12 +27,14 @@ public class JwtAuthService {
     public String login(String username, String password)  {
         // 用户验证
         Authentication authentication = null;
-        try {
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (Exception e) {
-                throw new RuntimeException("用户名密码错误");
-        }
+//        try {
+//            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+//            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//        }
+//        catch (Exception e) {
+//                throw new RuntimeException("用户名密码错误");
+//        }
+        authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         User loginUser = (User) authentication.getPrincipal();
         // 生成token
         return jwtTokenUtil.generateToken(loginUser);

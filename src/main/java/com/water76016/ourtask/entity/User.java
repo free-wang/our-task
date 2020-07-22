@@ -1,6 +1,7 @@
 package com.water76016.ourtask.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -81,8 +82,8 @@ public class User implements Serializable, UserDetails {
     private Integer status;
 
 
-    //实体类中想要添加表中不存在的字段，就要使用@Transient这个注解了
-    @Transient
+    //Mybatis plus @TableName实体中添加非数据库字段报错，如增加请在字段上加注解 @TableField(exist = false)
+    @TableField(exist = false)
     private List<GrantedAuthority> authorities;
 
     public void setAuthorities(List<GrantedAuthority> authorities) {

@@ -24,13 +24,14 @@ shiro-redis:
   enabled: true
   redis-manager:
     host: 127.0.0.1:6379
-config:
-  jwt:
-    #加密密钥
-    secret: f4e2e52034348f86b67cde581c0f9eb564645646464
-    #token:有效时长  7天，单位秒
-    expire: 604800
-    header: Authorization
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌秘钥
+  #  secret: abcdefghijklmnopqrstuvwxyz
+  secret: (EMOK:)_$^11244^%$_(IS:)_@@++--(COOL:)_++++_.sds_(GUY:)
+  # 令牌有效期
+  expireTime: 3600000
 # 自定义redis key
 redis:
   key:
