@@ -140,4 +140,12 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public User(Integer id, String username, String telephone, String email) {
+        this.id = id;
+        this.username = username;
+        this.telephone = telephone;
+        this.password = password;
+        this.email = email;
+    }
 }

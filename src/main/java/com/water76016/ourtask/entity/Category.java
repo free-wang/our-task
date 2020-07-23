@@ -19,6 +19,11 @@ import lombok.experimental.Accessors;
  * @author github:water76016
  * @since 2020-07-21
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,5 +59,19 @@ public class Category implements Serializable {
      */
     private Integer run;
 
+    public Category(Integer userId, String name) {
+        this.userId = userId;
+        this.name = name;
+    }
 
+    public Category(Integer id, Integer run) {
+        this.id = id;
+        this.run = run;
+    }
+
+    public Category(Integer id, Integer userId, String name) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+    }
 }

@@ -4,6 +4,7 @@ import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.config.security.jwt.JwtAuthService;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class TouristController {
     JwtAuthService jwtAuthService;
 
 
+    @ApiOperation("游客进行注册操作")
     @PostMapping("/register")
     public RestResult register(@RequestParam("username") String username,@RequestParam("password") String password){
         User user = new User();
@@ -42,6 +44,7 @@ public class TouristController {
      * @param password 密码
      * @return 结果
      */
+    @ApiOperation("游客进行登录操作")
     @PostMapping({"/login", "/"})
     public RestResult login(@RequestParam("username") String username,@RequestParam("password") String password) {
         RestResult result = RestResult.success();
