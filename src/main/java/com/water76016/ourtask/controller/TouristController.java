@@ -5,6 +5,7 @@ import com.water76016.ourtask.config.security.jwt.JwtAuthService;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,7 +24,10 @@ public class TouristController {
     public RestResult register(@RequestParam("username") String username,@RequestParam("password") String password){
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        //加密需要把用户密码进行加密存储
+        BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
+        String encodePassword = bcp.encode(password);
+        user.setPassword(encodePassword);
         boolean flag = userService.save(user);
         if (flag){
             return RestResult.success("添加用户成功");

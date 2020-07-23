@@ -8,8 +8,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +28,8 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
