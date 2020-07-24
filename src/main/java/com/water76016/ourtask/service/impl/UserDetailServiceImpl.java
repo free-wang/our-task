@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -23,7 +22,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         //这是在进行单个查询
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
-
         User user = userService.getOne(queryWrapper);
         if (user == null){
             throw new UsernameNotFoundException("登录用户" + username + "不存在");

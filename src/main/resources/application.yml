@@ -37,8 +37,10 @@ token:
   expireTime: 3600000
 # 自定义redis key
 redis:
+  database: "our-task"
   key:
-    prefix:
-      authCode: "portal:authCode:"
-    expire:
-      authCode: 120 # 验证码超期时间
+    category: "category"
+    user: "user"
+    task: "task"
+  expire:
+    common: 86400 # 24小时

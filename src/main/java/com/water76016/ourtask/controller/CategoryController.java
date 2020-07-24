@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.service.CategoryService;
+import com.water76016.ourtask.service.RedisService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +34,11 @@ public class CategoryController {
     @PostMapping("add/{userId}")
     public RestResult add(@PathVariable("userId") Integer userId, String name){
         Category category = new Category(userId, name);
-        categoryService.save(category);
-        return RestResult.success();
+        boolean flag = categoryService.save(category);
+        if (flag){
+            return RestResult.success();
+        }
+        return RestResult.error();
     }
 
     @ApiOperation("逻辑删除一个分类")
@@ -54,8 +60,10 @@ public class CategoryController {
     @ApiOperation("查询当前用户的所有分类")
     @GetMapping("listAll/{userId}")
     public RestResult listAll(@PathVariable("userId") Integer userId){
+        Category category = new Category(userId);
+        category.setRun(1);
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userId);
+        queryWrapper.setEntity(category);
         List<Category> categoryList = categoryService.list(queryWrapper);
         return RestResult.success(categoryList);
     }

@@ -74,4 +74,8 @@ public class Category implements Serializable {
         this.userId = userId;
         this.name = name;
     }
+
+    public Category(Integer userId) {
+        this.userId = userId;
+    }
 }

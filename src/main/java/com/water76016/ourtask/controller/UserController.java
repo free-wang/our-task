@@ -3,6 +3,7 @@ package com.water76016.ourtask.controller;
 
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.entity.User;
+import com.water76016.ourtask.service.RedisService;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    RedisService redisService;
 
     @ApiOperation("修改用户基本信息")
     @PostMapping("update/{id}")

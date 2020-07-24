@@ -6,6 +6,8 @@ import com.water76016.ourtask.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 /**
  * <p>
  *  服务实现类
