@@ -44,3 +44,5 @@ redis:
     task: "task"
   expire:
     common: 86400 # 24小时
+server:
+  port: 8081
