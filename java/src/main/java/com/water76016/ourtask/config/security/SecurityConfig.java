@@ -66,6 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**"
                 )
                 .permitAll()
+                .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
+                .permitAll()
 //                .antMatchers("/login", "/") //需要对外暴露的资源路径
 //                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")  //user角色和admin角色都可以访问
 //                .antMatchers("user/*", "task/*", "category/*")

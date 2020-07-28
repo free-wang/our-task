@@ -2,6 +2,7 @@ package com.water76016.ourtask.controller;
 
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.config.security.jwt.JwtAuthService;
+import com.water76016.ourtask.entity.Tourist;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -40,15 +41,12 @@ public class TouristController {
     /**
      * 登录方法
      *
-     * @param username 用户名
-     * @param password 密码
-     * @return 结果
      */
     @ApiOperation("游客进行登录操作")
     @PostMapping({"/login", "/"})
-    public RestResult login(@RequestParam("username") String username,@RequestParam("password") String password) {
+    public RestResult login(@RequestBody Tourist tourist) {
         RestResult result = RestResult.success();
-        String token = jwtAuthService.login(username, password);
+        String token = jwtAuthService.login(tourist.getUsername(), tourist.getPassword());
         result.put("token", token);
         return result;
     }
