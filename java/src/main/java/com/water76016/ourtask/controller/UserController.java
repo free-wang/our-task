@@ -1,14 +1,23 @@
 package com.water76016.ourtask.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.entity.Category;
+import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.entity.User;
+import com.water76016.ourtask.service.CategoryService;
 import com.water76016.ourtask.service.RedisService;
+import com.water76016.ourtask.service.TaskService;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,12 +34,14 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    RedisService redisService;
+    CategoryService categoryService;
+
+    @Autowired
+    TaskService taskService;
 
     @ApiOperation("修改用户基本信息")
     @PostMapping("update/{id}")
-    public RestResult update(@PathVariable("id") Integer id, String username, String telephone, String email){
-        User user = new User(id, username, telephone, email);
+    public RestResult update(@PathVariable("id") Integer id, @RequestBody User user){
         userService.updateById(user);
         return RestResult.success("更新用户成功");
     }

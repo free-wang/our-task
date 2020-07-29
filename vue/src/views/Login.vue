@@ -1,85 +1,131 @@
 <template>
-  <div>
-    <el-container>
-      <el-header>
-        <img class="logo" src="../../public/logo.png" alt />
-      </el-header>
+  <div class="login-container">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
+      <div class="title-container">
+        <h3 class="title">Our-Task</h3>
+      </div>
 
-      <el-main>
-        <el-form
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-          label-width="100px"
-          class="demo-ruleForm"
-        >
-          <el-form-item prop="username">
-            <el-input
-              placeholder="手机号或邮箱"
-              prefix-icon="el-icon-s-custom"
-              v-model="ruleForm.username"
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              type="password"
-              placeholder="密码"
-              prefix-icon="el-icon-lock"
-              v-model="ruleForm.password"
-            ></el-input>
-          </el-form-item>
+      <el-form-item prop="username">
+        <!-- <span class="svg-container">
+          <svg-icon icon-class="user" />
+        </span> -->
+        <el-input
+          prefix-icon="el-icon-user"
+          ref="username"
+          v-model="loginForm.username"
+          placeholder="Username"
+          name="username"
+          type="text"
+          tabindex="1"
+        
+        />
+      </el-form-item>
 
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-          </el-form-item>
-        </el-form>
-        <div>
-          <div>
-            <span>
-              <el-link type="primary">忘记密码</el-link>
-            </span>
-            <el-divider direction="vertical"></el-divider>
+      <el-form-item prop="password">
+        <el-input
+          prefix-icon="el-icon-lock"
+          :key="passwordType"
+          ref="password"
+          v-model="loginForm.password"
+          :type="passwordType"
+          placeholder="Password"
+          name="password"
+          tabindex="2"
+          auto-complete="on"
+          @keyup.enter.native="handleLogin"
+        />
+        <span class="show-pwd" @click="showPwd">
+          <!-- 这个点击事件后面做 -->
+          <!-- <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" /> -->
+        </span>
+      </el-form-item>
 
-            <span>
-              <el-link type="primary">注册</el-link>
-            </span>
-          </div>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width:100%;margin-bottom:30px;"
+        @click.native.prevent="handleLogin"
+      >登录</el-button>
 
-          <div>
-            <el-button type="success">微信</el-button>
-          </div>
-        </div>
-      </el-main>
-    </el-container>
+      <div class="tips">
+        <span style="margin-right:20px;">username: user</span>
+        <span>password: 123456</span>
+      </div>
+    </el-form>
   </div>
 </template>
-
 <script>
+
 export default {
+  name: "Login",
   data() {
+    const validateUsername = (rule, value, callback) => {
+      if (value.length <= 0) {
+        callback(new Error("请输入用户名"));
+      } else {
+        callback();
+      }
+    };
+    const validatePassword = (rule, value, callback) => {
+      if (value.length < 6) {
+        callback(new Error("请输入长度不小于6位的密码"));
+      } else {
+        callback();
+      }
+    };
     return {
-      ruleForm: {
+      loginForm: {
         username: "user",
         password: "123456",
       },
-      rules: {
+      loginRules: {
         username: [
-          { required: true, message: "请输入手机号或邮箱", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { required: true, trigger: "blur", validator: validateUsername },
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "change" },
+          { required: true, trigger: "blur", validator: validatePassword },
         ],
       },
+      loading: false,
+      passwordType: "password",
+      redirect: undefined,
     };
   },
+  watch: {
+    $route: {
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          const _this = this;
-          this.$axios.post("/login", this.ruleForm).then((res) => {
+    showPwd() {
+      if (this.passwordType === "password") {
+        this.passwordType = "";
+      } else {
+        this.passwordType = "password";
+      }
+      this.$nextTick(() => {
+        this.$refs.password.focus();
+      });
+    },
+    handleLogin() {
+      const _this = this;
+          this.$axios.post("/login", this.loginForm).then((res) => {
             console.log(res.data);
+            _this.$router.push("/home")
+            const token = res.headers["authorization"];
+
+
+
             // const jwt = res.headers["authorization"];
             // const userInfo = res.data.data;
 
@@ -92,27 +138,122 @@ export default {
 
             // _this.$router.push("/blogs");
           });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
     },
   },
 };
 </script>
 
-<style scoped>
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
+<style lang="scss">
+/* 修复input 背景不协调 和光标变色 */
+/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
+
+$bg: #283443;
+$light_gray: #fff;
+$cursor: #fff;
+
+@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+  .login-container .el-input input {
+    color: $cursor;
+  }
 }
 
-.logo {
-  height: 60%;
-  margin-top: 10px;
+/* reset element-ui css */
+.login-container {
+  .el-input {
+    display: inline-block;
+    height: 47px;
+    width: 85%;
+
+    input {
+      background: transparent;
+      border: 0px;
+      -webkit-appearance: none;
+      border-radius: 0px;
+      padding: 12px 5px 12px 35px;
+      color: $light_gray;
+      height: 47px;
+      caret-color: $cursor;
+
+      &:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px $bg inset !important;
+        -webkit-text-fill-color: $cursor !important;
+      }
+    }
+  }
+
+  .el-form-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #454545;
+  }
+}
+</style>
+
+<style lang="scss">
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
+
+.login-container {
+  min-height: 100%;
+  width: 100%;
+  background-color: $bg;
+  overflow: hidden;
+
+  height: 100%;
+  margin: 0 0 0 0;
+  padding: 0;
+
+  .login-form {
+    position: relative;
+    width: 520px;
+    max-width: 100%;
+    padding: 160px 35px 0;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .tips {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+
+    span {
+      &:first-of-type {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .svg-container {
+    padding: 6px 5px 6px 15px;
+    color: $dark_gray;
+    vertical-align: middle;
+    width: 30px;
+    display: inline-block;
+  }
+
+  .title-container {
+    position: relative;
+
+    .title {
+      font-size: 26px;
+      color: $light_gray;
+      margin: 0px auto 40px auto;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  .show-pwd {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 16px;
+    color: $dark_gray;
+    cursor: pointer;
+    user-select: none;
+  }
 }
 </style>

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 /**
  * 这是针对游客访问的Controller
@@ -24,7 +26,9 @@ public class TouristController {
 
     @ApiOperation("游客进行注册操作")
     @PostMapping("/register")
-    public RestResult register(@RequestParam("username") String username,@RequestParam("password") String password){
+    public RestResult register(@RequestBody Tourist tourist){
+        String username = tourist.getUsername();
+        String password = tourist.getPassword();
         User user = new User();
         user.setUsername(username);
         //加密需要把用户密码进行加密存储
@@ -44,10 +48,11 @@ public class TouristController {
      */
     @ApiOperation("游客进行登录操作")
     @PostMapping({"/login", "/"})
-    public RestResult login(@RequestBody Tourist tourist) {
+    public RestResult login(@RequestBody Tourist tourist, HttpServletResponse response) {
         RestResult result = RestResult.success();
         String token = jwtAuthService.login(tourist.getUsername(), tourist.getPassword());
         result.put("token", token);
+        response.setHeader("Authorization", token);
         return result;
     }
 

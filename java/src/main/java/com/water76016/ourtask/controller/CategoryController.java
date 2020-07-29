@@ -32,8 +32,7 @@ public class CategoryController {
 
     @ApiOperation("添加一个新的分类")
     @PostMapping("add/{userId}")
-    public RestResult add(@PathVariable("userId") Integer userId, String name){
-        Category category = new Category(userId, name);
+    public RestResult add(@PathVariable("userId") Integer userId, @RequestBody Category category){
         boolean flag = categoryService.save(category);
         if (flag){
             return RestResult.success();
@@ -51,8 +50,7 @@ public class CategoryController {
 
     @ApiOperation("修改分类的名称")
     @PostMapping("update/{id}")
-    public RestResult update(@PathVariable("id") Integer id, Integer userId, String name){
-        Category category = new Category(id, userId, name);
+    public RestResult update(@PathVariable("id") Integer id, @RequestBody Category category){
         categoryService.updateById(category);
         return RestResult.success();
     }

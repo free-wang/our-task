@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.TaskService;
@@ -34,13 +35,10 @@ public class TaskController {
 
     @ApiOperation("添加一个新的清单")
     @PostMapping("/save")
-    public RestResult save(Integer userId, Integer categoryId, String name){
-        Task task = new Task(userId, categoryId, name);
+    public RestResult save(@RequestBody Task task){
         taskService.save(task);
         Map<String, Integer> data = new HashMap<>();
-        data.put("userId", userId);
-        data.put("categoryId", categoryId);
-        return RestResult.success("新增清单成功", data);
+        return RestResult.success();
     }
 
     @ApiOperation("逻辑删除/完成一个清单")
@@ -53,8 +51,7 @@ public class TaskController {
 
     @ApiOperation("对清单进行更新")
     @PostMapping("/update/{id}")
-    public RestResult updateTask(@PathVariable("id") Integer id, Integer categoryId, String name, String description){
-        Task task = new Task(id, categoryId, name, description);
+    public RestResult updateTask(@PathVariable("id") Integer id, @RequestBody Task task){
         taskService.updateById(task);
         return RestResult.success("更新清单成功");
     }
@@ -67,6 +64,17 @@ public class TaskController {
         queryWrapper.eq("run", 0);
         List<Task> taskList = taskService.list(queryWrapper);
         return RestResult.success("得到当前用户所有未完成清单成功", taskList);
+    }
+
+    @ApiOperation("查询当前用户当前分类的所有未完成清单")
+    @GetMapping("getAllList/{userId}/{categoryId}")
+    public RestResult getTaskList(@PathVariable("userId") Integer userId, @PathVariable("categoryId") Integer categoryId){
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("category_id", categoryId);
+        queryWrapper.eq("run", 0);
+        List<Task> taskList = taskService.list(queryWrapper);
+        return RestResult.success(taskList);
     }
 
     @ApiOperation("查询当前用户，当前页的所有未完成的清单")
