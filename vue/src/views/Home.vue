@@ -4,7 +4,7 @@
     <el-menu :default-openeds="['1', '3']">
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i>展开分类</template>
-        <el-menu-item v-for="category in categoryList" :index="category.id.toString()" :key="category.id">
+        <el-menu-item v-for="category in categoryList" :index="category.id.toString()" :key="category.id" @click="getUserCategoryTaskList(1,category.id)">
           {{category.name}}
         </el-menu-item>
         <!-- <el-menu-item-group v-for="category in categoryList" :key="category.id">
