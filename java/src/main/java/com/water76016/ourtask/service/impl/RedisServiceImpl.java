@@ -2,8 +2,11 @@ package com.water76016.ourtask.service.impl;
 
 import com.water76016.ourtask.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +25,24 @@ public class RedisServiceImpl implements RedisService {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+
+
+
+//    /**
+//     * 修改Redis序列化方式，解决Redis可视化工具乱码问题
+//     * @return
+//     */
+//    @Bean
+//    public RedisTemplate redisTemplateInit() {
+//        //设置序列化Key的实例化对象
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());
+//        //设置序列化Value的实例化对象
+//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        return redisTemplate;
+//    }
+
+
+
     @Override
     public void set(String key, Object value, long time) {
         redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
@@ -29,6 +50,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public void set(String key, Object value) {
+
         redisTemplate.opsForValue().set(key, value);
     }
 

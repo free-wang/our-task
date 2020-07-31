@@ -35,7 +35,7 @@ public class CategoryController {
     public RestResult add(@PathVariable("userId") Integer userId, @RequestBody Category category){
         boolean flag = categoryService.save(category);
         if (flag){
-            return RestResult.success();
+            return RestResult.success(category);
         }
         return RestResult.error();
     }
