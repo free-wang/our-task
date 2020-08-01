@@ -53,7 +53,7 @@
           <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
           <span>our-task</span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>清单</el-dropdown-item>
+            <el-dropdown-item>添加分类</el-dropdown-item>
             <el-dropdown-item>新增</el-dropdown-item>
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
