@@ -65,4 +65,11 @@ public class CategoryController {
         List<Category> categoryList = categoryService.list(queryWrapper);
         return RestResult.success(categoryList);
     }
+
+    @ApiOperation("根据分类id查询分类对象")
+    @GetMapping("get/{categoryId}")
+    public Category getCategoryById(@PathVariable("categoryId") String categoryId){
+        return categoryService.getById(Integer.valueOf(categoryId));
+    }
+
 }

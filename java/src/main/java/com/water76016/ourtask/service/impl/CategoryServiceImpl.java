@@ -44,14 +44,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             List<Object> save = redisService.lRange(key, 0, size);
             List<Category> categoryList = new ArrayList<>();
             for(Object object : save){
-                categoryList.add((Category)object);
+                Category category = (Category)object;
+                categoryList.add((Category)category);
             }
             return categoryList;
         }
         List<Category> categoryList = super.list(queryWrapper);
+        List<Category> result = new ArrayList<>();
         for(Category category : categoryList){
             redisService.lPush(key, category);
         }
+
         return categoryList;
     }
 

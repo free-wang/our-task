@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class TaskController {
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") Integer id){
-        Task task = new Task(id, 0);
+        Task task = new Task(id, 1);
         taskService.updateById(task);
         return RestResult.success("已经成功删除/完成一个清单");
     }
@@ -74,6 +75,7 @@ public class TaskController {
         queryWrapper.eq("category_id", categoryId);
         queryWrapper.eq("run", 0);
         List<Task> taskList = taskService.list(queryWrapper);
+        //todo:这里返回的日期还需要修改
         return RestResult.success(taskList);
     }
 
