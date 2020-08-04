@@ -12,17 +12,27 @@ Our-Task项目是一个清单管理系统，包括前台系统使用及后台管
 
 ### 后端技术
 
-|    技术    |  说明   |                      官网                      |
-| :--------: | :-----: | :--------------------------------------------: |
-| SpringBoot | MVC框架 |     https://spring.io/projects/spring-boot     |
-|  MyBatis   | ORM框架 | http://www.mybatis.org/mybatis-3/zh/index.html |
-|   Redis    |  缓存   |               https://redis.io/                |
+|      技术      |        说明         |                      官网                      |
+| :------------: | :-----------------: | :--------------------------------------------: |
+|   SpringBoot   |       MVC框架       |     https://spring.io/projects/spring-boot     |
+|    MyBatis     |       ORM框架       | http://www.mybatis.org/mybatis-3/zh/index.html |
+|     Redis      |        缓存         |               https://redis.io/                |
+| SpringSecurity |   认证和授权框架    |   https://spring.io/projects/spring-security   |
+|  Mybatis-Plus  |   数据层代码生成    |            https://mp.baomidou.com             |
+|   PageHelper   | MyBatis物理分页插件 | http://git.oschina.net/free/Mybatis_PageHelper |
+|   Swagger-UI   |    文档生产工具     |   https://github.com/swagger-api/swagger-ui    |
+|     Redis      |     分布式缓存      |               https://redis.io/                |
+|      JWT       |     JWT登录支持     |          https://github.com/jwtk/jjwt          |
+|     Lombok     |  简化对象封装工具   |     https://github.com/rzwitserloot/lombok     |
 
 ### 前端技术
 
-| 技术 | 说明 | 官网 |
-| :--: | :--: | :--: |
-|      |      |      |
+|    技术    |     说明     |                         官网                          |
+| :--------: | :----------: | :---------------------------------------------------: |
+|    Vue     |   前端框架   |                  https://vuejs.org/                   |
+| Vue-router |   路由框架   |               https://router.vuejs.org/               |
+|  Element   |  前端UI框架  | [https://element.eleme.io](https://element.eleme.io/) |
+|   Axios    | 前端HTTP框架 |            https://github.com/axios/axios             |
 
 ## 环境搭建
 
