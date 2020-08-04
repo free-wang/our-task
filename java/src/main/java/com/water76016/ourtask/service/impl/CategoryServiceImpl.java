@@ -37,6 +37,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * */
     @Override
     public List<Category> list(Wrapper<Category> queryWrapper) {
+        //todo:这里暂时用代码来限制，不让其返回系统清单
         Integer userId = queryWrapper.getEntity().getUserId();
         String key = REDIS_DATABASE + ":" + REDIS_KEY_CATEGORY + ":" + "list" + ":" + userId;
         if (redisService.hasKey(key)){
@@ -52,10 +53,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<Category> categoryList = super.list(queryWrapper);
         List<Category> result = new ArrayList<>();
         for(Category category : categoryList){
+            if (category.getId() == 1 || category.getId() == 2){
+                continue;
+            }
+            result.add(category);
             redisService.lPush(key, category);
         }
 
-        return categoryList;
+        return result;
     }
 
     /**

@@ -38,14 +38,13 @@ public class TaskController {
     @PostMapping("/save")
     public RestResult save(@RequestBody Task task){
         taskService.save(task);
-        Map<String, Integer> data = new HashMap<>();
-        return RestResult.success();
+        return RestResult.success(task);
     }
 
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") Integer id){
-        Task task = new Task(id, 1);
+        Task task = new Task(id, 0);
         taskService.updateById(task);
         return RestResult.success("已经成功删除/完成一个清单");
     }
@@ -62,7 +61,7 @@ public class TaskController {
     public RestResult getAllList(@PathVariable("userId") Integer userId){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
-        queryWrapper.eq("run", 0);
+        queryWrapper.eq("run", 1);
         List<Task> taskList = taskService.list(queryWrapper);
         return RestResult.success("得到当前用户所有未完成清单成功", taskList);
     }
@@ -73,7 +72,7 @@ public class TaskController {
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("category_id", categoryId);
-        queryWrapper.eq("run", 0);
+        queryWrapper.eq("run", 1);
         List<Task> taskList = taskService.list(queryWrapper);
         //todo:这里返回的日期还需要修改
         return RestResult.success(taskList);
@@ -86,7 +85,7 @@ public class TaskController {
                          @RequestParam(value = "pageSize", defaultValue = "3") @ApiParam("每页数量") Integer pageSize){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
-        queryWrapper.eq("run", 0);
+        queryWrapper.eq("run", 1);
         Page<Task> page = new Page<>();
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
