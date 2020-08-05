@@ -20,6 +20,7 @@
             <i class="el-icon-menu"></i>
             <span slot="title">今天</span>
           </el-menu-item>
+          
           <el-menu-item index="2" @click="getUserCategoryTaskList(2, '明天')">
             <i class="el-icon-menu"></i>
             <span slot="title">明天</span>
