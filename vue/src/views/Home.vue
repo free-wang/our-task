@@ -15,7 +15,7 @@
         </el-header>
 
         <el-menu default-active="1">
-          <!-- 这里定死了显示的东西，后期修改 -->
+          <!-- 这里定死了显示的东西，后期进行修改 -->
           <el-menu-item index="1" @click="getUserCategoryTaskList(1, '今天')">
             <i class="el-icon-menu"></i>
             <span slot="title">今天</span>
