@@ -39,7 +39,7 @@
               </el-menu-item>
               <el-menu-item>
                 <i class="el-icon-plus"></i>
-                <el-button type="text" @click="open">添加分类</el-button>
+                <el-button type="text" @click="open">添加新的分类</el-button>
               </el-menu-item>
             </el-tab-pane>
             <el-tab-pane label="标签" name="second">标签</el-tab-pane>
