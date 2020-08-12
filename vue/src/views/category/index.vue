@@ -1,0 +1,140 @@
+<template>
+  <div>
+    <el-container height="100%">
+      <el-main>
+        <el-table :data="taskList" stripe style="width: 100%" border>
+          <el-table-column prop="name" label="分类名称" align="center" />
+          <el-table-column prop="description" width="200" label="所含清单总数" align="center" />
+          <el-table-column width="300" label="操作" align="center">
+
+            <div>
+              <el-button type="text" size="small" @click="deleteTaskById(scope.row.id)">编辑修改</el-button>
+              <el-divider direction="vertical" />
+              <el-button type="text" size="small" @click="deleteTaskById(scope.row.id)">标记删除</el-button>
+            </div>
+          </el-table-column>
+        </el-table>
+      </el-main>
+    </el-container>
+    <el-footer>
+      <el-row>
+        <el-col :span="16"><div>
+          <el-pagination
+            background
+            :current-page="currentPage"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          />
+        </div></el-col>
+        <el-col :span="8"><div>
+          <el-button type="text">添加清单</el-button>
+        </div></el-col>
+      </el-row>
+    </el-footer>
+  </div>
+</template>
+
+<style>
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
+
+.el-aside {
+  color: #333;
+}
+
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+.el-container{
+  height: 100%;
+}
+</style>
+
+<script>
+export default {
+  data() {
+    return {
+      currentPage: 1,
+      selectLabel: '',
+      labelList: [],
+      selectCategory: '',
+      searchName: '',
+      user: {
+        id: 1,
+        username: 'user'
+      },
+      taskList: [],
+      categoryList: [],
+      currentCategory: {
+        id: 1,
+        userId: 1,
+        name: '今天',
+        createTime: null,
+        updateTime: null
+      },
+      currentTask: {
+        id: null,
+        name: '',
+        description: ''
+      },
+      activeName: 'first',
+      newTask: {
+        userId: null,
+        categoryId: null,
+        name: '',
+        description: ''
+      }
+    }
+  },
+  created() {
+    this.getTaskListByUserId()
+    this.getUserCategoryList()
+  },
+  methods: {
+    getTaskListByUserId() {
+      this.$axios.get(`task/getAllList/${this.user.id}`).then((res) => {
+        this.taskList = res.data.data
+      })
+    },
+    getUserCategoryList() {
+      this.$axios.get(`category/listAll/${this.user.id}`).then((res) => {
+        this.categoryList = res.data.data
+      })
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+    }
+    // deleteTaskById(taskId) {
+    //   const _this = this
+    //   _this.$axios.get(`task/delete/${taskId}`).then((res) => {
+    //     this.taskList.some((item, i) => {
+    //       if (item.id === taskId) {
+    //         this.taskList.splice(i, 1)
+    //         return true
+    //       }
+    //     })
+    //   })
+    // },
+
+  }
+}
+</script>

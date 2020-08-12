@@ -4,6 +4,7 @@ import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.config.security.jwt.JwtAuthService;
 import com.water76016.ourtask.entity.Tourist;
 import com.water76016.ourtask.entity.User;
+import com.water76016.ourtask.service.TouristService;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,28 +19,13 @@ import javax.servlet.http.HttpServletResponse;
  * */
 public class TouristController {
     @Autowired
-    UserService userService;
-
-    @Autowired
-    JwtAuthService jwtAuthService;
+    TouristService touristService;
 
 
     @ApiOperation("游客进行注册操作")
     @PostMapping("/register")
     public RestResult register(@RequestBody Tourist tourist){
-        String username = tourist.getUsername();
-        String password = tourist.getPassword();
-        User user = new User();
-        user.setUsername(username);
-        //加密需要把用户密码进行加密存储
-        BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
-        String encodePassword = bcp.encode(password);
-        user.setPassword(encodePassword);
-        boolean flag = userService.save(user);
-        if (flag){
-            return RestResult.success("添加用户成功");
-        }
-        return RestResult.error("添加用户失败");
+        return touristService.register(tourist);
     }
 
     /**
@@ -49,11 +35,7 @@ public class TouristController {
     @ApiOperation("游客进行登录操作")
     @PostMapping({"/login", "/"})
     public RestResult login(@RequestBody Tourist tourist, HttpServletResponse response) {
-        RestResult result = RestResult.success();
-        String token = jwtAuthService.login(tourist.getUsername(), tourist.getPassword());
-        result.put("token", token);
-        response.setHeader("Authorization", token);
-        return result;
+        return touristService.login(tourist, response);
     }
 
 }

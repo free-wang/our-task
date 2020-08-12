@@ -56,7 +56,7 @@ public class TaskController {
         return RestResult.success("更新清单成功");
     }
 
-    @ApiOperation("查询当前用户下未完成的所有清单")
+    @ApiOperation("查询当前用户的所有清单")
     @GetMapping("getAllList/{userId}")
     public RestResult getAllList(@PathVariable("userId") Integer userId){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
