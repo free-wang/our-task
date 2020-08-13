@@ -127,7 +127,6 @@ export default {
           // this.$store.dispatch('user/login', this.loginForm).then(() => {
           this.$axios.post('/login', this.loginForm).then((res) => {
             this.$store.dispatch('user/login', this.loginForm)
-            //   console.log(res.data)
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           })

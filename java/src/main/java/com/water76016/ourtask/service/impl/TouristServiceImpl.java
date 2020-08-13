@@ -1,5 +1,6 @@
 package com.water76016.ourtask.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.config.security.jwt.JwtAuthService;
 import com.water76016.ourtask.entity.Tourist;
@@ -47,8 +48,20 @@ public class TouristServiceImpl implements TouristService {
     public RestResult login(Tourist tourist, HttpServletResponse response) {
         RestResult result = RestResult.success();
         String token = jwtAuthService.login(tourist.getUsername(), tourist.getPassword());
+        //这里就已经登录成功了
         result.put("token", token);
         response.setHeader("Authorization", token);
+        result.put("userId", getUserId(tourist));
         return result;
+    }
+
+    /**
+     * 根据用户名和密码，找到用户id，该方法是在登录成功之后使用
+     * */
+    private Integer getUserId(Tourist tourist){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", tourist.getUsername());
+        User user = userService.getOne(queryWrapper);
+        return user.getId();
     }
 }

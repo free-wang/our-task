@@ -69,4 +69,6 @@ public class UserController {
         userService.updateById(user);
         return RestResult.success("修改用户密码成功");
     }
+
+
 }

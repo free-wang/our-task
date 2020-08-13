@@ -18,6 +18,8 @@ import '@/permission' // permission control
 import axios from 'axios'
 Vue.prototype.$axios = axios //
 import './axios.js' // 请求拦截
+import global_ from './views/global/index'
+Vue.prototype.global = global_
 
 /**
  * If you don't want to use mock-server
