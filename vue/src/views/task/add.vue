@@ -5,9 +5,8 @@
         <el-input v-model="form.name" />
       </el-form-item>
       <el-form-item label="清单分类">
-        <el-select v-model="form.region" placeholder="please select your zone">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
+        <el-select v-model="selectCategory" placeholder="请选择...">
+          <el-option v-for="category in categoryList" :key="category.id" :label="category.name" :value="category.name" />
         </el-select>
       </el-form-item>
       <el-form-item label="所属标签">
@@ -33,6 +32,8 @@
 export default {
   data() {
     return {
+      selectCategory: '',
+      categoryList: [],
       form: {
         name: '',
         region: '',
@@ -45,6 +46,9 @@ export default {
       }
     }
   },
+  created() {
+    this.getUserCategoryList()
+  },
   methods: {
     onSubmit() {
       this.$message('submit!')
@@ -53,6 +57,11 @@ export default {
       this.$message({
         message: 'cancel!',
         type: 'warning'
+      })
+    },
+    getUserCategoryList() {
+      this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
+        this.categoryList = res.data.data
       })
     }
   }

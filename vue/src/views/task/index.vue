@@ -120,10 +120,6 @@ export default {
       labelList: [],
       selectCategory: '',
       searchName: '',
-      user: {
-        id: 1,
-        username: 'user'
-      },
       taskList: [],
       categoryList: [],
       currentCategory: {
@@ -153,12 +149,12 @@ export default {
   },
   methods: {
     getTaskListByUserId() {
-      this.$axios.get(`task/getAllList/${this.user.id}`).then((res) => {
+      this.$axios.get(`task/getAllList/${this.global.user.id}`).then((res) => {
         this.taskList = res.data.data
       })
     },
     getUserCategoryList() {
-      this.$axios.get(`category/listAll/${this.user.id}`).then((res) => {
+      this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
         this.categoryList = res.data.data
       })
     },
