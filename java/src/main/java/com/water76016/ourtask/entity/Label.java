@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author github:water76016
- * @since 2020-08-11
+ * @since 2020-08-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,6 +28,11 @@ public class Label implements Serializable {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
+    /**
+     * 所属用户id
+     */
+    private Integer userId;
 
     /**
      * 标签名
@@ -48,6 +53,8 @@ public class Label implements Serializable {
      * 是否还在使用
      */
     private Boolean run;
+
+
 
 
 }

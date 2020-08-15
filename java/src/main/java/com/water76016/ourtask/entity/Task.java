@@ -80,8 +80,8 @@ public class Task implements Serializable {
         this.run = run;
     }
 
-    public Task(Integer id, Integer categoryId, String name, String description) {
-        this.id = id;
+    public Task(Integer userId, Integer categoryId, String name, String description) {
+        this.userId = userId;
         this.categoryId = categoryId;
         this.name = name;
         this.description = description;

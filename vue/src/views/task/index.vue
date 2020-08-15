@@ -30,10 +30,10 @@
               标签分类:
               <el-select v-model="selectLabel" multiple placeholder="请选择">
                 <el-option
-                  v-for="item in labelList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.name"
+                  v-for="label in labelList"
+                  :key="label.id"
+                  :label="label.name"
+                  :value="label.name"
                 />
               </el-select>
             </div>
@@ -146,6 +146,7 @@ export default {
   created() {
     this.getTaskListByUserId()
     this.getUserCategoryList()
+    this.getUserLabelList()
   },
   methods: {
     getTaskListByUserId() {
@@ -156,6 +157,11 @@ export default {
     getUserCategoryList() {
       this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
         this.categoryList = res.data.data
+      })
+    },
+    getUserLabelList() {
+      this.$axios.get(`label/getAllList/${this.global.user.id}`).then((res) => {
+        this.labelList = res.data.data
       })
     },
     handleSizeChange(val) {

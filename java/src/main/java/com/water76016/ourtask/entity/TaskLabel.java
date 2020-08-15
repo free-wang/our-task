@@ -49,5 +49,8 @@ public class TaskLabel implements Serializable {
      */
     private LocalDateTime updateTime;
 
-
+    public TaskLabel(Integer taskId, Integer labelId) {
+        this.taskId = taskId;
+        this.labelId = labelId;
+    }
 }

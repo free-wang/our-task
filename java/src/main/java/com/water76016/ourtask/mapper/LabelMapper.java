@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author github:water76016
- * @since 2020-08-11
+ * @since 2020-08-15
  */
 public interface LabelMapper extends BaseMapper<Label> {
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author github:water76016
- * @since 2020-08-11
+ * @since 2020-08-15
  */
 @Service
 public class LabelServiceImpl extends ServiceImpl<LabelMapper, Label> implements LabelService {

@@ -20,6 +20,8 @@ Vue.prototype.$axios = axios //
 import './axios.js' // 请求拦截
 import global_ from './views/global/index'
 Vue.prototype.global = global_
+import VCharts from 'v-charts'
+Vue.use(VCharts)
 
 /**
  * If you don't want to use mock-server

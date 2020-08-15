@@ -5,9 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.dto.TaskParam;
 import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.entity.Task;
+import com.water76016.ourtask.entity.TaskLabel;
 import com.water76016.ourtask.entity.User;
+import com.water76016.ourtask.service.LabelService;
+import com.water76016.ourtask.service.TaskLabelService;
 import com.water76016.ourtask.service.TaskService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,11 +38,23 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
+    @Autowired
+    TaskLabelService taskLabelService;
+
     @ApiOperation("添加一个新的清单")
     @PostMapping("/save")
-    public RestResult save(@RequestBody Task task){
+    public RestResult save(@RequestBody TaskParam taskParam){
+        Task task = new Task(taskParam.getUserId(), taskParam.getCategoryId(), taskParam.getName(),
+                taskParam.getDescription());
         taskService.save(task);
-        return RestResult.success(task);
+        Integer taskId = task.getId();
+        //准备往task_label表里面插值
+        List<Integer> labelList = taskParam.getLabelList();
+        for (Integer labelId : labelList){
+            TaskLabel taskLabel = new TaskLabel(taskId, labelId);
+            taskLabelService.save(taskLabel);
+        }
+        return RestResult.success();
     }
 
     @ApiOperation("逻辑删除/完成一个清单")
