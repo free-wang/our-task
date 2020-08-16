@@ -41,6 +41,7 @@ export default {
       selectCategory: '',
       categoryList: [],
       taskParam: {
+        id: null,
         userId: this.global.user.id,
         categoryId: null,
         name: '',
@@ -52,18 +53,24 @@ export default {
   created() {
     this.getUserCategoryList()
     this.getUserLabelList()
+    if (Object.keys(this.$route.query).length !== 0) {
+      this.taskParam = this.$route.query.taskParam
+    }
   },
   methods: {
     addTaskParam() {
-      console.log(this.taskParam)
+      this.getQuery()
       this.$axios.post('task/save', this.taskParam).then((res) => {
         this.success()
         this.clearInput()
       })
     },
+    getQuery() {
+      console.log(this.$route.query.taskParam)
+    },
     success() {
       this.$message({
-        message: '添加清单成功',
+        message: '添加/修改清单成功',
         type: 'success'
       })
     },

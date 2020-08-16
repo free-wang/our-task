@@ -11,6 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskParam {
     /**
+     * 清单id
+     * */
+    Integer id;
+    /**
      * 用户id
      * */
     Integer userId;

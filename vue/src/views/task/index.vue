@@ -47,16 +47,15 @@
         </el-row>
       </el-header>
       <el-main>
-        <el-table :data="taskList" stripe style="width: 100%" border>
+        <el-table :data="taskParamList" stripe style="width: 100%" border>
           <el-table-column prop="name" width="200" label="清单名称" align="center" />
           <el-table-column prop="description" label="清单描述" align="center" />
           <el-table-column width="200" label="操作" align="center">
-
-            <div>
-              <el-button type="text" size="small" @click="deleteTaskById(scope.row.id)">编辑修改</el-button>
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click="changeTaskById(scope.row)">编辑修改</el-button>
               <el-divider direction="vertical" />
               <el-button type="text" size="small" @click="deleteTaskById(scope.row.id)">标记完成</el-button>
-            </div>
+            </template>
           </el-table-column>
         </el-table>
       </el-main>
@@ -140,18 +139,19 @@ export default {
         categoryId: null,
         name: '',
         description: ''
-      }
+      },
+      taskParamList: []
     }
   },
   created() {
-    this.getTaskListByUserId()
+    this.getTaskParamListByUserId()
     this.getUserCategoryList()
     this.getUserLabelList()
   },
   methods: {
-    getTaskListByUserId() {
+    getTaskParamListByUserId() {
       this.$axios.get(`task/getAllList/${this.global.user.id}`).then((res) => {
-        this.taskList = res.data.data
+        this.taskParamList = res.data.data
       })
     },
     getUserCategoryList() {
@@ -164,23 +164,36 @@ export default {
         this.labelList = res.data.data
       })
     },
+    getCategoryIdByTaskId(taskId) {
+      this.taskList.some((item, i) => {
+        if (item.id === taskId) {
+          this.taskParam.categoryId = item.categoryId
+          return true
+        }
+      })
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
+    },
+    deleteTaskById(taskId) {
+      this.$axios.get(`task/delete/${taskId}`).then((res) => {
+        this.taskList.some((item, i) => {
+          if (item.id === taskId) {
+            this.taskList.splice(i, 1)
+            return true
+          }
+        })
+      })
+    },
+    changeTaskById(taskParam) {
+      this.$router.push({ path: '/add/addTask',
+        query: {
+          taskParam: taskParam
+        }})
     }
-    // deleteTaskById(taskId) {
-    //   const _this = this
-    //   _this.$axios.get(`task/delete/${taskId}`).then((res) => {
-    //     this.taskList.some((item, i) => {
-    //       if (item.id === taskId) {
-    //         this.taskList.splice(i, 1)
-    //         return true
-    //       }
-    //     })
-    //   })
-    // },
 
   }
 }

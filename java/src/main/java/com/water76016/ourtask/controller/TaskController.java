@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +42,12 @@ public class TaskController {
     @Autowired
     TaskLabelService taskLabelService;
 
-    @ApiOperation("添加一个新的清单")
+    @ApiOperation("添加/更新一个清单")
     @PostMapping("/save")
-    public RestResult save(@RequestBody TaskParam taskParam){
-        Task task = new Task(taskParam.getUserId(), taskParam.getCategoryId(), taskParam.getName(),
+    public RestResult saveOrUpdate(@RequestBody TaskParam taskParam){
+        Task task = new Task(taskParam.getId(),taskParam.getUserId(), taskParam.getCategoryId(), taskParam.getName(),
                 taskParam.getDescription());
-        taskService.save(task);
+        taskService.saveOrUpdate(task);
         Integer taskId = task.getId();
         //准备往task_label表里面插值
         List<Integer> labelList = taskParam.getLabelList();
@@ -79,7 +80,20 @@ public class TaskController {
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("run", 1);
         List<Task> taskList = taskService.list(queryWrapper);
-        return RestResult.success("得到当前用户所有未完成清单成功", taskList);
+        List<TaskParam> taskParamList = new ArrayList<>();
+        for (Task task : taskList){
+            Integer taskId = task.getId();
+            List<Integer> integerList = taskLabelService.getLableListByTaskId(taskId);
+            TaskParam taskParam = new TaskParam();
+            taskParam.setId(taskId);
+            taskParam.setUserId(userId);
+            taskParam.setName(task.getName());
+            taskParam.setCategoryId(task.getCategoryId());
+            taskParam.setLabelList(integerList);
+            taskParam.setDescription(task.getDescription());
+            taskParamList.add(taskParam);
+        }
+        return RestResult.success("得到当前用户所有未完成清单成功", taskParamList);
     }
 
     @ApiOperation("查询当前用户当前分类的所有未完成清单")
@@ -108,4 +122,6 @@ public class TaskController {
         IPage<Task> taskIPage = taskService.page(page, queryWrapper);
         return RestResult.success("得到当前分页清单成功", taskIPage);
     }
+
+
 }

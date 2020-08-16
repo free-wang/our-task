@@ -41,4 +41,5 @@ public class LabelController {
         List<Label> labelList = labelService.list(queryWrapper);
         return RestResult.success("得到当前用户所有正在使用的标签成功", labelList);
     }
+
 }
