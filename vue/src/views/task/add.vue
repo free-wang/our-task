@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="所属标签">
         <el-checkbox-group v-model="taskParam.labelList">
-          <el-checkbox v-for="label in labelList" :key="label.id" :label="label.name" :value="label.id" name="type" />
+          <el-checkbox v-for="label in labelList" :key="label.id" :label="label.id" name="type">{{ label.name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="清单描述">
@@ -27,7 +27,7 @@
         />
         <el-form-item>
           <el-button type="primary" @click="addTaskParam">添加/修改</el-button>
-          <el-button @click="onCancel">取消</el-button>
+          <el-button @click="clearInput()">重置</el-button>
         </el-form-item>
       </el-form-item></el-form>
   </div>
@@ -41,21 +41,11 @@ export default {
       selectCategory: '',
       categoryList: [],
       taskParam: {
-        userId: this.global.userId,
+        userId: this.global.user.id,
         categoryId: null,
         name: '',
         labelList: [],
         description: ''
-      },
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
       }
     }
   },
@@ -67,7 +57,14 @@ export default {
     addTaskParam() {
       console.log(this.taskParam)
       this.$axios.post('task/save', this.taskParam).then((res) => {
-        console.log(res.data)
+        this.success()
+        this.clearInput()
+      })
+    },
+    success() {
+      this.$message({
+        message: '添加清单成功',
+        type: 'success'
       })
     },
     onCancel() {
@@ -85,6 +82,12 @@ export default {
       this.$axios.get(`label/getAllList/${this.global.user.id}`).then((res) => {
         this.labelList = res.data.data
       })
+    },
+    clearInput() {
+      this.taskParam.name = ''
+      this.taskParam.categoryId = null
+      this.taskParam.labelList = []
+      this.taskParam.description = ''
     }
   }
 }
