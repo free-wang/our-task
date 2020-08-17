@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author github:water76016
- * @since 2020-08-15
+ * @since 2020-08-17
  */
 public interface LabelService extends IService<Label> {
 

@@ -88,7 +88,7 @@ export const constantRoutes = [
       {
         path: 'label',
         name: 'Label',
-        component: () => import('@/views/future/index'),
+        component: () => import('@/views/label/index'),
         meta: { title: '标签列表', icon: 'table' }
       }
     ]

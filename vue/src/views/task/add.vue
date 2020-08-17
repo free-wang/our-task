@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="所属标签">
         <el-checkbox-group v-model="taskParam.labelList">
-          <el-checkbox v-for="label in labelList" :key="label.id" :label="label.id" name="type">{{ label.name }}</el-checkbox>
+          <el-checkbox v-for="label in labelParamList" :key="label.id" :label="label.id" name="type">{{ label.name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="清单描述">
@@ -40,6 +40,7 @@ export default {
       labelList: [],
       selectCategory: '',
       categoryList: [],
+      labelParamList: [],
       taskParam: {
         id: null,
         userId: this.global.user.id,
@@ -52,7 +53,7 @@ export default {
   },
   created() {
     this.getUserCategoryList()
-    this.getUserLabelList()
+    this.getLabelParamList()
     if (Object.keys(this.$route.query).length !== 0) {
       this.taskParam = this.$route.query.taskParam
     }
@@ -85,9 +86,9 @@ export default {
         this.categoryList = res.data.data
       })
     },
-    getUserLabelList() {
-      this.$axios.get(`label/getAllList/${this.global.user.id}`).then((res) => {
-        this.labelList = res.data.data
+    getLabelParamList() {
+      this.$axios.get(`label/listAll/${this.global.user.id}`).then((res) => {
+        this.labelParamList = res.data.data
       })
     },
     clearInput() {

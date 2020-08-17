@@ -2,16 +2,15 @@
   <div>
     <el-container height="100%">
       <el-main>
-        <el-table :data="taskList" stripe style="width: 100%" border>
+        <el-table :data="categoryParamList" stripe style="width: 100%" border>
           <el-table-column prop="name" label="分类名称" align="center" />
-          <el-table-column prop="description" width="200" label="所含清单总数" align="center" />
+          <el-table-column prop="count" label="所含清单总数" align="center" />
           <el-table-column width="300" label="操作" align="center">
-
-            <div>
-              <el-button type="text" size="small" @click="deleteTaskById(scope.row.id)">编辑修改</el-button>
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click="changeTaskById(scope.row)">编辑修改</el-button>
               <el-divider direction="vertical" />
-              <el-button type="text" size="small" @click="deleteTaskById(scope.row.id)">标记删除</el-button>
-            </div>
+              <el-button type="text" size="small" @click="deleteCategoryById(scope.row.id)">标记完成</el-button>
+            </template>
           </el-table-column>
         </el-table>
       </el-main>
@@ -80,7 +79,7 @@ export default {
         username: 'user'
       },
       taskList: [],
-      categoryList: [],
+      categoryParamList: [],
       currentCategory: {
         id: 1,
         userId: 1,
@@ -104,7 +103,7 @@ export default {
   },
   created() {
     this.getTaskListByUserId()
-    this.getUserCategoryList()
+    this.getUserCategoryParamList()
   },
   methods: {
     getTaskListByUserId() {
@@ -112,9 +111,9 @@ export default {
         this.taskList = res.data.data
       })
     },
-    getUserCategoryList() {
+    getUserCategoryParamList() {
       this.$axios.get(`category/listAll/${this.user.id}`).then((res) => {
-        this.categoryList = res.data.data
+        this.categoryParamList = res.data.data
       })
     },
     handleSizeChange(val) {
@@ -122,18 +121,17 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
+    },
+    deleteCategoryById(categoryId) {
+      this.$axios.get(`category/delete/${categoryId}`).then((res) => {
+        this.categoryParamList.some((item, i) => {
+          if (item.id === categoryId) {
+            this.categoryParamList.splice(i, 1)
+            return true
+          }
+        })
+      })
     }
-    // deleteTaskById(taskId) {
-    //   const _this = this
-    //   _this.$axios.get(`task/delete/${taskId}`).then((res) => {
-    //     this.taskList.some((item, i) => {
-    //       if (item.id === taskId) {
-    //         this.taskList.splice(i, 1)
-    //         return true
-    //       }
-    //     })
-    //   })
-    // },
 
   }
 }

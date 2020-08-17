@@ -14,12 +14,13 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author github:water76016
- * @since 2020-08-15
+ * @since 2020-08-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Label implements Serializable {
+    //TODO：Label类不能有我用代码生成的构造函数，一有就报错，不知道为什么
 
     private static final long serialVersionUID = 1L;
 
@@ -30,12 +31,12 @@ public class Label implements Serializable {
     private Integer id;
 
     /**
-     * 所属用户id
+     * 用户id
      */
     private Integer userId;
 
     /**
-     * 标签名
+     * 标签名称
      */
     private String name;
 
@@ -52,9 +53,6 @@ public class Label implements Serializable {
     /**
      * 是否还在使用
      */
-    private Boolean run;
-
-
-
+    private Integer run;
 
 }

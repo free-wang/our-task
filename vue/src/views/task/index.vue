@@ -17,10 +17,10 @@
               清单分类:
               <el-select v-model="selectCategory" clearable placeholder="请选择">
                 <el-option
-                  v-for="item in categoryList"
+                  v-for="item in categoryParamList"
                   :key="item.id"
                   :label="item.name"
-                  :value="item.name"
+                  :value="item.id"
                 />
               </el-select>
             </div>
@@ -30,10 +30,10 @@
               标签分类:
               <el-select v-model="selectLabel" multiple placeholder="请选择">
                 <el-option
-                  v-for="label in labelList"
+                  v-for="label in labelParamList"
                   :key="label.id"
                   :label="label.name"
-                  :value="label.name"
+                  :value="label.id"
                 />
               </el-select>
             </div>
@@ -116,11 +116,11 @@ export default {
     return {
       currentPage: 1,
       selectLabel: '',
-      labelList: [],
+      labelParamList: [],
       selectCategory: '',
       searchName: '',
       taskList: [],
-      categoryList: [],
+      categoryParamList: [],
       currentCategory: {
         id: 1,
         userId: 1,
@@ -145,8 +145,8 @@ export default {
   },
   created() {
     this.getTaskParamListByUserId()
-    this.getUserCategoryList()
-    this.getUserLabelList()
+    this.getUserCategoryParamList()
+    this.getLabelParamList()
   },
   methods: {
     getTaskParamListByUserId() {
@@ -154,14 +154,14 @@ export default {
         this.taskParamList = res.data.data
       })
     },
-    getUserCategoryList() {
+    getUserCategoryParamList() {
       this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
-        this.categoryList = res.data.data
+        this.categoryParamList = res.data.data
       })
     },
-    getUserLabelList() {
-      this.$axios.get(`label/getAllList/${this.global.user.id}`).then((res) => {
-        this.labelList = res.data.data
+    getLabelParamList() {
+      this.$axios.get(`label/listAll/${this.global.user.id}`).then((res) => {
+        this.labelParamList = res.data.data
       })
     },
     getCategoryIdByTaskId(taskId) {
@@ -180,9 +180,9 @@ export default {
     },
     deleteTaskById(taskId) {
       this.$axios.get(`task/delete/${taskId}`).then((res) => {
-        this.taskList.some((item, i) => {
+        this.taskParamList.some((item, i) => {
           if (item.id === taskId) {
-            this.taskList.splice(i, 1)
+            this.taskParamList.splice(i, 1)
             return true
           }
         })

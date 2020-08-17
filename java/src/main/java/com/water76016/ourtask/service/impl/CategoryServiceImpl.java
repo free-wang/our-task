@@ -51,16 +51,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             return categoryList;
         }
         List<Category> categoryList = super.list(queryWrapper);
-        List<Category> result = new ArrayList<>();
         for(Category category : categoryList){
-            if (category.getId() == 1 || category.getId() == 2){
-                continue;
-            }
-            result.add(category);
             redisService.lPush(key, category);
         }
-
-        return result;
+        return categoryList;
     }
 
     /**

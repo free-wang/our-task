@@ -3,9 +3,12 @@ package com.water76016.ourtask.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.dto.CategoryParam;
 import com.water76016.ourtask.entity.Category;
+import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.service.CategoryService;
 import com.water76016.ourtask.service.RedisService;
+import com.water76016.ourtask.service.TaskService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +30,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
+    @Autowired
+    TaskService taskService;
+
     @Autowired
     CategoryService categoryService;
 
@@ -62,8 +68,23 @@ public class CategoryController {
         category.setRun(1);
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(category);
+//        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("user_id", userId);
+//        queryWrapper.eq("run", 1);
         List<Category> categoryList = categoryService.list(queryWrapper);
-        return RestResult.success(categoryList);
+        //下面是根据分类id,找到所属的清单总数
+        List<CategoryParam> categoryParamList = new ArrayList<>();
+        for(Category cate : categoryList){
+            Integer categoryId = cate.getId();
+            QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
+            taskQueryWrapper.eq("user_id", userId);
+            taskQueryWrapper.eq("category_id", categoryId);
+            Integer countTask = taskService.count(taskQueryWrapper);
+            CategoryParam categoryParam = new CategoryParam(cate.getId(), cate.getName(), countTask);
+            categoryParamList.add(categoryParam);
+        }
+
+        return RestResult.success(categoryParamList);
     }
 
     @ApiOperation("根据分类id查询分类对象")
