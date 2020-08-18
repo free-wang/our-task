@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container height="100%">
+    <el-container>
       <el-header>
         <el-row>
           <el-col :span="5" align="center">
@@ -75,7 +75,7 @@
           />
         </div></el-col>
         <el-col :span="8"><div>
-          <el-button type="text">添加清单</el-button>
+          <el-button type="text" @click="addTask()">添加清单</el-button>
         </div></el-col>
       </el-row>
     </el-footer>
@@ -88,26 +88,6 @@
   color: #333;
   line-height: 60px;
 }
-
-.el-aside {
-  color: #333;
-}
-
-.demo-table-expand {
-  font-size: 0;
-}
-.demo-table-expand label {
-  width: 90px;
-  color: #99a9bf;
-}
-.demo-table-expand .el-form-item {
-  margin-right: 0;
-  margin-bottom: 0;
-  width: 50%;
-}
-.el-container{
-  height: 100%;
-}
 </style>
 
 <script>
@@ -116,30 +96,10 @@ export default {
     return {
       currentPage: 1,
       selectLabel: '',
-      labelParamList: [],
       selectCategory: '',
       searchName: '',
-      taskList: [],
+      labelParamList: [],
       categoryParamList: [],
-      currentCategory: {
-        id: 1,
-        userId: 1,
-        name: '今天',
-        createTime: null,
-        updateTime: null
-      },
-      currentTask: {
-        id: null,
-        name: '',
-        description: ''
-      },
-      activeName: 'first',
-      newTask: {
-        userId: null,
-        categoryId: null,
-        name: '',
-        description: ''
-      },
       taskParamList: []
     }
   },
@@ -164,14 +124,6 @@ export default {
         this.labelParamList = res.data.data
       })
     },
-    getCategoryIdByTaskId(taskId) {
-      this.taskList.some((item, i) => {
-        if (item.id === taskId) {
-          this.taskParam.categoryId = item.categoryId
-          return true
-        }
-      })
-    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
@@ -193,6 +145,9 @@ export default {
         query: {
           taskParam: taskParam
         }})
+    },
+    addTask() {
+      this.$router.push({ path: '/add/addTask' })
     }
 
   }

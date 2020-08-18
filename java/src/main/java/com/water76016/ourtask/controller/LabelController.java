@@ -4,17 +4,14 @@ package com.water76016.ourtask.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.dto.LabelParam;
+import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.entity.Label;
 import com.water76016.ourtask.entity.TaskLabel;
 import com.water76016.ourtask.service.LabelService;
 import com.water76016.ourtask.service.TaskLabelService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +60,20 @@ public class LabelController {
         label.setRun(0);
         labelService.updateById(label);
         return RestResult.success("已经成功删除一个标签");
+    }
+
+    @ApiOperation("修改标签的名称")
+    @PostMapping("update/{id}")
+    public RestResult update(@PathVariable("id") Integer id, @RequestBody Label label){
+        labelService.updateById(label);
+        return RestResult.success();
+    }
+
+    @ApiOperation("添加一个新的标签")
+    @PostMapping("add")
+    public RestResult add(@RequestBody Label label){
+        labelService.save(label);
+        return RestResult.success(label);
     }
 
 }

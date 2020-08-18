@@ -37,8 +37,6 @@
 export default {
   data() {
     return {
-      labelList: [],
-      selectCategory: '',
       categoryList: [],
       labelParamList: [],
       taskParam: {
@@ -60,14 +58,10 @@ export default {
   },
   methods: {
     addTaskParam() {
-      this.getQuery()
       this.$axios.post('task/save', this.taskParam).then((res) => {
         this.success()
         this.clearInput()
       })
-    },
-    getQuery() {
-      console.log(this.$route.query.taskParam)
     },
     success() {
       this.$message({

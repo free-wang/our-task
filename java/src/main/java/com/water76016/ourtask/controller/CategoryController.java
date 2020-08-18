@@ -37,8 +37,8 @@ public class CategoryController {
     CategoryService categoryService;
 
     @ApiOperation("添加一个新的分类")
-    @PostMapping("add/{userId}")
-    public RestResult add(@PathVariable("userId") Integer userId, @RequestBody Category category){
+    @PostMapping("add")
+    public RestResult add(@RequestBody Category category){
         boolean flag = categoryService.save(category);
         if (flag){
             return RestResult.success(category);

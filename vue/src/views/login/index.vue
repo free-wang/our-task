@@ -122,11 +122,9 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          // todo:这里有问题，要点击两次才能登录成功，后面再看看是什么问题
           this.loading = true
-          // this.$store.dispatch('user/login', this.loginForm).then(() => {
-          this.$axios.post('/login', this.loginForm).then((res) => {
-            this.$store.dispatch('user/login', this.loginForm)
+          this.$store.dispatch('user/login', this.loginForm).then(() => {
+            this.$axios.post('login', this.loginForm)
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           })
