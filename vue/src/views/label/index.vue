@@ -82,7 +82,7 @@ export default {
         inputErrorMessage: '邮箱格式不正确'
       }).then(({ value }) => {
         label.name = value
-        this.$axios.post(`category/update/${label.id}`, label).then((res) => {
+        this.$axios.post(`label/update/${label.id}`, label).then((res) => {
           this.$message({
             type: 'success',
             message: '标签名修改成功: ' + value
