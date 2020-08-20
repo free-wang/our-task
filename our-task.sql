@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 13/08/2020 18:59:37
+ Date: 20/08/2020 14:52:17
 */
 
 SET NAMES utf8mb4;
@@ -29,15 +29,15 @@ CREATE TABLE `category`  (
   `update_time` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `run` tinyint(0) NULL DEFAULT 1 COMMENT '是否被删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES (1, 1, '今天', '2020-05-03 20:13:39', '2020-07-29 15:01:00', 1);
-INSERT INTO `category` VALUES (2, 1, '明天', '2020-05-03 20:13:46', '2020-07-24 15:26:21', 1);
-INSERT INTO `category` VALUES (21, 1, '后天', '2020-05-30 18:32:15', '2020-07-29 15:01:01', 1);
-INSERT INTO `category` VALUES (41, 1, '大后天', '2020-07-24 15:28:25', '2020-07-29 15:01:08', 1);
+INSERT INTO `category` VALUES (1, 1, '今天', '2020-05-03 20:13:39', '2020-08-18 10:30:06', 1);
+INSERT INTO `category` VALUES (41, 1, '明天', '2020-07-24 15:28:25', '2020-08-19 05:55:56', 1);
+INSERT INTO `category` VALUES (85, 1, '购物', '2020-08-20 11:13:25', NULL, 1);
+INSERT INTO `category` VALUES (86, 1, '学习', '2020-08-20 11:13:31', NULL, 1);
 
 -- ----------------------------
 -- Table structure for label
@@ -45,16 +45,26 @@ INSERT INTO `category` VALUES (41, 1, '大后天', '2020-07-24 15:28:25', '2020-
 DROP TABLE IF EXISTS `label`;
 CREATE TABLE `label`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '标签id',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标签名',
+  `user_id` int(0) NULL DEFAULT NULL COMMENT '用户id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标签名称',
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `run` tinyint(1) NULL DEFAULT 1 COMMENT '是否还在使用',
+  `update_time` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `run` tinyint(0) NULL DEFAULT 1 COMMENT '是否还在使用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of label
 -- ----------------------------
+INSERT INTO `label` VALUES (1, 1, '工作', '2020-08-17 16:45:13', '2020-08-18 16:53:39', 1);
+INSERT INTO `label` VALUES (2, 1, '学习', '2020-08-17 16:45:17', '2020-08-18 16:53:39', 1);
+INSERT INTO `label` VALUES (3, 1, '生活', '2020-08-17 16:58:49', '2020-08-19 06:08:09', 1);
+INSERT INTO `label` VALUES (6, 1, '心智', '2020-08-20 11:13:54', NULL, 1);
+INSERT INTO `label` VALUES (7, 1, 'Java', '2020-08-20 11:14:01', NULL, 1);
+INSERT INTO `label` VALUES (8, 1, 'Mysql', '2020-08-20 11:14:10', NULL, 1);
+INSERT INTO `label` VALUES (9, 1, '笔记', '2020-08-20 11:14:24', NULL, 1);
+INSERT INTO `label` VALUES (10, 1, '家人', '2020-08-20 11:14:32', NULL, 1);
+INSERT INTO `label` VALUES (11, 1, '朋友', '2020-08-20 11:14:35', NULL, 1);
 
 -- ----------------------------
 -- Table structure for task
@@ -70,19 +80,16 @@ CREATE TABLE `task`  (
   `update_time` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   `run` tinyint(0) UNSIGNED NULL DEFAULT 1 COMMENT '是否完成',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of task
 -- ----------------------------
-INSERT INTO `task` VALUES (4, 1, 1, '清单', '清单4的描述', '2020-05-03 22:36:53', '2020-08-13 18:58:58', 0);
-INSERT INTO `task` VALUES (6, 1, 1, '吃吃', '吃吃toutou', '2020-05-04 10:35:19', '2020-08-04 15:43:22', 0);
-INSERT INTO `task` VALUES (32, 1, 1, '学猫叫', '喵喵喵', '2020-05-31 19:11:05', '2020-08-04 16:53:46', 0);
-INSERT INTO `task` VALUES (33, 1, 1, '学狗叫', '汪汪汪', '2020-05-31 19:11:14', '2020-08-07 20:29:25', 0);
-INSERT INTO `task` VALUES (34, 1, 1, '学猪叫', '呃呃呃', '2020-05-31 19:11:24', '2020-08-04 14:04:51', 1);
-INSERT INTO `task` VALUES (35, 1, 2, '吃饭', '吃两碗', '2020-05-31 19:11:32', '2020-08-04 14:04:51', 1);
-INSERT INTO `task` VALUES (36, 1, 2, '早起', '6点钟起床', '2020-05-31 19:11:39', '2020-08-04 14:04:51', 1);
-INSERT INTO `task` VALUES (37, 1, 2, '洗澡', '10分钟', '2020-05-31 19:11:50', '2020-08-04 14:04:51', 1);
+INSERT INTO `task` VALUES (4, 1, 1, '早起', '6点钟起床', '2020-05-03 22:36:53', '2020-08-20 11:12:21', 1);
+INSERT INTO `task` VALUES (6, 1, 1, '早睡', '12点准时睡觉', '2020-05-04 10:35:19', '2020-08-20 11:13:03', 1);
+INSERT INTO `task` VALUES (32, 1, 1, '学猫叫', '喵喵喵', '2020-05-31 19:11:05', '2020-08-20 11:12:02', 1);
+INSERT INTO `task` VALUES (33, 1, 1, '学狗叫', '汪汪汪', '2020-05-31 19:11:14', '2020-08-20 11:12:02', 1);
+INSERT INTO `task` VALUES (34, 1, 1, '学猪叫', '呃呃呃', '2020-05-31 19:11:24', '2020-08-20 11:12:02', 1);
 
 -- ----------------------------
 -- Table structure for task_label
@@ -95,11 +102,41 @@ CREATE TABLE `task_label`  (
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of task_label
 -- ----------------------------
+INSERT INTO `task_label` VALUES (1, 78, 1, '2020-08-16 08:31:56', NULL);
+INSERT INTO `task_label` VALUES (2, 78, 2, '2020-08-16 08:31:56', NULL);
+INSERT INTO `task_label` VALUES (3, 79, 1, '2020-08-16 08:42:44', NULL);
+INSERT INTO `task_label` VALUES (4, 80, 1, '2020-08-16 08:42:54', NULL);
+INSERT INTO `task_label` VALUES (5, 81, 1, '2020-08-16 12:41:59', NULL);
+INSERT INTO `task_label` VALUES (6, 81, 2, '2020-08-16 12:41:59', NULL);
+INSERT INTO `task_label` VALUES (7, 4, 1, '2020-08-16 20:22:03', NULL);
+INSERT INTO `task_label` VALUES (8, 4, 2, '2020-08-16 20:22:03', NULL);
+INSERT INTO `task_label` VALUES (9, 37, 1, '2020-08-17 11:18:52', NULL);
+INSERT INTO `task_label` VALUES (10, 37, 2, '2020-08-17 11:18:52', NULL);
+INSERT INTO `task_label` VALUES (11, 32, 1, '2020-08-17 11:19:01', NULL);
+INSERT INTO `task_label` VALUES (12, 32, 2, '2020-08-17 11:19:01', NULL);
+INSERT INTO `task_label` VALUES (13, 32, 1, '2020-08-17 11:19:12', NULL);
+INSERT INTO `task_label` VALUES (14, 32, 2, '2020-08-17 11:19:12', NULL);
+INSERT INTO `task_label` VALUES (15, 32, 1, '2020-08-17 13:37:26', NULL);
+INSERT INTO `task_label` VALUES (16, 32, 2, '2020-08-17 13:37:26', NULL);
+INSERT INTO `task_label` VALUES (17, 32, 1, '2020-08-17 13:37:26', NULL);
+INSERT INTO `task_label` VALUES (18, 32, 2, '2020-08-17 13:37:26', NULL);
+INSERT INTO `task_label` VALUES (19, 89, 2, '2020-08-17 19:24:29', NULL);
+INSERT INTO `task_label` VALUES (20, 90, 2, '2020-08-18 10:21:13', NULL);
+INSERT INTO `task_label` VALUES (21, 35, 2, '2020-08-18 10:21:24', NULL);
+INSERT INTO `task_label` VALUES (22, 91, 1, '2020-08-18 17:00:50', NULL);
+INSERT INTO `task_label` VALUES (23, 91, 2, '2020-08-18 17:00:50', NULL);
+INSERT INTO `task_label` VALUES (24, 92, 1, '2020-08-18 19:37:18', NULL);
+INSERT INTO `task_label` VALUES (25, 92, 2, '2020-08-18 19:37:18', NULL);
+INSERT INTO `task_label` VALUES (26, 36, 1, '2020-08-18 19:38:26', NULL);
+INSERT INTO `task_label` VALUES (27, 36, 2, '2020-08-18 19:38:26', NULL);
+INSERT INTO `task_label` VALUES (28, 36, 1, '2020-08-19 05:41:42', NULL);
+INSERT INTO `task_label` VALUES (29, 36, 2, '2020-08-19 05:41:42', NULL);
+INSERT INTO `task_label` VALUES (30, 36, 3, '2020-08-19 05:41:42', NULL);
 
 -- ----------------------------
 -- Table structure for user
