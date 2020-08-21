@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">Our-Task</h3>
       </div>
 
       <el-form-item prop="username">
@@ -55,8 +55,8 @@
       >Login</el-button>
 
       <div class="tips">
-        <span style="margin-right:20px;">username: user</span>
-        <span>password: any</span>
+        <span style="margin-right:20px;">用户名: user</span>
+        <span>密码: 任意</span>
       </div>
     </el-form>
   </div>
