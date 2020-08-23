@@ -6,7 +6,17 @@ Our-Task项目致力于打造一个完整的清单管理系统，只是为了把
 
 ## 项目文档
 
-文档地址：http://www.daxingyong.cn/
+### 博客地址
+
+Our-Task功能概览：http://www.daxingyong.cn/?p=91
+
+Our-Task安装运行需要的开发环境：http://www.daxingyong.cn/?p=83
+
+Our-Task部署运行：http://www.daxingyong.cn/?p=105
+
+### 公众号地址
+
+
 
 ## 项目介绍
 
