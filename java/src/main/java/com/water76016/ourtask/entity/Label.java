@@ -1,6 +1,7 @@
 package com.water76016.ourtask.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -54,5 +55,11 @@ public class Label implements Serializable {
      * 是否还在使用
      */
     private Integer run;
+
+    /**
+     * 所含清单总数
+     * */
+    @TableField(exist = false)
+    Integer taskCount;
 
 }

@@ -10,6 +10,7 @@ import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.entity.TaskLabel;
 import com.water76016.ourtask.service.TaskLabelService;
 import com.water76016.ourtask.service.TaskService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,15 +98,14 @@ public class TaskController {
         queryWrapper.eq("category_id", categoryId);
         queryWrapper.eq("run", 1);
         List<Task> taskList = taskService.list(queryWrapper);
-        //todo:这里返回的日期还需要修改
         return RestResult.success(taskList);
     }
 
     @ApiOperation("查询当前用户，当前页的所有未完成的清单")
-    @GetMapping("/getPageList/{userId}")
+    @GetMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
     public RestResult getPageList(@PathVariable("userId") Integer userId,
-                         @RequestParam(value = "pageCurrent", defaultValue = "1") @ApiParam("当前页") Integer pageCurrent,
-                         @RequestParam(value = "pageSize", defaultValue = "3") @ApiParam("每页数量") Integer pageSize){
+                                  @PathVariable("pageCurrent") Integer pageCurrent,
+                                  @PathVariable("pageSize") Integer pageSize){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("run", 1);
@@ -113,6 +113,11 @@ public class TaskController {
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
         IPage<Task> taskIPage = taskService.page(page, queryWrapper);
+        for (Task task : taskIPage.getRecords()){
+            Integer taskId = task.getId();
+            List<Integer> labelIdList = taskLabelService.getLableListByTaskId(taskId);
+            task.setLabelList(labelIdList);
+        }
         return RestResult.success("得到当前分页清单成功", taskIPage);
     }
 

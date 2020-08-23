@@ -12,5 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-07-21
  */
 public interface TaskService extends IService<Task> {
+    /**
+     * 根据分类id，找到所含的清单总数
+     * */
+    public Integer countTask(Integer userId, Integer categoryId);
 
 }

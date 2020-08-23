@@ -1,9 +1,11 @@
 package com.water76016.ourtask.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -58,6 +60,12 @@ public class Category implements Serializable {
      * 是否被删除
      */
     private Integer run;
+
+    /**
+     * 所含清单总数
+     * */
+    @TableField(exist = false)
+    Integer taskCount;
 
     public Category(Integer userId, String name) {
         this.userId = userId;

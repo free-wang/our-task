@@ -1,9 +1,11 @@
 package com.water76016.ourtask.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -68,6 +70,14 @@ public class Task implements Serializable {
      * 是否完成
      */
     private Integer run;
+
+    /**
+     * 所属标签列表
+     * */
+    @TableField(exist = false)
+    List<Integer> labelList;
+
+
 
     public Task(Integer userId, Integer categoryId, String name) {
         this.userId = userId;

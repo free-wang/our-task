@@ -2,6 +2,8 @@ package com.water76016.ourtask.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.dto.CategoryParam;
 import com.water76016.ourtask.entity.Category;
@@ -68,9 +70,6 @@ public class CategoryController {
         category.setRun(1);
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(category);
-//        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("user_id", userId);
-//        queryWrapper.eq("run", 1);
         List<Category> categoryList = categoryService.list(queryWrapper);
         //下面是根据分类id,找到所属的清单总数
         List<CategoryParam> categoryParamList = new ArrayList<>();
@@ -91,6 +90,26 @@ public class CategoryController {
     @GetMapping("get/{categoryId}")
     public Category getCategoryById(@PathVariable("categoryId") String categoryId){
         return categoryService.getById(Integer.valueOf(categoryId));
+    }
+
+    @ApiOperation("查询当前用户，当前页的分类列表")
+    @GetMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
+    public RestResult getPageList(@PathVariable("userId") Integer userId,
+                                  @PathVariable("pageCurrent") Integer pageCurrent,
+                                  @PathVariable("pageSize") Integer pageSize){
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("run", 1);
+        Page<Category> page = new Page<>();
+        page.setCurrent(pageCurrent);
+        page.setSize(pageSize);
+        IPage<Category> categoryIPage = categoryService.page(page, queryWrapper);
+        for (Category category : categoryIPage.getRecords()){
+            Integer categoryId = category.getId();
+            Integer countTask = taskService.countTask(userId, categoryId);
+            category.setTaskCount(countTask);
+        }
+        return RestResult.success("得到当前分页清单成功", categoryIPage);
     }
 
 }

@@ -47,7 +47,7 @@
         </el-row>
       </el-header>
       <el-main>
-        <el-table :data="taskParamList" stripe style="width: 100%" border>
+        <el-table :data="taskData.records" stripe style="width: 100%" border>
           <el-table-column prop="name" width="200" label="清单名称" align="center" />
           <el-table-column prop="description" label="清单描述" align="center" />
           <el-table-column width="200" label="操作" align="center">
@@ -65,11 +65,11 @@
         <el-col :span="16"><div>
           <el-pagination
             background
-            :current-page="currentPage"
-            :page-sizes="[100, 200, 300, 400]"
-            :page-size="100"
+            :current-page="taskData.current"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="taskData.size"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="400"
+            :total="taskData.total"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
           />
@@ -100,18 +100,26 @@ export default {
       searchName: '',
       labelParamList: [],
       categoryParamList: [],
-      taskParamList: []
+      taskData: {
+        records: [],
+        total: null,
+        size: null,
+        current: null,
+        orders: [],
+        searchCount: null,
+        pages: null
+      }
     }
   },
   created() {
-    this.getTaskParamListByUserId()
+    this.getTaskDataByUserId(1, 5)
     this.getUserCategoryParamList()
     this.getLabelParamList()
   },
   methods: {
-    getTaskParamListByUserId() {
-      this.$axios.get(`task/getAllList/${this.global.user.id}`).then((res) => {
-        this.taskParamList = res.data.data
+    getTaskDataByUserId(currentPage, pageSize) {
+      this.$axios.get(`task/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
+        this.taskData = res.data.data
       })
     },
     getUserCategoryParamList() {
@@ -125,16 +133,16 @@ export default {
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      this.getTaskDataByUserId(this.taskData.current, val)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      this.getTaskDataByUserId(val, this.taskData.size)
     },
     deleteTaskById(taskId) {
       this.$axios.get(`task/delete/${taskId}`).then((res) => {
-        this.taskParamList.some((item, i) => {
+        this.taskData.records.some((item, i) => {
           if (item.id === taskId) {
-            this.taskParamList.splice(i, 1)
+            this.taskData.records.splice(i, 1)
             return true
           }
         })
