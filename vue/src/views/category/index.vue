@@ -2,9 +2,9 @@
   <div>
     <el-container height="100%">
       <el-main>
-        <el-table :data="categoryParamList" stripe style="width: 100%" border>
+        <el-table :data="categoryData.records" stripe style="width: 100%" border>
           <el-table-column prop="name" label="分类名称" align="center" />
-          <el-table-column prop="count" label="所含清单总数" align="center" />
+          <el-table-column prop="taskCount" label="所含清单总数" align="center" />
           <el-table-column width="300" label="操作" align="center">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="changeCategory(scope.row)">编辑修改</el-button>
@@ -20,11 +20,11 @@
         <el-col :span="16"><div>
           <el-pagination
             background
-            :current-page="currentPage"
-            :page-sizes="[100, 200, 300, 400]"
-            :page-size="100"
+            :current-page="categoryData.current"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="categoryData.size"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="400"
+            :total="categoryData.total"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
           />
@@ -46,29 +46,38 @@ export default {
   data() {
     return {
       currentPage: 1,
-      categoryParamList: []
+      categoryParamList: [],
+      categoryData: {
+        records: [],
+        total: null,
+        size: null,
+        current: null,
+        orders: [],
+        searchCount: null,
+        pages: null
+      }
     }
   },
   created() {
-    this.getUserCategoryParamList()
+    this.getUsercategoryDataList(1, 5)
   },
   methods: {
-    getUserCategoryParamList() {
-      this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
-        this.categoryParamList = res.data.data
+    getUsercategoryDataList(currentPage, pageSize) {
+      this.$axios.get(`category/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
+        this.categoryData = res.data.data
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      this.getUsercategoryDataList(this.categoryData.current, val)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      this.getUsercategoryDataList(val, this.categoryData.size)
     },
     deleteCategoryById(categoryId) {
       this.$axios.get(`category/delete/${categoryId}`).then((res) => {
-        this.categoryParamList.some((item, i) => {
+        this.categoryData.records.some((item, i) => {
           if (item.id === categoryId) {
-            this.categoryParamList.splice(i, 1)
+            this.categoryData.records.splice(i, 1)
             return true
           }
         })
@@ -108,7 +117,7 @@ export default {
         this.$axios.post('category/add/', category).then((res) => {
           category.id = res.data.data.id
           category.count = 0
-          this.categoryParamList.push(category)
+          this.categoryData.records.push(category)
           this.$message({
             type: 'success',
             message: '添加分类成功: ' + value

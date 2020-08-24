@@ -2,6 +2,8 @@ package com.water76016.ourtask.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.dto.LabelParam;
 import com.water76016.ourtask.entity.Category;
@@ -9,6 +11,7 @@ import com.water76016.ourtask.entity.Label;
 import com.water76016.ourtask.entity.TaskLabel;
 import com.water76016.ourtask.service.LabelService;
 import com.water76016.ourtask.service.TaskLabelService;
+import com.water76016.ourtask.service.TaskService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,9 @@ public class LabelController {
 
     @Autowired
     TaskLabelService taskLabelService;
+
+    @Autowired
+    TaskService taskService;
 
     @ApiOperation("查询当前用户的所有标签")
     @GetMapping("listAll/{userId}")
@@ -75,5 +81,27 @@ public class LabelController {
         labelService.save(label);
         return RestResult.success(label);
     }
+
+    @ApiOperation("查询当前用户，当前页的标签列表")
+    @GetMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
+    public RestResult getPageList(@PathVariable("userId") Integer userId,
+                                  @PathVariable("pageCurrent") Integer pageCurrent,
+                                  @PathVariable("pageSize") Integer pageSize){
+        QueryWrapper<Label> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("run", 1);
+        Page<Label> page = new Page<>();
+        page.setCurrent(pageCurrent);
+        page.setSize(pageSize);
+        IPage<Label> labelIPage = labelService.page(page, queryWrapper);
+        for (Label label : labelIPage.getRecords()){
+            Integer labelId = label.getId();
+            Integer countTask = taskService.countTask(userId, labelId);
+            label.setTaskCount(countTask);
+        }
+        return RestResult.success("得到当前分页标签成功", labelIPage);
+    }
+
+
 
 }

@@ -2,9 +2,9 @@
   <div>
     <el-container height="100%">
       <el-main>
-        <el-table :data="labelParamList" stripe style="width: 100%" border>
+        <el-table :data="labelData.records" stripe style="width: 100%" border>
           <el-table-column prop="name" label="标签名称" align="center" />
-          <el-table-column prop="count" label="所含清单总数" align="center" />
+          <el-table-column prop="taskCount" label="所含清单总数" align="center" />
           <el-table-column width="300" label="操作" align="center">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="changeLabel(scope.row)">编辑修改</el-button>
@@ -20,11 +20,11 @@
         <el-col :span="16"><div>
           <el-pagination
             background
-            :current-page="currentPage"
-            :page-sizes="[100, 200, 300, 400]"
-            :page-size="100"
+            :current-page="labelData.current"
+            :page-sizes="[5,10,15,20]"
+            :page-size="labelData.size"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="400"
+            :total="labelData.total"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
           />
@@ -45,30 +45,37 @@
 export default {
   data() {
     return {
-      currentPage: 1,
-      labelParamList: []
+      labelData: {
+        records: [],
+        total: null,
+        size: null,
+        current: null,
+        orders: [],
+        searchCount: null,
+        pages: null
+      }
     }
   },
   created() {
-    this.getLabelParamList()
+    this.getlabelData(1, 5)
   },
   methods: {
-    getLabelParamList() {
-      this.$axios.get(`label/listAll/${this.global.user.id}`).then((res) => {
-        this.labelParamList = res.data.data
+    getlabelData(currentPage, pageSize) {
+      this.$axios.get(`label/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
+        this.labelData = res.data.data
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      this.getlabelData(this.labelData.current, val)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      this.getlabelData(val, this.labelData.size)
     },
     deleteLabelById(labelId) {
       this.$axios.get(`label/delete/${labelId}`).then((res) => {
-        this.labelParamList.some((item, i) => {
+        this.labelData.records.some((item, i) => {
           if (item.id === labelId) {
-            this.labelParamList.splice(i, 1)
+            this.labelData.records.splice(i, 1)
             return true
           }
         })
@@ -106,7 +113,7 @@ export default {
         this.$axios.post('label/add/', label).then((res) => {
           label.id = res.data.data.id
           label.count = 0
-          this.labelParamList.push(label)
+          this.labelData.records.push(label)
           this.$message({
             type: 'success',
             message: '添加标签成功: ' + value

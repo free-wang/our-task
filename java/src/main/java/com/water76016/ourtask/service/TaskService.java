@@ -17,4 +17,9 @@ public interface TaskService extends IService<Task> {
      * */
     public Integer countTask(Integer userId, Integer categoryId);
 
+    /**
+     * 根据标签id，找到所含的清单总数
+     * */
+    public Integer countTaskByLabelId(Integer userId, Integer labelId);
+
 }

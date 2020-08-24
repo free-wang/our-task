@@ -26,4 +26,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         Integer countTask = count(taskQueryWrapper);
         return countTask;
     }
+
+    @Override
+    public Integer countTaskByLabelId(Integer userId, Integer labelId) {
+        QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
+        taskQueryWrapper.eq("user_id", userId);
+        taskQueryWrapper.eq("label_id", labelId);
+        Integer countTask = count(taskQueryWrapper);
+        return countTask;
+    }
+
+
 }

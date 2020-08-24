@@ -61,6 +61,7 @@ export default {
       this.$axios.post('task/save', this.taskParam).then((res) => {
         this.success()
         this.clearInput()
+        this.$router.push({ path: '/show/task' })
       })
     },
     success() {
