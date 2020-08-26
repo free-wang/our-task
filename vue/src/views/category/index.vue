@@ -9,15 +9,15 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="changeCategory(scope.row)">编辑修改</el-button>
               <el-divider direction="vertical" />
-              <el-button type="text" size="small" @click="deleteCategoryById(scope.row.id)">标记完成</el-button>
+              <el-button type="text" size="small" @click="deleteCategoryById(scope.row.id)">删除分类</el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-main>
     </el-container>
     <el-footer>
-      <el-row>
-        <el-col :span="16"><div>
+      <el-row type="flex">
+        <el-col :span="16" justify="center"><div>
           <el-pagination
             background
             :current-page="categoryData.current"
@@ -74,12 +74,20 @@ export default {
       this.getUsercategoryDataList(val, this.categoryData.size)
     },
     deleteCategoryById(categoryId) {
-      this.$axios.get(`category/delete/${categoryId}`).then((res) => {
-        this.categoryData.records.some((item, i) => {
-          if (item.id === categoryId) {
-            this.categoryData.records.splice(i, 1)
-            return true
-          }
+      this.$confirm('您正在删除该分类, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info'
+      }).then(() => {
+        this.$axios.get(`category/delete/${categoryId}`).then((res) => {
+          this.getUsercategoryDataList(1, 5)
+        })
+        this.success('删除清单成功')
+        this.getUsercategoryDataList(1, 5)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
         })
       })
     },
@@ -87,17 +95,14 @@ export default {
       this.$prompt('请输入新的分类名称', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        inputErrorMessage: '邮箱格式不正确'
+        inputPattern: /^[\u4e00-\u9fffa-zA-Z]{1,6}$/,
+        inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         console.log(category)
         category.name = value
 
         this.$axios.post(`category/update/${category.id}`, category).then((res) => {
-          this.$message({
-            type: 'success',
-            message: '分类名修改成功: ' + value
-          })
+          this.success('分类名修改成功:' + value)
         })
       }).catch(() => {
         this.$message({
@@ -110,24 +115,27 @@ export default {
       this.$prompt('请输入新的分类名称', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        inputErrorMessage: '邮箱格式不正确'
+        inputPattern: /^[\u4e00-\u9fffa-zA-Z]{1,6}$/,
+        inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         var category = { id: null, userId: this.global.user.id, name: value }
         this.$axios.post('category/add/', category).then((res) => {
           category.id = res.data.data.id
           category.count = 0
           this.categoryData.records.push(category)
-          this.$message({
-            type: 'success',
-            message: '添加分类成功: ' + value
-          })
+          this.success('添加分类成功: ' + value)
         })
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '取消输入'
         })
+      })
+    },
+    success(message) {
+      this.$message({
+        message: message,
+        type: 'success'
       })
     }
 

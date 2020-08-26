@@ -1,14 +1,14 @@
 <template>
   <div class="app-container">
-    <el-form ref="taskParam" :model="taskParam" label-width="120px">
-      <el-form-item label="清单名称">
+    <el-form ref="taskParam" :model="taskParam" :rules="rules" label-width="120px">
+      <el-form-item label="清单名称" prop="name">
         <el-input
           v-model="taskParam.name"
           maxlength="6"
           show-word-limit
         />
       </el-form-item>
-      <el-form-item label="清单分类">
+      <el-form-item label="清单分类" prop="categoryId">
         <el-select v-model="taskParam.categoryId" placeholder="请选择...">
           <el-option v-for="category in categoryList" :key="category.id" :label="category.name" :value="category.id" />
         </el-select>
@@ -22,11 +22,11 @@
         <el-input
           v-model="taskParam.description"
           type="textarea"
-          maxlength="20"
+          maxlength="30"
           show-word-limit
         />
         <el-form-item>
-          <el-button type="primary" @click="addTaskParam">添加/修改</el-button>
+          <el-button type="primary" @click="addTaskParam('taskParam')">添加/修改</el-button>
           <el-button @click="clearInput()">重置</el-button>
         </el-form-item>
       </el-form-item></el-form>
@@ -46,6 +46,14 @@ export default {
         name: '',
         labelList: [],
         description: ''
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入清单名称', trigger: 'blur' }
+        ],
+        categoryId: [
+          { required: true, message: '请勾选清单分类', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -57,11 +65,18 @@ export default {
     }
   },
   methods: {
-    addTaskParam() {
-      this.$axios.post('task/save', this.taskParam).then((res) => {
-        this.success()
-        this.clearInput()
-        this.$router.push({ path: '/show/task' })
+    addTaskParam(taskParam) {
+      this.$refs[taskParam].validate((valid) => {
+        if (valid) {
+          this.$axios.post('task/save', this.taskParam).then((res) => {
+            this.success()
+            this.clearInput()
+            this.$router.push({ path: '/show/task' })
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
       })
     },
     success() {

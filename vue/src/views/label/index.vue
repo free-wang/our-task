@@ -72,12 +72,19 @@ export default {
       this.getlabelData(val, this.labelData.size)
     },
     deleteLabelById(labelId) {
-      this.$axios.get(`label/delete/${labelId}`).then((res) => {
-        this.labelData.records.some((item, i) => {
-          if (item.id === labelId) {
-            this.labelData.records.splice(i, 1)
-            return true
-          }
+      this.$confirm('您正在删除该标签, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info'
+      }).then(() => {
+        this.$axios.get(`label/delete/${labelId}`).then((res) => {
+          this.getlabelData(1, 5)
+          this.success('删除标签成功')
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
         })
       })
     },
@@ -85,15 +92,12 @@ export default {
       this.$prompt('请输入新的标签名称', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        inputErrorMessage: '邮箱格式不正确'
+        inputPattern: /^[\u4e00-\u9fffa-zA-Z]{1,6}$/,
+        inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         label.name = value
         this.$axios.post(`label/update/${label.id}`, label).then((res) => {
-          this.$message({
-            type: 'success',
-            message: '标签名修改成功: ' + value
-          })
+          this.success('标签名修改成功: ' + value)
         })
       }).catch(() => {
         this.$message({
@@ -106,24 +110,27 @@ export default {
       this.$prompt('请输入新的标签名称', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        inputErrorMessage: '邮箱格式不正确'
+        inputPattern: /^[\u4e00-\u9fffa-zA-Z]{1,6}$/,
+        inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         var label = { id: null, userId: this.global.user.id, name: value }
         this.$axios.post('label/add/', label).then((res) => {
           label.id = res.data.data.id
           label.count = 0
           this.labelData.records.push(label)
-          this.$message({
-            type: 'success',
-            message: '添加标签成功: ' + value
-          })
+          this.success('添加标签成功: ' + value)
         })
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '取消输入'
         })
+      })
+    },
+    success(message) {
+      this.$message({
+        message: message,
+        type: 'success'
       })
     }
 

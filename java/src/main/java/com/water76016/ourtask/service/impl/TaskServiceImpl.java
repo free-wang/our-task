@@ -30,6 +30,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
         taskQueryWrapper.eq("user_id", userId);
         taskQueryWrapper.eq("category_id", categoryId);
+        taskQueryWrapper.eq("run", 1);
         Integer countTask = count(taskQueryWrapper);
         return countTask;
     }
@@ -37,6 +38,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public Integer countTaskByLabelId(Integer userId, Integer labelId) {
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
+        taskQueryWrapper.eq("run", 1);
         taskQueryWrapper.eq("user_id", userId);
         taskQueryWrapper.eq("label_id", labelId);
         Integer countTask = count(taskQueryWrapper);
