@@ -50,7 +50,7 @@ export const constantRoutes = [
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/future/index'),
+      component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
@@ -62,7 +62,7 @@ export const constantRoutes = [
       path: 'addTask',
       name: 'AddTask',
       component: () => import('@/views/task/add'),
-      meta: { title: '添加清单', icon: 'dashboard' }
+      meta: { title: '添加清单', icon: 'addTask' }
     }]
   },
 
@@ -71,13 +71,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/show/all',
     name: 'Show',
-    meta: { title: '列表', icon: 'el-icon-s-help' },
+    meta: { title: '列表', icon: 'list' },
     children: [
       {
         path: 'task',
         name: 'Task',
         component: () => import('@/views/task/index'),
-        meta: { title: '清单列表', icon: 'tree' }
+        meta: { title: '清单列表', icon: 'task' }
       },
       {
         path: 'category',
@@ -101,22 +101,10 @@ export const constantRoutes = [
     meta: { title: '帮助中心', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'systemSettings',
-        name: 'systemSettings',
-        component: () => import('@/views/future/index'),
-        meta: { title: '系统设置', icon: 'tree' }
-      },
-      {
         path: 'feedback',
         name: 'feedback',
-        component: () => import('@/views/future/index'),
-        meta: { title: '提交反馈', icon: 'tree' }
-      },
-      {
-        path: 'contact',
-        name: 'contact',
-        component: () => import('@/views/future/index'),
-        meta: { title: '联系我', icon: 'tree' }
+        component: () => import('@/views/feedback/index'),
+        meta: { title: '提交反馈', icon: 'user' }
       }
     ]
   }

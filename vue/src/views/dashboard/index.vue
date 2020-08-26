@@ -1,32 +1,51 @@
 <template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-    <div class="dashboard-text">roles: <span v-for="role in roles" :key="role">{{ role }}</span></div>
+  <div>
+    <el-row>
+      <el-col :span="12">
+        <div>
+          <ve-line :data="dayData" />
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div>
+          <ve-line :data="weekData" />
+        </div>
+      </el-col>
+    </el-row>
   </div>
+
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
+  data: function() {
+    return {
+      dayData: {
+        columns: ['日期', '清单完成数'],
+        rows: null
+      },
+      weekData: {
+        columns: ['日期', '清单完成数'],
+        rows: null
+      }
+    }
+  },
+  created() {
+    this.getDayData()
+    this.getWeekData()
+  },
+  methods: {
+    getDayData() {
+      this.$axios.get(`task/countTaskForDay/${this.global.user.id}`).then((res) => {
+        this.dayData.rows = res.data.data
+      })
+    },
+    getWeekData() {
+      this.$axios.get(`task/countTaskForWeek/${this.global.user.id}`).then((res) => {
+        this.weekData.rows = res.data.data
+      })
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
-</style>

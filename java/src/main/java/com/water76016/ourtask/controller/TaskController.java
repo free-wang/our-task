@@ -16,8 +16,13 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.IconUIResource;
+import javax.xml.transform.Result;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * <p>
@@ -121,5 +126,19 @@ public class TaskController {
         return RestResult.success("得到当前分页清单成功", taskIPage);
     }
 
+    @ApiOperation("获取最近一周的清单完成情况")
+    @GetMapping("/countTaskForDay/{userId}")
+    public RestResult countTaskForDay(@PathVariable("userId") Integer userId){
+        List<TreeMap<String, String>> result = taskService.countTaskForDay(userId);
+        return RestResult.success(result);
+    }
+
+
+    @ApiOperation("获取最近七周的清单完成情况")
+    @GetMapping("/countTaskForWeek/{userId}")
+    public RestResult countTaskForWeek(@PathVariable("userId") Integer userId){
+        List<TreeMap<String, String>> result = taskService.countTaskForWeek(userId);
+        return RestResult.success(result);
+    }
 
 }
