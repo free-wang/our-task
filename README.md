@@ -16,7 +16,11 @@ Our-Task部署运行：http://www.daxingyong.cn/?p=105
 
 ### 公众号地址
 
+Our-Task功能概览：https://mp.weixin.qq.com/s/xsNplb86oFClk0e11eTn9Q
 
+Our-Task安装运行需要的开发环境：https://mp.weixin.qq.com/s/7uBVRP77JlHnOXAS5Qn3eQ
+
+Our-Task部署运行：https://mp.weixin.qq.com/s/fOSibwEupgwLO7PSfQxEeA
 
 ## 项目介绍
 
