@@ -17,7 +17,7 @@
     </el-container>
     <el-footer>
       <el-row>
-        <el-col :span="16"><div>
+        <el-col :span="16" style="text-align:center"><div>
           <el-pagination
             background
             :current-page="labelData.current"
@@ -29,7 +29,7 @@
             @current-change="handleCurrentChange"
           />
         </div></el-col>
-        <el-col :span="8"><div>
+        <el-col :span="8" style="text-align:center"><div>
           <el-button type="text" @click="addLabel()">添加标签</el-button>
         </div></el-col>
       </el-row>
@@ -79,7 +79,7 @@ export default {
       }).then(() => {
         this.$axios.get(`label/delete/${labelId}`).then((res) => {
           this.getlabelData(1, 5)
-          this.success('删除标签成功')
+          this.success('标签已成功删除')
         })
       }).catch(() => {
         this.$message({
@@ -92,7 +92,7 @@ export default {
       this.$prompt('请输入新的标签名称', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        inputPattern: /^[\u4e00-\u9fffa-zA-Z]{1,6}$/,
+        inputPattern: /^[\u4e00-\u9fffa-zA-Z0-9]{1,6}$/,
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         label.name = value

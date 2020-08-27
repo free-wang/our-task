@@ -69,7 +69,7 @@ export const constantRoutes = [
   {
     path: '/show',
     component: Layout,
-    redirect: '/show/all',
+    redirect: '/show/task',
     name: 'Show',
     meta: { title: '列表', icon: 'list' },
     children: [
@@ -96,7 +96,7 @@ export const constantRoutes = [
   {
     path: '/help',
     component: Layout,
-    redirect: '/help/all',
+    redirect: '/help/feedback',
     name: 'help',
     meta: { title: '帮助中心', icon: 'el-icon-s-help' },
     children: [
@@ -105,6 +105,12 @@ export const constantRoutes = [
         name: 'feedback',
         component: () => import('@/views/feedback/index'),
         meta: { title: '提交反馈', icon: 'user' }
+      },
+      {
+        path: 'question',
+        name: 'question',
+        component: () => import('@/views/question/index'),
+        meta: { title: '待开发问题', icon: 'list' }
       }
     ]
   }

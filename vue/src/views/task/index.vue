@@ -62,7 +62,7 @@
     </el-container>
     <el-footer>
       <el-row>
-        <el-col :span="16"><div>
+        <el-col :span="16" style="text-align:center"><div>
           <el-pagination
             background
             :current-page="taskData.current"
@@ -74,7 +74,7 @@
             @current-change="handleCurrentChange"
           />
         </div></el-col>
-        <el-col :span="8"><div>
+        <el-col :span="8" style="text-align:center"><div>
           <el-button type="text" @click="addTask()">添加清单</el-button>
         </div></el-col>
       </el-row>
@@ -140,12 +140,9 @@ export default {
     },
     deleteTaskById(taskId) {
       this.$axios.get(`task/delete/${taskId}`).then((res) => {
-        this.taskData.records.some((item, i) => {
-          if (item.id === taskId) {
-            this.taskData.records.splice(i, 1)
-            return true
-          }
-        })
+        // 标记完成之后，要重新进行一次查找，这样才会在当前页显示足够的清单数
+        this.success('该清单标记完成')
+        this.getTaskDataByUserId(1, 5)
       })
     },
     changeTaskById(taskParam) {
@@ -156,6 +153,12 @@ export default {
     },
     addTask() {
       this.$router.push({ path: '/add/addTask' })
+    },
+    success(info) {
+      this.$message({
+        message: info,
+        type: 'success'
+      })
     }
 
   }
