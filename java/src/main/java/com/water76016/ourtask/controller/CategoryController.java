@@ -103,13 +103,13 @@ public class CategoryController {
         Page<Category> page = new Page<>();
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
-        IPage<Category> categoryIPage = categoryService.page(page, queryWrapper);
-        for (Category category : categoryIPage.getRecords()){
+        IPage<Category> categoryPage = categoryService.page(page, queryWrapper);
+        for (Category category : categoryPage.getRecords()){
             Integer categoryId = category.getId();
             Integer countTask = taskService.countTask(userId, categoryId);
             category.setTaskCount(countTask);
         }
-        return RestResult.success("得到当前分页清单成功", categoryIPage);
+        return RestResult.success("得到当前分页清单成功", categoryPage);
     }
 
 }

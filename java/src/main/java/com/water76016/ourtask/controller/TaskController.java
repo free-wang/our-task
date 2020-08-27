@@ -117,13 +117,13 @@ public class TaskController {
         Page<Task> page = new Page<>();
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
-        IPage<Task> taskIPage = taskService.page(page, queryWrapper);
-        for (Task task : taskIPage.getRecords()){
+        IPage<Task> taskPage = taskService.page(page, queryWrapper);
+        for (Task task : taskPage.getRecords()){
             Integer taskId = task.getId();
             List<Integer> labelIdList = taskLabelService.getLableListByTaskId(taskId);
             task.setLabelList(labelIdList);
         }
-        return RestResult.success("得到当前分页清单成功", taskIPage);
+        return RestResult.success("得到当前分页清单成功", taskPage);
     }
 
     @ApiOperation("获取最近一周的清单完成情况")

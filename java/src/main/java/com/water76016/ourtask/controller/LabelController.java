@@ -93,13 +93,13 @@ public class LabelController {
         Page<Label> page = new Page<>();
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
-        IPage<Label> labelIPage = labelService.page(page, queryWrapper);
-        for (Label label : labelIPage.getRecords()){
+        IPage<Label> labelPage = labelService.page(page, queryWrapper);
+        for (Label label : labelPage.getRecords()){
             Integer labelId = label.getId();
             Integer countTask = taskService.countTask(userId, labelId);
             label.setTaskCount(countTask);
         }
-        return RestResult.success("得到当前分页标签成功", labelIPage);
+        return RestResult.success("得到当前分页标签成功", labelPage);
     }
 
 
