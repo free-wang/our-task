@@ -3,6 +3,7 @@ package com.water76016.ourtask.service.impl;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.water76016.ourtask.dto.Statistics;
 import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.mapper.TaskMapper;
 import com.water76016.ourtask.service.TaskService;
@@ -68,8 +69,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 format = "今天";
             }
             TreeMap<String, String> treeMap = new TreeMap<>();
-            treeMap.put("日期", format);
-            treeMap.put("清单完成数", String.valueOf(count));
+            treeMap.put("date", format);
+            treeMap.put("day", String.valueOf(count));
             result.add(treeMap);
         }
         return result;
@@ -98,11 +99,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 format = "本周";
             }
             TreeMap<String, String> treeMap = new TreeMap<>();
-            treeMap.put("日期", format);
-            treeMap.put("清单完成数", String.valueOf(count));
+            treeMap.put("date", format);
+            treeMap.put("week", String.valueOf(count));
             result.add(treeMap);
         }
         return result;
+    }
+
+    @Override
+    public Statistics getStatistics(Integer userId) {
+
     }
 
 }

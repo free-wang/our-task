@@ -20,4 +20,9 @@ public interface TaskLabelService extends IService<TaskLabel> {
      */
     public List<Integer> getLableListByTaskId(Integer taskId);
 
+    /**
+     * 根据标签id列表，查询对应的id列表
+     * */
+    public List<Integer> getTaskIdListByLabelIdList(List<Integer> labelIdList);
+
 }

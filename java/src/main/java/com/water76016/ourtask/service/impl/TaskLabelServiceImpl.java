@@ -35,4 +35,16 @@ public class TaskLabelServiceImpl extends ServiceImpl<TaskLabelMapper, TaskLabel
         return integerList;
     }
 
+    @Override
+    public List<Integer> getTaskIdListByLabelIdList(List<Integer> labelIdList) {
+        QueryWrapper<TaskLabel> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("label_id", labelIdList);
+        List<TaskLabel> taskLabelList = list(queryWrapper);
+        List<Integer> result = new ArrayList<>();
+        for (TaskLabel taskLabel : taskLabelList){
+            result.add(taskLabel.getTaskId());
+        }
+        return result;
+    }
+
 }

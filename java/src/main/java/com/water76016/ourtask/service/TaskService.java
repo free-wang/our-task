@@ -1,5 +1,6 @@
 package com.water76016.ourtask.service;
 
+import com.water76016.ourtask.dto.Statistics;
 import com.water76016.ourtask.entity.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -36,5 +37,11 @@ public interface TaskService extends IService<Task> {
      * 查询某个用户，最近七周的完成情况
      * */
     public List<TreeMap<String, String>> countTaskForWeek(Integer userId);
+
+    /**
+     * 查询某个用户的统计情况
+     * */
+    public Statistics getStatistics(Integer userId);
+
 
 }

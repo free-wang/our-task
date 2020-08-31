@@ -6,7 +6,7 @@
           <el-col :span="5" align="center">
             <div>
               <el-input
-                v-model="searchName"
+                v-model="selectCondition.name"
                 placeholder="输入清单名称进行搜索"
                 prefix-icon="el-icon-search"
               />
@@ -15,7 +15,7 @@
           <el-col :span="8" align="center">
             <div>
               清单分类:
-              <el-select v-model="selectCategory" clearable placeholder="请选择">
+              <el-select v-model="selectCondition.categoryId" clearable placeholder="请选择">
                 <el-option
                   v-for="item in categoryParamList"
                   :key="item.id"
@@ -28,7 +28,7 @@
           <el-col :span="8" align="center">
             <div>
               标签分类:
-              <el-select v-model="selectLabel" multiple placeholder="请选择">
+              <el-select v-model="selectCondition.labelIdList" multiple placeholder="请选择">
                 <el-option
                   v-for="label in labelParamList"
                   :key="label.id"
@@ -40,8 +40,7 @@
           </el-col>
           <el-col :span="3" align="center">
             <el-row>
-              <el-button>重置</el-button>
-              <el-button type="primary">查询</el-button>
+              <el-button type="primary" @click="getTaskDataByUserId(taskData.current, taskData.size, selectCondition)">查询</el-button>
             </el-row>
           </el-col>
         </el-row>
@@ -62,7 +61,7 @@
     </el-container>
     <el-footer>
       <el-row>
-        <el-col :span="16" style="text-align:center"><div>
+        <el-col :span="16"><div>
           <el-pagination
             background
             :current-page="taskData.current"
@@ -74,7 +73,7 @@
             @current-change="handleCurrentChange"
           />
         </div></el-col>
-        <el-col :span="8" style="text-align:center"><div>
+        <el-col :span="8"><div>
           <el-button type="text" @click="addTask()">添加清单</el-button>
         </div></el-col>
       </el-row>
@@ -94,10 +93,11 @@
 export default {
   data() {
     return {
-      currentPage: 1,
-      selectLabel: '',
-      selectCategory: '',
-      searchName: '',
+      selectCondition: {
+        labelIdList: [],
+        categoryId: null,
+        name: null
+      },
       labelParamList: [],
       categoryParamList: [],
       taskData: {
@@ -112,13 +112,13 @@ export default {
     }
   },
   created() {
-    this.getTaskDataByUserId(1, 5)
+    this.getTaskDataByUserId(1, 5, this.selectCondition)
     this.getUserCategoryParamList()
     this.getLabelParamList()
   },
   methods: {
-    getTaskDataByUserId(currentPage, pageSize) {
-      this.$axios.get(`task/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
+    getTaskDataByUserId(currentPage, pageSize, selectCondition) {
+      this.$axios.post(`task/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`, this.selectCondition).then((res) => {
         this.taskData = res.data.data
       })
     },
@@ -133,16 +133,16 @@ export default {
       })
     },
     handleSizeChange(val) {
-      this.getTaskDataByUserId(this.taskData.current, val)
+      this.getTaskDataByUserId(this.taskData.current, val, this.selectCondition)
     },
     handleCurrentChange(val) {
-      this.getTaskDataByUserId(val, this.taskData.size)
+      this.getTaskDataByUserId(val, this.taskData.size, this.selectCondition)
     },
     deleteTaskById(taskId) {
       this.$axios.get(`task/delete/${taskId}`).then((res) => {
         // 标记完成之后，要重新进行一次查找，这样才会在当前页显示足够的清单数
         this.success('该清单标记完成')
-        this.getTaskDataByUserId(1, 5)
+        this.getTaskDataByUserId(1, 5, this.selectCondition)
       })
     },
     changeTaskById(taskParam) {
@@ -164,3 +164,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  .el-col {
+    border-radius: 4px;
+    text-align:center
+  }
+</style>

@@ -17,7 +17,7 @@
     </el-container>
     <el-footer>
       <el-row>
-        <el-col :span="16" style="text-align:center"><div>
+        <el-col :span="16"><div>
           <el-pagination
             background
             :current-page="categoryData.current"
@@ -29,7 +29,7 @@
             @current-change="handleCurrentChange"
           />
         </div></el-col>
-        <el-col :span="8" style="text-align:center"><div>
+        <el-col :span="8"><div>
           <el-button type="text" @click="addCategory()">添加分类</el-button>
         </div></el-col>
       </el-row>
@@ -142,3 +142,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  .el-col {
+    border-radius: 4px;
+    text-align:center
+  }
+</style>

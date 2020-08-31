@@ -1,10 +1,12 @@
 package com.water76016.ourtask.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.dto.SelectCondition;
 import com.water76016.ourtask.dto.TaskParam;
 import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.entity.TaskLabel;
@@ -107,13 +109,29 @@ public class TaskController {
     }
 
     @ApiOperation("查询当前用户，当前页的所有未完成的清单")
-    @GetMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
+    @PostMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
     public RestResult getPageList(@PathVariable("userId") Integer userId,
                                   @PathVariable("pageCurrent") Integer pageCurrent,
-                                  @PathVariable("pageSize") Integer pageSize){
+                                  @PathVariable("pageSize") Integer pageSize,
+                                  @RequestBody SelectCondition selectCondition){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("run", 1);
+        String name = selectCondition.getName();
+        Integer categoryId = selectCondition.getCategoryId();
+        List<Integer> selectLabelIdList = selectCondition.getLabelIdList();
+        if (StrUtil.hasEmpty(name) == false){
+            queryWrapper.like("name", name).or().like("description", name);
+        }
+        if (categoryId != null){
+            queryWrapper.eq("category_id", categoryId);
+        }
+        if (selectLabelIdList.size() > 0){
+            List<Integer> idList = taskLabelService.getTaskIdListByLabelIdList(selectLabelIdList);
+            if (idList != null && idList.size() > 0){
+                queryWrapper.in("id", idList);
+            }
+        }
         Page<Task> page = new Page<>();
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
