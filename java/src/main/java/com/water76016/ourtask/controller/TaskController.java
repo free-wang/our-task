@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.dto.SelectCondition;
+import com.water76016.ourtask.dto.Statistics;
 import com.water76016.ourtask.dto.TaskParam;
 import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.entity.TaskLabel;
@@ -159,4 +160,10 @@ public class TaskController {
         return RestResult.success(result);
     }
 
+    @ApiOperation("获取用户清单的使用情况")
+    @GetMapping("/getStatistics/{userId}")
+    public RestResult getStatistics(@PathVariable("userId") Integer userId){
+        Statistics statistics = taskService.getStatistics(userId);
+        return RestResult.success(statistics);
+    }
 }

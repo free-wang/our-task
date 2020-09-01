@@ -20,11 +20,11 @@ public class Statistics {
      * */
     Integer unFinished;
     /**
-     * 一周内完成清单
+     * 上周完成清单
      * */
     Integer weekFinished;
     /**
-     * 一周内待完成清单
+     * 上个月完成清单
      * */
-    Integer weekUnFinished;
+    Integer monthFinished;
 }

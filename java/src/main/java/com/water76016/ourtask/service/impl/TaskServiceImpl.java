@@ -108,7 +108,32 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public Statistics getStatistics(Integer userId) {
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("run", 0);
+        //统计已完成清单
+        Integer totalFinished = count(queryWrapper);
+        //统计待完成清单
+        queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("run", 1);
+        Integer unFinished = count(queryWrapper);
+        //统计上周完成清单
+        queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("run", 0);
+        DateTime lastWeek = DateUtil.lastWeek();
+        queryWrapper.ge("update_time", lastWeek);
+        Integer weekFinished = count(queryWrapper);
+        //统计上个月完成清单
+        queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("run", 0);
+        DateTime lastMonth = DateUtil.lastMonth();
+        queryWrapper.ge("update_time", lastMonth);
+        Integer monthFinished = count(queryWrapper);
 
+        return new Statistics(totalFinished, unFinished, weekFinished, monthFinished);
     }
 
 }

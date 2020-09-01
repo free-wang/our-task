@@ -6,16 +6,16 @@
       </div>
       <div>
         <el-row>
-          <el-col :span="6">haha</el-col>
-          <el-col :span="6">haha</el-col>
-          <el-col :span="6">haha</el-col>
-          <el-col :span="6">haha</el-col>
+          <el-col :span="6">{{ statistics.unFinished }}</el-col>
+          <el-col :span="6">{{ statistics.weekFinished }}</el-col>
+          <el-col :span="6">{{ statistics.monthFinished }}</el-col>
+          <el-col :span="6">{{ statistics.totalFinished }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">已完成清单</el-col>
           <el-col :span="6">待完成清单</el-col>
-          <el-col :span="6">一周内新建清单</el-col>
-          <el-col :span="6">一周内完成清单</el-col>
+          <el-col :span="6">上周完成清单</el-col>
+          <el-col :span="6">上个月完成清单</el-col>
+          <el-col :span="6">已完成清单</el-col>
         </el-row>
       </div>
     </el-card>
@@ -58,13 +58,14 @@ export default {
         totalFinished: null,
         unFinished: null,
         weekFinished: null,
-        weekUnFinished: null
+        monthFinished: null
       }
     }
   },
   created() {
     this.getDayData()
     this.getWeekData()
+    this.getStatistics()
   },
   methods: {
     getDayData() {
@@ -75,6 +76,11 @@ export default {
     getWeekData() {
       this.$axios.get(`task/countTaskForWeek/${this.global.user.id}`).then((res) => {
         this.weekData.rows = res.data.data
+      })
+    },
+    getStatistics() {
+      this.$axios.get(`task/getStatistics/${this.global.user.id}`).then((res) => {
+        this.statistics = res.data.data
       })
     }
   }
