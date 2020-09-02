@@ -1,5 +1,7 @@
 package com.water76016.ourtask.service.impl;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.mapper.CategoryMapper;
@@ -35,7 +37,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * */
     @Override
     public List<Category> list(Wrapper<Category> queryWrapper) {
-        //todo:这里暂时用代码来限制，不让其返回系统清单
         Integer userId = queryWrapper.getEntity().getUserId();
         String key = redisDatabase + ":" + redisKeyCategory + ":" + "list" + ":" + userId;
         if (redisService.hasKey(key)){
@@ -43,14 +44,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             List<Object> save = redisService.lRange(key, 0, size);
             List<Category> categoryList = new ArrayList<>();
             for(Object object : save){
-                Category category = (Category)object;
-                categoryList.add((Category)category);
+                //这是把一个Json的字符串，转换为一个对象
+                Category category = JSONUtil.toBean(object.toString(), Category.class);
+                categoryList.add(category);
             }
             return categoryList;
         }
         List<Category> categoryList = super.list(queryWrapper);
         for(Category category : categoryList){
-            redisService.lPush(key, category);
+            String save = JSONUtil.toJsonStr(category);
+            redisService.lPush(key, save);
         }
         return categoryList;
     }
@@ -64,7 +67,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         boolean flag = super.save(entity);
         if (flag){
             String key = redisDatabase + ":" + redisKeyCategory + ":" + "list" + ":" + entity.getUserId();
-            redisService.lPush(key, entity);
+            String save = JSONUtil.toJsonStr(entity);
+            redisService.lPush(key, save);
         }
         return flag;
     }
