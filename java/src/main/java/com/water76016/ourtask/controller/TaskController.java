@@ -109,7 +109,7 @@ public class TaskController {
         return RestResult.success(taskList);
     }
 
-    @ApiOperation("查询当前用户，当前页的所有未完成的清单")
+    @ApiOperation("查询当前用户，当前页的所有未完成的清单，也可根据条件进行查询")
     @PostMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
     public RestResult getPageList(@PathVariable("userId") Integer userId,
                                   @PathVariable("pageCurrent") Integer pageCurrent,

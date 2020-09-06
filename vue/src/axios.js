@@ -2,7 +2,10 @@ import axios from 'axios'
 import Element from 'element-ui'
 import store from './store'
 import router from './router'
-axios.defaults.baseURL = 'http://localhost/:8888'
+// 阿里云ECS访问地址
+// axios.defaults.baseURL = 'http://120.27.240.131:8888'
+// 本地访问地址
+axios.defaults.baseURL = 'http://localhost:8888'
 axios.interceptors.request.use(config => {
   console.log('前置拦截')
   // 可以统一设置请求头

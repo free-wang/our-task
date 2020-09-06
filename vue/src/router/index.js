@@ -105,13 +105,13 @@ export const constantRoutes = [
         name: 'feedback',
         component: () => import('@/views/feedback/index'),
         meta: { title: '提交反馈', icon: 'user' }
-      },
-      {
-        path: 'question',
-        name: 'question',
-        component: () => import('@/views/question/index'),
-        meta: { title: '待开发问题', icon: 'list' }
       }
+      // {
+      //   path: 'question',
+      //   name: 'question',
+      //   component: () => import('@/views/question/index'),
+      //   meta: { title: '待开发问题', icon: 'list' }
+      // }
     ]
   }
 ]

@@ -116,7 +116,7 @@ export default {
         var label = { id: null, userId: this.global.user.id, name: value }
         this.$axios.post('label/add/', label).then((res) => {
           label.id = res.data.data.id
-          label.count = 0
+          label.taskCount = 0
           this.labelData.records.push(label)
           this.success('添加标签成功: ' + value)
         })

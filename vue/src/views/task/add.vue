@@ -18,7 +18,7 @@
           <el-checkbox v-for="label in labelParamList" :key="label.id" :label="label.id" name="type">{{ label.name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="清单描述">
+      <el-form-item label="清单描述" prop="description">
         <el-input
           v-model="taskParam.description"
           type="textarea"
@@ -53,6 +53,9 @@ export default {
         ],
         categoryId: [
           { required: true, message: '请勾选清单分类', trigger: 'blur' }
+        ],
+        description: [
+          { required: true, message: '请输入清单描述', trigger: 'blur' }
         ]
       }
     }

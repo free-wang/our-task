@@ -212,6 +212,7 @@ $light_gray: #eee;
     font-size: 14px;
     color: #fff;
     margin-bottom: 10px;
+    text-align:center;
 
     span {
       &:first-of-type {

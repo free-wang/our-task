@@ -45,8 +45,6 @@
 export default {
   data() {
     return {
-      currentPage: 1,
-      categoryParamList: [],
       categoryData: {
         records: [],
         total: null,
@@ -121,7 +119,7 @@ export default {
         var category = { id: null, userId: this.global.user.id, name: value }
         this.$axios.post('category/add/', category).then((res) => {
           category.id = res.data.data.id
-          category.count = 0
+          category.taskCount = 0
           this.categoryData.records.push(category)
           this.success('添加分类成功: ' + value)
         })
