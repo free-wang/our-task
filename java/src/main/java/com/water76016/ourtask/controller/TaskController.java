@@ -122,7 +122,7 @@ public class TaskController {
         Integer categoryId = selectCondition.getCategoryId();
         List<Integer> selectLabelIdList = selectCondition.getLabelIdList();
         if (StrUtil.hasEmpty(name) == false){
-            queryWrapper.like("name", name).or().like("description", name);
+            queryWrapper.and(wrapper -> wrapper.like("name", name).or().like("description", name));
         }
         if (categoryId != null){
             queryWrapper.eq("category_id", categoryId);

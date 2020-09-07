@@ -120,7 +120,12 @@ export default {
         this.$axios.post('category/add/', category).then((res) => {
           category.id = res.data.data.id
           category.taskCount = 0
+          // 如果超过当前页的大小，则弹出一个，再添加进去
+          if (this.categoryData.records.length >= this.categoryData.size) {
+            this.categoryData.records.pop()
+          }
           this.categoryData.records.push(category)
+          this.categoryData.total++
           this.success('添加分类成功: ' + value)
         })
       }).catch(() => {

@@ -117,7 +117,12 @@ export default {
         this.$axios.post('label/add/', label).then((res) => {
           label.id = res.data.data.id
           label.taskCount = 0
+          // 如果超过当前页的大小，则弹出一个，再添加进去
+          if (this.labelData.records.length >= this.labelData.size) {
+            this.labelData.records.pop()
+          }
           this.labelData.records.push(label)
+          this.labelData.total++
           this.success('添加标签成功: ' + value)
         })
       }).catch(() => {
