@@ -51,8 +51,7 @@ public class CategoryController {
     @ApiOperation("逻辑删除一个分类")
     @GetMapping("delete/{id}")
     public RestResult delete(@PathVariable("id") Integer id){
-        Category category = new Category(id, 0);
-        categoryService.updateById(category);
+        categoryService.removeById(id);
         return RestResult.success();
     }
 

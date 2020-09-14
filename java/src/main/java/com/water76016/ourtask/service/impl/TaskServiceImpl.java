@@ -3,6 +3,7 @@ package com.water76016.ourtask.service.impl;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.water76016.ourtask.common.constant.Common;
 import com.water76016.ourtask.dto.Statistics;
 import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.mapper.TaskMapper;
@@ -52,7 +53,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //获取当前时间
         String localDate = LocalDate.now().toString();
         Date date = DateUtil.parse(localDate);
-        for (int i = 6; i >= 0; i--){
+        for (int i = Common.V_CHARTS_NUMBER; i >= 0; i--){
             QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
             taskQueryWrapper.eq("user_id", userId);
             taskQueryWrapper.eq("run", 0);
@@ -83,7 +84,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         String localDate = LocalDate.now().toString();
         Date date = DateUtil.parse(localDate);
         Date beginWeek = DateUtil.beginOfWeek(date);
-        for (int i = 6; i >= 0; i--){
+        for (int i = Common.V_CHARTS_NUMBER; i >= 0; i--){
             QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
             taskQueryWrapper.eq("user_id", userId);
             taskQueryWrapper.eq("run", 0);

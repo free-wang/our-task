@@ -63,8 +63,7 @@ public class TaskController {
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") Integer id){
-        Task task = new Task(id, 0);
-        taskService.updateById(task);
+        taskService.removeById(id);
         return RestResult.success("已经成功删除/完成一个清单");
     }
 

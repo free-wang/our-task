@@ -61,10 +61,7 @@ public class LabelController {
     @ApiOperation("逻辑删除/完成一个标签")
     @GetMapping("/delete/{id}")
     public RestResult deleteLabelById(@PathVariable("id") Integer id){
-        Label label = new Label();
-        label.setId(id);
-        label.setRun(0);
-        labelService.updateById(label);
+        labelService.removeById(id);
         return RestResult.success("已经成功删除一个标签");
     }
 

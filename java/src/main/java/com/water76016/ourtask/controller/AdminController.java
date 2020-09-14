@@ -18,23 +18,34 @@ import java.util.Map;
 
 /**
  * 这是管理员操作的Controller
- * */
+ */
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+    /**
+     * The User service.
+     */
     @Autowired
     UserService userService;
 
+    /**
+     * Freeze user by id rest result.
+     *
+     * @param id the id
+     * @return the rest result
+     */
     @ApiOperation("管理员冻结一个用户")
     @GetMapping("/freezeUser/{id}")
     public RestResult freezeUserById(@PathVariable Integer id){
-        User user = new User();
-        user.setId(id);
-        user.setStatus(0);
-        userService.updateById(user);
+        userService.removeById(id);
         return new RestResult(200, "冻结用户成功");
     }
 
+    /**
+     * List all user rest result.
+     *
+     * @return the rest result
+     */
     @ApiOperation("查询所有用户信息")
     @GetMapping("listAllUser")
     public RestResult listAllUser(){
@@ -42,6 +53,12 @@ public class AdminController {
         return RestResult.success("查询所有用户信息成功", userList);
     }
 
+    /**
+     * List user by status rest result.
+     *
+     * @param status the status
+     * @return the rest result
+     */
     @ApiOperation("查询所有冻结/未冻结的用户信息")
     @GetMapping("listUser/{status}")
     public RestResult listUserByStatus(@PathVariable Integer status){

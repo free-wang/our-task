@@ -99,11 +99,6 @@ public class User implements Serializable, UserDetails {
         return this.authorities;
     }
 
-//    @Override
-//    public String getPassword() {
-//        return null;
-//    }
-
     @Override
     public String getUsername() {
         return this.username;
