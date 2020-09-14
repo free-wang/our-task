@@ -8,21 +8,17 @@ Our-Task项目致力于打造一个完整的清单管理系统，只是为了把
 
 ### 预览地址
 
-项目已经成功部署在阿里云ECS上，大家可以在上面尝试使用，第一次进入可能为有点慢，请大家耐心等待：
+项目已经部署在阿里云ECS上，可以在上面尝试使用，没有限制任何功能，大家随意就行。第一次进入可能为有点慢，请大家耐心等待：
 
 http://120.27.240.131:3000/
 
 ### 博客地址
-
-Our-Task功能概览：http://www.daxingyong.cn/?p=91
 
 Our-Task安装运行需要的开发环境：http://www.daxingyong.cn/?p=83
 
 Our-Task部署运行：http://www.daxingyong.cn/?p=105
 
 ### 公众号地址
-
-Our-Task功能概览：https://mp.weixin.qq.com/s/xsNplb86oFClk0e11eTn9Q
 
 Our-Task安装运行需要的开发环境：https://mp.weixin.qq.com/s/7uBVRP77JlHnOXAS5Qn3eQ
 
@@ -36,18 +32,17 @@ Our-Task项目是一个清单管理系统，包括前台系统使用及后台管
 
 ### 后端技术
 
-|      技术      |        说明         |                      官网                      |
-| :------------: | :-----------------: | :--------------------------------------------: |
-|   SpringBoot   |       MVC框架       |     https://spring.io/projects/spring-boot     |
-|    MyBatis     |       ORM框架       | http://www.mybatis.org/mybatis-3/zh/index.html |
-|     Redis      |        缓存         |               https://redis.io/                |
-| SpringSecurity |   认证和授权框架    |   https://spring.io/projects/spring-security   |
-|  Mybatis-Plus  |   数据层代码生成    |            https://mp.baomidou.com             |
-|   PageHelper   | MyBatis物理分页插件 | http://git.oschina.net/free/Mybatis_PageHelper |
-|   Swagger-UI   |    文档生产工具     |   https://github.com/swagger-api/swagger-ui    |
-|     Redis      |     分布式缓存      |               https://redis.io/                |
-|      JWT       |     JWT登录支持     |          https://github.com/jwtk/jjwt          |
-|     Lombok     |  简化对象封装工具   |     https://github.com/rzwitserloot/lombok     |
+|      技术      |       说明       |                      官网                      |
+| :------------: | :--------------: | :--------------------------------------------: |
+|   SpringBoot   |     MVC框架      |     https://spring.io/projects/spring-boot     |
+|    MyBatis     |     ORM框架      | http://www.mybatis.org/mybatis-3/zh/index.html |
+|     Redis      |       缓存       |               https://redis.io/                |
+| SpringSecurity |  认证和授权框架  |   https://spring.io/projects/spring-security   |
+|  Mybatis-Plus  |  数据层代码生成  |            https://mp.baomidou.com             |
+|     Lombok     | 简化对象封装工具 |     https://github.com/rzwitserloot/lombok     |
+|   Swagger-UI   |   文档生产工具   |   https://github.com/swagger-api/swagger-ui    |
+|     Redis      |    分布式缓存    |               https://redis.io/                |
+|      JWT       |   JWT登录支持    |          https://github.com/jwtk/jjwt          |
 
 ### 前端技术
 
@@ -76,15 +71,8 @@ Our-Task项目是一个清单管理系统，包括前台系统使用及后台管
 
 ### 开发环境
 
-|     工具      | 版本号 |                             下载                             |
-| :-----------: | :----: | :----------------------------------------------------------: |
-|      JDK      |  1.8   | https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html |
-|     Mysql     |  8.0   |                    https://www.mysql.com/                    |
-|     Redis     |  3.2   |                  https://redis.io/download                   |
-| Elasticsearch | 7.6.2  |        https://www.elastic.co/downloads/elasticsearch        |
-
-## 更多资讯
-
-有关该项目更多信息，请查看我的博客
-
-[冷小风的IT生活](http://www.daxingyong.cn/)
+| 工具  | 版本号 |                             下载                             |
+| :---: | :----: | :----------------------------------------------------------: |
+|  JDK  |  1.8   | https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html |
+| Mysql |  8.0   |                    https://www.mysql.com/                    |
+| Redis |  3.2   |                  https://redis.io/download                   |
