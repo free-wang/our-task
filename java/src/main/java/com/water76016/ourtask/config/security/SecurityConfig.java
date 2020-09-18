@@ -66,17 +66,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**"
                 )
                 .permitAll()
-                .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
+                //跨域请求会先进行一次options请求
+                .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
-//                .antMatchers("/login", "/") //需要对外暴露的资源路径
-//                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")  //user角色和admin角色都可以访问
+                //需要对外暴露的资源路径
+//                .antMatchers("/login", "/")
+                //user角色和admin角色都可以访问
+//                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 //                .antMatchers("user/*", "task/*", "category/*")
-//                .hasAnyRole("ADMIN")  //admin角色可以访问=
+                //admin角色可以访问=
+//                .hasAnyRole("ADMIN")
 //                // 除上面外的所有请求全部需要鉴权认证
 //                .anyRequest().authenticated()
-                .and()//authenticated()要求在执行该请求时，必须已经登录了应用
+                //authenticated()要求在执行该请求时，必须已经登录了应用
+                .and()
                 // CRSF禁用，因为不使用session
-                .csrf().disable() ;//禁用跨站csrf攻击防御，否则无法登陆成功
+                //禁用跨站csrf攻击防御，否则无法登陆成功
+                .csrf().disable() ;
         //登出功能
         httpSecurity.logout().logoutUrl("/logout");
         // 添加JWT filter

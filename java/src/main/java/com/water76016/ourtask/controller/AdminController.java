@@ -65,7 +65,7 @@ public class AdminController {
         if (status != 0 && status != 1){
             return RestResult.error("错误的传值");
         }
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(5);
         map.put("status", status);
         List<User> userList = (List<User>)userService.listByMap(map);
         return RestResult.success("查询成功", userList);

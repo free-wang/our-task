@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Data
 @Component
-public class jwtTokenUtil {
+public class JwtTokenUtil {
 
     @Value("${token.secret}")
     private String secret;

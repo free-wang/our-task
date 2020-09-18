@@ -15,7 +15,7 @@ public class JwtAuthService {
     private AuthenticationManager authenticationManager;
 
     @Resource
-    private jwtTokenUtil jwtTokenUtil;
+    private JwtTokenUtil jwtTokenUtil;
 
     /**
      * 登录认证换取JWT令牌

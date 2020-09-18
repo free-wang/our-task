@@ -1,5 +1,6 @@
 package com.water76016.ourtask;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -32,7 +33,7 @@ public class CodeGenerator {
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
+            if (StrUtil.isEmpty(ipt) == false){
                 return ipt;
             }
         }
