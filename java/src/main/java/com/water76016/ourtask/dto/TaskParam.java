@@ -18,7 +18,9 @@ public class TaskParam {
      * 用户id
      * */
     Integer userId;
-    //分类id
+    /**
+     * 分类id
+     */
     Integer categoryId;
     //清单名称
     String name;

@@ -22,7 +22,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class RedisServiceImpl implements RedisService {
-    //由于没有指定具体类型<String, Object>，用Resource注入才有效
+    /**
+     * 由于没有指定具体类型<String, Object>，用Resource注入才有效
+     * */
     @Resource
     private RedisTemplate redisTemplate;
 
