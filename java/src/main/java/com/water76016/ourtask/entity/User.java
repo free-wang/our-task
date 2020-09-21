@@ -86,7 +86,9 @@ public class User implements Serializable, UserDetails {
     private Integer status;
 
 
-    //Mybatis plus @TableName实体中添加非数据库字段报错，如增加请在字段上加注解 @TableField(exist = false)
+    /**
+     * Mybatis plus @TableName实体中添加非数据库字段报错，如增加请在字段上加注解 @TableField(exist = false)
+     * */
     @TableField(exist = false)
     private List<GrantedAuthority> authorities;
 
