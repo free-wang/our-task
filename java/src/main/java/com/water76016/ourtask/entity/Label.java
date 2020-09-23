@@ -21,7 +21,6 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Label implements Serializable {
-    //TODO：Label类不能有我用代码生成的构造函数，一有就报错，不知道为什么
 
     private static final long serialVersionUID = 1L;
 
