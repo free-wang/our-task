@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @program: our-task
+ * @description: JWT token过滤器
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Component
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Resource

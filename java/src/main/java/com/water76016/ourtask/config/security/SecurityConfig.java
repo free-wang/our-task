@@ -16,7 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
-
+/**
+ * @program: our-task
+ * @description: Security配置类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

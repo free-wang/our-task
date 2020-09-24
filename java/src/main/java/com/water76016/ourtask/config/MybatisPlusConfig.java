@@ -6,6 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @program: our-task
+ * @description: mybatis-plus配置类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Configuration
 @EnableTransactionManagement
 @MapperScan("com.water76016.ourtask.mapper")

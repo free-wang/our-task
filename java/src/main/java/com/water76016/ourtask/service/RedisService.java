@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 /**
- * redis操作Service,
- * 对象和数组都以json形式进行存储
- * Created by macro on 2018/8/7.
- */
+ * @program: our-task
+ * @description: redis操作服务类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public interface RedisService {
 
     /**

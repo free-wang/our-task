@@ -16,8 +16,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * mybatis-plus代码生成
- */
+ * @program: our-task
+ * @description: mybatis-plus代码自动生成类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public class CodeGenerator {
 
     /**

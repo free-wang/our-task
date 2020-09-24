@@ -5,8 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 统计用户的使用情况
- * */
+ * @program: our-task
+ * @description: 统计用户对于系统的使用情况
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

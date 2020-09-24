@@ -10,9 +10,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 /**
- * Swagger2API文档的配置
- */
+ * @program: our-task
+ * @description: Swagger2API文档的配置
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {

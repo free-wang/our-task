@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * 针对游客的Service
- */
+ * @program: our-task
+ * @description: 游客操作服务接口
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public interface TouristService {
     /**
      * 游客进行注册操作

@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * @program: our-task
+ * @description: 登录失败的handler
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Component
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
     @Override

@@ -12,6 +12,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+/**
+ * @program: our-task
+ * @description: 验证用户登录服务实现接口
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired

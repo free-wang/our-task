@@ -15,8 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 /**
- * 这是针对游客访问的Controller
- * */
+ * @program: our-task
+ * @description: 针对游客能够调用接口的控制器
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public class TouristController {
     @Autowired
     TouristService touristService;

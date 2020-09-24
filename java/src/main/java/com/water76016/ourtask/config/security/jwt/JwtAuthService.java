@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * @program: our-task
+ * @description: JWT服务类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Service
 public class JwtAuthService {
 

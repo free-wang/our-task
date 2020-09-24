@@ -9,9 +9,11 @@ import com.water76016.ourtask.common.constant.HttpStatus;
 import java.util.HashMap;
 
 /**
- * 操作消息提醒
- *
- */
+ * @program: our-task
+ * @description: 操作消费提醒
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public class RestResult extends HashMap<String, Object>
 {
     private static final long serialVersionUID = 1L;

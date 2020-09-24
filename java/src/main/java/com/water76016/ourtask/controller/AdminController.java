@@ -17,8 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 这是管理员操作的Controller
- */
+ * @program: our-task
+ * @description: 管理员控制器类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @RestController
 @RequestMapping("/admin")
 public class AdminController {

@@ -5,8 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The type Category param.
- */
+ * @program: our-task
+ * @description: 针对分类控制器传参所创建的Param类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

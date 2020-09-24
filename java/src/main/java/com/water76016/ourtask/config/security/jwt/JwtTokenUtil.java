@@ -12,6 +12,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @program: our-task
+ * @description: JWT-token工具类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Data
 @Component
 public class JwtTokenUtil {

@@ -1,9 +1,11 @@
 package com.water76016.ourtask.common.constant;
 
 /**
- * 返回状态码
- *
- */
+ * @program: our-task
+ * @description: 返回状态码
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public interface HttpStatus
 {
     /**

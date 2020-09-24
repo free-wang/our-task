@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 对清单进行查询的查询对象
- * */
+ * @program: our-task
+ * @description: 对清单列表进行查询的查询对象
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
