@@ -10,6 +10,7 @@ import com.water76016.ourtask.service.CategoryService;
 import com.water76016.ourtask.service.RedisService;
 import com.water76016.ourtask.service.TaskService;
 import com.water76016.ourtask.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,13 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
- *  前端控制器
- * </p>
  *
  * @author github:water76016
  * @since 2020-07-21
  */
+@Api(value = "用户控制", tags = {"用户操作"})
 @RestController
 @RequestMapping("/user")
 public class UserController {

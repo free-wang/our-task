@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.water76016.ourtask.common.RestResult;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/
+@Api(value = "管理员控制器", tags = {"管理员操作"})
 @RestController
 @RequestMapping("/admin")
 public class AdminController {

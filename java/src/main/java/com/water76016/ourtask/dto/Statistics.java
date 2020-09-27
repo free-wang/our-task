@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @program: our-task
- * @description: 统计用户对于系统的使用情况
+ * @description: 统计用户对于系统的使用情况查询的传输对象
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/

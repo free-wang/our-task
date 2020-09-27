@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.List;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,40 +31,26 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 清单id
-     */
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty(value = "清单id")
     private Integer id;
 
-    /**
-     * 用户id
-     */
+    @ApiModelProperty(value = "用户id")
     private Integer userId;
 
-    /**
-     * 清单名称
-     */
+    @ApiModelProperty(value = "清单名称")
     private String name;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    /**
-     * 修改时间
-     */
+    @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
-    /**
-     * 是否被删除
-     */
+    @ApiModelProperty(value = "是否被删除")
     private Integer run;
 
-    /**
-     * 所含清单总数
-     * */
+    @ApiModelProperty(value = "所含清单总数")
     @TableField(exist = false)
     Integer taskCount;
 

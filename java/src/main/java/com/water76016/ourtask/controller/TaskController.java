@@ -35,6 +35,7 @@ import java.util.TreeMap;
  * @author github:water76016
  * @since 2020-07-21
  */
+@Api(value = "清单控制", tags = {"清单操作"})
 @RestController
 @RequestMapping("/task")
 public class TaskController {

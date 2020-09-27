@@ -11,7 +11,9 @@ import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.service.CategoryService;
 import com.water76016.ourtask.service.RedisService;
 import com.water76016.ourtask.service.TaskService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,7 @@ import java.util.Map;
  * @author github:water76016
  * @since 2020-07-21
  */
+@Api(value = "分类控制", tags = {"分类操作"})
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -40,7 +43,7 @@ public class CategoryController {
 
     @ApiOperation("添加一个新的分类")
     @PostMapping("add")
-    public RestResult add(@RequestBody Category category){
+    public RestResult add(@RequestBody @ApiParam("新增分类对象") Category category){
         boolean flag = categoryService.save(category);
         if (flag){
             return RestResult.success(category);

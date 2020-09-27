@@ -12,6 +12,7 @@ import com.water76016.ourtask.entity.TaskLabel;
 import com.water76016.ourtask.service.LabelService;
 import com.water76016.ourtask.service.TaskLabelService;
 import com.water76016.ourtask.service.TaskService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author github:water76016
  * @since 2020-08-17
  */
+@Api(value = "标签控制", tags = {"标签操作"})
 @RestController
 @RequestMapping("/label")
 public class LabelController {

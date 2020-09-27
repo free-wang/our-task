@@ -6,6 +6,7 @@ import com.water76016.ourtask.entity.Tourist;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.TouristService;
 import com.water76016.ourtask.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,13 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RestController
+
 /**
  * @program: our-task
  * @description: 针对游客能够调用接口的控制器
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/
+@Api(value = "游客控制", tags = {"游客操作"})
+@RestController
 public class TouristController {
     @Autowired
     TouristService touristService;

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @program: our-task
- * @description: 对清单列表进行查询的查询对象
+ * @description: 对清单列表进行查询的传输对象
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/

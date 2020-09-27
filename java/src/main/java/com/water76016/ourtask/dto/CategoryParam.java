@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @program: our-task
- * @description: 针对分类控制器传参所创建的Param类
+ * @description: 针对分类控制器传参所创建的传输对象
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/

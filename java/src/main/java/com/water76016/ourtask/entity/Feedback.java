@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,35 +25,23 @@ public class Feedback implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 反馈id
-     */
+    @ApiModelProperty(value = "反馈id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 所属用户id
-     */
+    @ApiModelProperty(value = "所属用户id")
     private Integer userId;
 
-    /**
-     * 反馈标题
-     */
+    @ApiModelProperty(value = "反馈标题")
     private String title;
 
-    /**
-     * 反馈描述
-     */
+    @ApiModelProperty(value = "反馈描述")
     private String description;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
+    @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
 
     public Feedback(Integer userId, String title, String description) {
