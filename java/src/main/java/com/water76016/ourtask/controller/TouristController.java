@@ -39,7 +39,7 @@ public class TouristController {
      *
      */
     @ApiOperation("游客进行登录操作")
-    @PostMapping({"/login", "/"})
+    @PostMapping({"/login"})
     public RestResult login(@RequestBody Tourist tourist, HttpServletResponse response) {
         return touristService.login(tourist, response);
     }

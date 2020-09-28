@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,7 +34,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("登录用户" + username + "不存在");
         }
         //将数据库的roles解析为UserDetails的权限集
-        user.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRoles()));
+        String roles = user.getRoles();
+        user.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(roles));
         return user;
     }
 }

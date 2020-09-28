@@ -1,5 +1,6 @@
 package com.water76016.ourtask.config.security.jwt;
 
+import com.water76016.ourtask.common.Utils;
 import com.water76016.ourtask.entity.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -7,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.swing.*;
 
 /**
  * @program: our-task
@@ -35,10 +37,12 @@ public class JwtAuthService {
         Authentication authentication = null;
         try {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new
+                    UsernamePasswordAuthenticationToken(username, password);
+            authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         }
         catch (Exception e) {
-                throw new RuntimeException("用户名密码错误");
+                throw new RuntimeException("用户名或密码错误");
         }
 //        authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         User loginUser = (User) authentication.getPrincipal();
