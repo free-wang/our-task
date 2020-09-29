@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 
 /**
  * @program: our-task
- * @description: 登录失败的handler
+ * @description: 登录失败的handler处理
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/
