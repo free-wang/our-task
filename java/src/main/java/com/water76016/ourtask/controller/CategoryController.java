@@ -101,6 +101,7 @@ public class CategoryController {
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
         IPage<Category> categoryPage = categoryService.page(page, queryWrapper);
+
         for (Category category : categoryPage.getRecords()){
             Integer categoryId = category.getId();
             Integer countTask = taskService.countTask(userId, categoryId);
