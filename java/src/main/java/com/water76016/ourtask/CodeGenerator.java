@@ -22,11 +22,8 @@ import java.util.Scanner;
  * @create: 2020-09-24 16:45
  **/
 public class CodeGenerator {
-
     /**
-     * <p>
      * 读取控制台内容
-     * </p>
      */
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
