@@ -31,7 +31,6 @@ public class AdminController {
      */
     @Autowired
     UserService userService;
-
     /**
      * Freeze user by id rest result.
      *
@@ -47,7 +46,6 @@ public class AdminController {
 
     /**
      * List all user rest result.
-     *
      * @return the rest result
      */
     @ApiOperation("查询所有用户信息")
