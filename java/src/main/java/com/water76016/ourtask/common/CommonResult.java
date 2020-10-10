@@ -61,7 +61,6 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> failed(String message) {
         return new CommonResult<T>(ResultCode.FAILED.getCode(), message, null);
     }
-
     /**
      * 失败返回结果
      */
@@ -75,7 +74,6 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> validateFailed() {
         return failed(ResultCode.VALIDATE_FAILED);
     }
-
     /**
      * 参数验证失败返回结果
      * @param message 提示信息
