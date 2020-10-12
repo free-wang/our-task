@@ -89,6 +89,10 @@ public class CommonResult<T> {
         return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
     }
 
+
+
+
+
     /**
      * 未授权返回结果
      */
