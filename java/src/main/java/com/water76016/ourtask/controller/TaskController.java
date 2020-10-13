@@ -41,7 +41,6 @@ import java.util.TreeMap;
 public class TaskController {
     @Autowired
     TaskService taskService;
-
     @Autowired
     TaskLabelService taskLabelService;
 
@@ -60,14 +59,12 @@ public class TaskController {
         }
         return RestResult.success();
     }
-
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") Integer id){
         taskService.removeById(id);
         return RestResult.success("已经成功删除/完成一个清单");
     }
-
     @ApiOperation("对清单进行更新")
     @PostMapping("/update/{id}")
     public RestResult updateTask(@PathVariable("id") Integer id, @RequestBody Task task){
