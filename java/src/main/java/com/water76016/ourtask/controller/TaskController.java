@@ -94,7 +94,6 @@ public class TaskController {
         }
         return RestResult.success("得到当前用户所有未完成清单成功", taskParamList);
     }
-
     @ApiOperation("查询当前用户当前分类的所有未完成清单")
     @GetMapping("getAllList/{userId}/{categoryId}")
     public RestResult getTaskList(@PathVariable("userId") Integer userId, @PathVariable("categoryId") Integer categoryId){
@@ -141,7 +140,6 @@ public class TaskController {
         }
         return RestResult.success("得到当前分页清单成功", taskPage);
     }
-
     @ApiOperation("获取最近一周的清单完成情况")
     @GetMapping("/countTaskForDay/{userId}")
     public RestResult countTaskForDay(@PathVariable("userId") Integer userId){
