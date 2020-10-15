@@ -79,7 +79,6 @@ public class CategoryController {
             CategoryParam categoryParam = new CategoryParam(cate.getId(), cate.getName(), countTask);
             categoryParamList.add(categoryParam);
         }
-
         return RestResult.success(categoryParamList);
     }
 
