@@ -45,14 +45,12 @@ public class CategoryController {
         }
         return RestResult.error();
     }
-
     @ApiOperation("逻辑删除一个分类")
     @GetMapping("delete/{id}")
     public RestResult delete(@PathVariable("id") Integer id){
         categoryService.removeById(id);
         return RestResult.success();
     }
-
     @ApiOperation("修改分类的名称")
     @PostMapping("update/{id}")
     public RestResult update(@PathVariable("id") Integer id, @RequestBody Category category){
