@@ -71,7 +71,6 @@ public class TaskController {
         taskService.updateById(task);
         return RestResult.success("更新清单成功");
     }
-
     @ApiOperation("查询当前用户的所有清单")
     @GetMapping("getAllList/{userId}")
     public RestResult getAllList(@PathVariable("userId") Integer userId){
@@ -94,7 +93,6 @@ public class TaskController {
         }
         return RestResult.success("得到当前用户所有未完成清单成功", taskParamList);
     }
-
     @ApiOperation("查询当前用户当前分类的所有未完成清单")
     @GetMapping("getAllList/{userId}/{categoryId}")
     public RestResult getTaskList(@PathVariable("userId") Integer userId, @PathVariable("categoryId") Integer categoryId){
