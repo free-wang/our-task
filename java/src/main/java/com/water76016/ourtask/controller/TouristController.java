@@ -26,18 +26,12 @@ import javax.servlet.http.HttpServletResponse;
 public class TouristController {
     @Autowired
     TouristService touristService;
-
-
     @ApiOperation("游客进行注册操作")
     @PostMapping("/register")
     public RestResult register(@RequestBody Tourist tourist){
         return touristService.register(tourist);
     }
 
-    /**
-     * 登录方法
-     *
-     */
     @ApiOperation("游客进行登录操作")
     @PostMapping({"/login"})
     public RestResult login(@RequestBody Tourist tourist, HttpServletResponse response) {
