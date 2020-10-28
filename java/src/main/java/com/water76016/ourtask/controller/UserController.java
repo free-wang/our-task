@@ -34,10 +34,8 @@ public class UserController {
 
     @Autowired
     CategoryService categoryService;
-
     @Autowired
     TaskService taskService;
-
     @ApiOperation("修改用户基本信息")
     @PostMapping("update/{id}")
     public RestResult update(@PathVariable("id") Integer id, @RequestBody User user){
