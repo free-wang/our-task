@@ -43,10 +43,6 @@ public class AdminController {
         userService.removeById(id);
         return new RestResult(200, "冻结用户成功");
     }
-    /**
-     * List all user rest result.
-     * @return the rest result
-     */
     @ApiOperation("查询所有用户信息")
     @GetMapping("listAllUser")
     public RestResult listAllUser(){
