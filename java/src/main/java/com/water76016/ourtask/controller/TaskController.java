@@ -59,18 +59,21 @@ public class TaskController {
         }
         return RestResult.success();
     }
+
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") Integer id){
         taskService.removeById(id);
         return RestResult.success("已经成功删除/完成一个清单");
     }
+
     @ApiOperation("对清单进行更新")
     @PostMapping("/update/{id}")
     public RestResult updateTask(@PathVariable("id") Integer id, @RequestBody Task task){
         taskService.updateById(task);
         return RestResult.success("更新清单成功");
     }
+
     @ApiOperation("查询当前用户的所有清单")
     @GetMapping("getAllList/{userId}")
     public RestResult getAllList(@PathVariable("userId") Integer userId){
@@ -93,6 +96,7 @@ public class TaskController {
         }
         return RestResult.success("得到当前用户所有未完成清单成功", taskParamList);
     }
+
     @ApiOperation("查询当前用户当前分类的所有未完成清单")
     @GetMapping("getAllList/{userId}/{categoryId}")
     public RestResult getTaskList(@PathVariable("userId") Integer userId, @PathVariable("categoryId") Integer categoryId){

@@ -51,6 +51,7 @@ public class CategoryController {
         categoryService.removeById(id);
         return RestResult.success();
     }
+
     @ApiOperation("修改分类的名称")
     @PostMapping("update/{id}")
     public RestResult update(@PathVariable("id") Integer id, @RequestBody Category category){
