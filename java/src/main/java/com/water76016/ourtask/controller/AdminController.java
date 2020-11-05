@@ -34,9 +34,10 @@ public class AdminController {
     /**
      * Freeze user by id rest result.
      *
-     * @param id the id
-     * @return the rest result
+     * @param 用户id
+     * @return 返回结果消息
      */
+
     @ApiOperation("管理员冻结一个用户")
     @GetMapping("/freezeUser/{id}")
     public RestResult freezeUserById(@PathVariable Integer id){
