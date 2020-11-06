@@ -61,7 +61,6 @@ public class UserController {
         if (bcp.matches(oldPassword, user.getPassword()) == false){
             return RestResult.error("用户名和密码不匹配");
         }
-
         String password = bcp.encode(newPassword);
         user.setPassword(password);
         userService.updateById(user);

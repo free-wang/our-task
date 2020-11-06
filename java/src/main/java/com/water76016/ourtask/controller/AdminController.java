@@ -32,8 +32,6 @@ public class AdminController {
     @Autowired
     UserService userService;
     /**
-     * Freeze user by id rest result.
-     *
      * @param 用户id
      * @return 返回结果消息
      */
