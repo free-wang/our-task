@@ -50,8 +50,6 @@ public class AdminController {
     }
 
     /**
-     * List user by status rest result.
-     *
      * @param status the status
      * @return the rest result
      */
