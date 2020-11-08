@@ -30,8 +30,6 @@ public class JwtTokenUtil {
 
     @Value("${token.header}")
     private String header;
-
-
     /**
      * 生成token令牌
      *

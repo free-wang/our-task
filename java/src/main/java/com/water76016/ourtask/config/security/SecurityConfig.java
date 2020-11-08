@@ -38,8 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService myUserDetailsService;
 
     /**
-     * 解决 无法直接注入 AuthenticationManager
-     *
+     * 解决 无法直接注入AuthenticationManager
      * @return
      * @throws Exception
      */
