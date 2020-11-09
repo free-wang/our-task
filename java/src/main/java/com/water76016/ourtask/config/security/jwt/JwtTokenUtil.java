@@ -46,7 +46,6 @@ public class JwtTokenUtil {
 
     /**
      * 从令牌中获取用户名
-     *
      * @param token 令牌
      * @return 用户名
      */

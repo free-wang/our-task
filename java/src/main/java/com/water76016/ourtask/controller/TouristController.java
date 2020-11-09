@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 public class TouristController {
     @Autowired
     TouristService touristService;
-
     @ApiOperation("游客进行注册操作")
     @PostMapping("/register")
     public RestResult register(@RequestBody Tourist tourist){
