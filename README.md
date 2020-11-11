@@ -12,12 +12,6 @@ Our-Task项目致力于打造一个完整的清单管理系统，只是为了把
 
 http://120.27.240.131:3000/
 
-### 博客地址
-
-Our-Task安装运行需要的开发环境：http://www.daxingyong.cn/?p=83
-
-Our-Task部署运行：http://www.daxingyong.cn/?p=105
-
 ### 公众号地址
 
 Our-Task安装运行需要的开发环境：https://mp.weixin.qq.com/s/7uBVRP77JlHnOXAS5Qn3eQ
