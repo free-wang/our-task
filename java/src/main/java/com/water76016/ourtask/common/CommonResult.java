@@ -1,9 +1,11 @@
 package com.water76016.ourtask.common;
 
 /**
- * 通用返回对象
- * Created by macro on 2019/4/19.
- */
+ * @program: our-task
+ * @description: 通用返回结果
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public class CommonResult<T> {
     private long code;
     private String message;

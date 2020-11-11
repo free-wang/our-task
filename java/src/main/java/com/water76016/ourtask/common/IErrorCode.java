@@ -1,9 +1,11 @@
 package com.water76016.ourtask.common;
 
 /**
- * 封装API的错误码
- * Created by macro on 2019/4/19.
- */
+ * @program: our-task
+ * @description: 封装API的错误码
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 public interface IErrorCode {
     /**
      * 得到状态码

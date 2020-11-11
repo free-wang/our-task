@@ -43,7 +43,6 @@ public class JwtAuthService {
         catch (Exception e) {
                 throw new RuntimeException("用户名或密码错误");
         }
-//        authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         User loginUser = (User) authentication.getPrincipal();
         // 生成token
         return jwtTokenUtil.generateToken(loginUser);
