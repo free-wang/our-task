@@ -73,15 +73,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //跨域请求会先进行一次options请求
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
-////                需要对外暴露的资源路径
-////                .antMatchers("login")
-//////                user角色和admin角色都可以访问
-////                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-////                .antMatchers("user/*", "task/*", "category/*")
-////                //admin角色可以访问
-////                .hasAnyRole("ADMIN")
-//////                // 除上面外的所有请求全部需要鉴权认证
-////                .anyRequest().authenticated()
+//                需要对外暴露的资源路径
+                .antMatchers("login")
+//                user角色和admin角色都可以访问
+                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("user/*", "task/*", "category/*")
+                //admin角色可以访问
+                .hasAnyRole("ADMIN")
+//                // 除上面外的所有请求全部需要鉴权认证
+                .anyRequest().authenticated()
                 //authenticated()要求在执行该请求时，必须已经登录了应用
                 .and()
                 // CRSF禁用，因为不使用session

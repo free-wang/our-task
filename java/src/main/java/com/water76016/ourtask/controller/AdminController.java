@@ -42,6 +42,7 @@ public class AdminController {
         userService.removeById(id);
         return new RestResult(200, "冻结用户成功");
     }
+
     @ApiOperation("查询所有用户信息")
     @GetMapping("listAllUser")
     public RestResult listAllUser(){
@@ -49,10 +50,6 @@ public class AdminController {
         return RestResult.success("查询所有用户信息成功", userList);
     }
 
-    /**
-     * @param status the status
-     * @return the rest result
-     */
     @ApiOperation("查询所有冻结/未冻结的用户信息")
     @GetMapping("listUser/{status}")
     public RestResult listUserByStatus(@PathVariable Integer status){

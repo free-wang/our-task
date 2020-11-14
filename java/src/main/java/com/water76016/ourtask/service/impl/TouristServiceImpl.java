@@ -57,6 +57,7 @@ public class TouristServiceImpl implements TouristService {
         //这里就已经登录成功了
         result.put("token", token);
         response.setHeader("Authorization", token);
+        response.setHeader("Access-Control-Expose-Headers", "Authorization");
         result.put("userId", getUserId(tourist));
         return result;
     }
