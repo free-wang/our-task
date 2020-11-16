@@ -145,12 +145,14 @@ public class TaskController {
         List<TreeMap<String, String>> result = taskService.countTaskForDay(userId);
         return RestResult.success(result);
     }
+
     @ApiOperation("获取最近七周的清单完成情况")
     @GetMapping("/countTaskForWeek/{userId}")
     public RestResult countTaskForWeek(@PathVariable("userId") Integer userId){
         List<TreeMap<String, String>> result = taskService.countTaskForWeek(userId);
         return RestResult.success(result);
     }
+
     @ApiOperation("获取用户清单的使用情况")
     @GetMapping("/getStatistics/{userId}")
     public RestResult getStatistics(@PathVariable("userId") Integer userId){
