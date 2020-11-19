@@ -40,7 +40,6 @@ public class JwtTokenUtil {
         Map<String, Object> claims = new HashMap<>(2);
         claims.put("sub", userDetails.getUsername());
         claims.put("created", new Date());
-
         return generateToken(claims);
     }
 
@@ -102,7 +101,6 @@ public class JwtTokenUtil {
      * @return 是否有效
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-
         String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

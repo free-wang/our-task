@@ -32,7 +32,7 @@ public class AdminController {
     @Autowired
     UserService userService;
     /**
-     * @param 用户id
+     * @param
      * @return 返回结果消息
      */
 
