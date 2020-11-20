@@ -26,9 +26,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    /**
-     * The User service.
-     */
     @Autowired
     UserService userService;
     /**
