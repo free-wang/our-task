@@ -69,17 +69,29 @@ export default {
   },
   methods: {
     getDayData() {
-      this.$axios.get(`task/countTaskForDay/${this.global.user.id}`).then((res) => {
+      this.$axios.get(`task/countTaskForDay/${this.global.user.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.dayData.rows = res.data.data
       })
     },
     getWeekData() {
-      this.$axios.get(`task/countTaskForWeek/${this.global.user.id}`).then((res) => {
+      this.$axios.get(`task/countTaskForWeek/${this.global.user.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.weekData.rows = res.data.data
       })
     },
     getStatistics() {
-      this.$axios.get(`task/getStatistics/${this.global.user.id}`).then((res) => {
+      this.$axios.get(`task/getStatistics/${this.global.user.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.statistics = res.data.data
       })
     }

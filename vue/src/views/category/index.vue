@@ -61,7 +61,11 @@ export default {
   },
   methods: {
     getUsercategoryDataList(currentPage, pageSize) {
-      this.$axios.get(`category/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
+      this.$axios.get(`category/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.categoryData = res.data.data
       })
     },
@@ -77,7 +81,11 @@ export default {
         cancelButtonText: '取消',
         type: 'info'
       }).then(() => {
-        this.$axios.get(`category/delete/${categoryId}`).then((res) => {
+        this.$axios.get(`category/delete/${categoryId}`, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        }).then((res) => {
           this.getUsercategoryDataList(1, 5)
         })
         this.success('删除清单成功')
@@ -99,7 +107,11 @@ export default {
         console.log(category)
         category.name = value
 
-        this.$axios.post(`category/update/${category.id}`, category).then((res) => {
+        this.$axios.post(`category/update/${category.id}`, category, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        }).then((res) => {
           this.success('分类名修改成功:' + value)
         })
       }).catch(() => {
@@ -117,7 +129,11 @@ export default {
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         var category = { id: null, userId: this.global.user.id, name: value }
-        this.$axios.post('category/add/', category).then((res) => {
+        this.$axios.post('category/add/', category, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        }).then((res) => {
           category.id = res.data.data.id
           category.taskCount = 0
           // 如果超过当前页的大小，则弹出一个，再添加进去

@@ -61,7 +61,11 @@ export default {
   },
   methods: {
     getlabelData(currentPage, pageSize) {
-      this.$axios.get(`label/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
+      this.$axios.get(`label/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.labelData = res.data.data
       })
     },
@@ -77,7 +81,11 @@ export default {
         cancelButtonText: '取消',
         type: 'info'
       }).then(() => {
-        this.$axios.get(`label/delete/${labelId}`).then((res) => {
+        this.$axios.get(`label/delete/${labelId}`, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        }).then((res) => {
           this.getlabelData(1, 5)
           this.success('标签已成功删除')
         })
@@ -96,7 +104,11 @@ export default {
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         label.name = value
-        this.$axios.post(`label/update/${label.id}`, label).then((res) => {
+        this.$axios.post(`label/update/${label.id}`, label, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        }).then((res) => {
           this.success('标签名修改成功: ' + value)
         })
       }).catch(() => {

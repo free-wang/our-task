@@ -71,7 +71,11 @@ export default {
     addTaskParam(taskParam) {
       this.$refs[taskParam].validate((valid) => {
         if (valid) {
-          this.$axios.post('task/save', this.taskParam).then((res) => {
+          this.$axios.post('task/save', this.taskParam, {
+            headers: {
+              'Authorization': localStorage.getItem('token')
+            }
+          }).then((res) => {
             this.success()
             this.clearInput()
             this.$router.push({ path: '/show/task' })
@@ -95,12 +99,20 @@ export default {
       })
     },
     getUserCategoryList() {
-      this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
+      this.$axios.get(`category/listAll/${this.global.user.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.categoryList = res.data.data
       })
     },
     getLabelParamList() {
-      this.$axios.get(`label/listAll/${this.global.user.id}`).then((res) => {
+      this.$axios.get(`label/listAll/${this.global.user.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
         this.labelParamList = res.data.data
       })
     },
