@@ -19,7 +19,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -36,7 +36,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -70,14 +70,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码长度不能小于6位'))
       } else {
         callback()
       }
@@ -120,13 +120,17 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$axios.post('login', this.loginForm)
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
+          const _this = this
+          this.$axios.post('login', this.loginForm).then(res => {
+            const jwt = res.headers['authorization']
+            this.$store.dispatch('user/login', this.loginForm).then(() => {
+              _this.$store.commit('SET_TOKEN', jwt)
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
+            })
           })
             .catch(() => {
               this.loading = false
@@ -137,6 +141,7 @@ export default {
         }
       })
     }
+
   }
 }
 </script>

@@ -26,12 +26,12 @@ public class JwtAuthService {
     private JwtTokenUtil jwtTokenUtil;
 
     /**
-     * 登录认证换取JWT令牌
+     * 登录认证获取登录用户
      * @param username 用户名
      * @param password 密码
      * @return 结果
      */
-    public String login(String username, String password)  {
+    public User login(String username, String password)  {
         // 用户验证
         Authentication authentication = null;
         try {
@@ -41,10 +41,10 @@ public class JwtAuthService {
             authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         }
         catch (Exception e) {
-                throw new RuntimeException("用户名或密码错误");
+//                throw new RuntimeException("用户名或密码错误");
+            return null;
         }
         User loginUser = (User) authentication.getPrincipal();
-        // 生成token
-        return jwtTokenUtil.generateToken(loginUser);
+        return loginUser;
     }
 }

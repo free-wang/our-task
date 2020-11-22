@@ -1,8 +1,11 @@
 package com.water76016.ourtask.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.common.Utils;
 import com.water76016.ourtask.config.security.jwt.JwtAuthService;
+import com.water76016.ourtask.config.security.jwt.JwtTokenUtil;
 import com.water76016.ourtask.entity.Tourist;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.TouristService;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.rmi.CORBA.Util;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -26,6 +30,9 @@ public class TouristServiceImpl implements TouristService {
 
     @Autowired
     JwtAuthService jwtAuthService;
+
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
 
     /**
      * 游客注册服务
@@ -52,23 +59,17 @@ public class TouristServiceImpl implements TouristService {
      */
     @Override
     public RestResult login(Tourist tourist, HttpServletResponse response) {
+        User loginUser = jwtAuthService.login(tourist.getUsername(), tourist.getPassword());
+        if (loginUser == null){
+            return RestResult.error("用户名或密码错误");
+        }
+        //生成用户token
+        String token = jwtTokenUtil.generateToken(loginUser);
         RestResult result = RestResult.success();
-        String token = jwtAuthService.login(tourist.getUsername(), tourist.getPassword());
         //这里就已经登录成功了
-        result.put("token", token);
         response.setHeader("Authorization", token);
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
-        result.put("userId", getUserId(tourist));
+        result.put("user", loginUser);
         return result;
-    }
-
-    /**
-     * 根据用户名和密码，找到用户id，该方法是在登录成功之后使用
-     * */
-    private Integer getUserId(Tourist tourist){
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", tourist.getUsername());
-        User user = userService.getOne(queryWrapper);
-        return user.getId();
     }
 }

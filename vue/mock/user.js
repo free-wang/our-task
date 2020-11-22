@@ -6,7 +6,7 @@ const tokens = {
   editor: {
     token: 'editor-token'
   },
-  user:{
+  user: {
     token: 'user-token'
   }
 }
@@ -42,12 +42,13 @@ module.exports = [
       const token = tokens[username]
 
       // mock error
-      if (!token) {
-        return {
-          code: 60204,
-          message: 'Account and password are incorrect.'
-        }
-      }
+      // todo:先让这里不管用户名是什么，都让它检查通过
+      // if (!token) {
+      //   return {
+      //     code: 60204,
+      //     message: 'Account and password are incorrect.'
+      //   }
+      // }
 
       return {
         code: 20000,
