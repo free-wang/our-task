@@ -18,7 +18,6 @@ import javax.swing.*;
  **/
 @Service
 public class JwtAuthService {
-
     @Resource
     private AuthenticationManager authenticationManager;
 
@@ -41,7 +40,6 @@ public class JwtAuthService {
             authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         }
         catch (Exception e) {
-//                throw new RuntimeException("用户名或密码错误");
             return null;
         }
         User loginUser = (User) authentication.getPrincipal();

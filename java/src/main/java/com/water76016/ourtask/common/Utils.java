@@ -1,9 +1,7 @@
 package com.water76016.ourtask.common;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.List;
 
 /**
  * @program: our-task

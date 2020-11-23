@@ -35,7 +35,6 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         String jwtToken = request.getHeader(jwtTokenUtil.getHeader());
         if(!StringUtils.isEmpty(jwtToken)){
             String username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-
             //如果可以正确的从JWT中提取用户信息，并且该用户未被授权
             if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
                 UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
