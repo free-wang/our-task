@@ -87,7 +87,7 @@ export default {
           }
         }).then((res) => {
           this.getlabelData(1, 5)
-          this.success('标签已成功删除')
+          this.success('删除标签成功')
         })
       }).catch(() => {
         this.$message({
@@ -126,7 +126,11 @@ export default {
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         var label = { id: null, userId: this.global.user.id, name: value }
-        this.$axios.post('label/add/', label).then((res) => {
+        this.$axios.post('label/add/', label, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        }).then((res) => {
           label.id = res.data.data.id
           label.taskCount = 0
           // 如果超过当前页的大小，则弹出一个，再添加进去

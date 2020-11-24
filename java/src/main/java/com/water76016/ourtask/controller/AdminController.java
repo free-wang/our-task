@@ -36,7 +36,9 @@ public class AdminController {
     @ApiOperation("管理员冻结一个用户")
     @GetMapping("/freezeUser/{id}")
     public RestResult freezeUserById(@PathVariable Integer id){
-        userService.removeById(id);
+        User user = userService.getById(id);
+        user.setStatus(0);
+        userService.updateById(user);
         return new RestResult(200, "冻结用户成功");
     }
 

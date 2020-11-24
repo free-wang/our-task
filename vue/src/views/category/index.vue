@@ -88,7 +88,7 @@ export default {
         }).then((res) => {
           this.getUsercategoryDataList(1, 5)
         })
-        this.success('删除清单成功')
+        this.success('删除分类成功')
         this.getUsercategoryDataList(1, 5)
       }).catch(() => {
         this.$message({

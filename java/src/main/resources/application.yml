@@ -22,9 +22,9 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
-      logic-delete-field: run  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
-      logic-delete-value: 0 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 1 # 逻辑未删除值(默认为 0)
+#      logic-delete-field: run  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 0 # 逻辑已删除值
+      logic-not-delete-value: 1 # 逻辑未删除值
   mapper-locations: classpath*:/mapper/**Mapper.xml
   configuration:
     # 是否将sql打印到控制面板(该配置会将sql语句和查询的结果都打印到控制台)

@@ -1,12 +1,15 @@
 package com.water76016.ourtask.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,10 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author github:water76016
  * @since 2020-07-21
  */
@@ -30,54 +29,36 @@ public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 任务id
-     */
+    @ApiModelProperty(value = "清单id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 用户id
-     */
+    @ApiModelProperty(value = "用户id")
     private Integer userId;
 
-    /**
-     * 所属清单id
-     */
+    @ApiModelProperty(value = "所属清单id")
     private Integer categoryId;
 
-    /**
-     * 任务名
-     */
+    @ApiModelProperty(value = "任务名")
     private String name;
 
-    /**
-     * 任务描述
-     */
+    @ApiModelProperty(value = "任务描述")
     private String description;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    /**
-     * 是否完成
-     */
+    @ApiModelProperty(value = "是否完成")
     private Integer run;
 
-    /**
-     * 所属标签列表
-     * */
+    @ApiModelProperty(value = "所属标签列表")
     @TableField(exist = false)
     List<Integer> labelList;
-
-
 
     public Task(Integer userId, Integer categoryId, String name) {
         this.userId = userId;

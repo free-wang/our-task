@@ -2,8 +2,11 @@ package com.water76016.ourtask.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,7 +25,6 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Feedback implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "反馈id")
@@ -39,10 +41,12 @@ public class Feedback implements Serializable {
     private String description;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
     public Feedback(Integer userId, String title, String description) {
         this.userId = userId;

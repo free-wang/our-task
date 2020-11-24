@@ -15,7 +15,6 @@ import com.water76016.ourtask.service.TaskLabelService;
 import com.water76016.ourtask.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -23,9 +22,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- * <p>
- *  前端控制器
- * </p>
  *
  * @author github:water76016
  * @since 2020-07-21
@@ -58,7 +54,9 @@ public class TaskController {
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") Integer id){
-        taskService.removeById(id);
+        Task task = taskService.getById(id);
+        task.setRun(0);
+        taskService.updateById(task);
         return RestResult.success("已经成功删除/完成一个清单");
     }
 

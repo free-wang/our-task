@@ -1,13 +1,16 @@
 package com.water76016.ourtask.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,10 +20,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author github:water76016
  * @since 2020-07-21
  */
@@ -33,62 +32,41 @@ public class User implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户id
-     */
+    @ApiModelProperty(value = "用户id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 用户名
-     */
+    @ApiModelProperty(value = "用户名")
     private String username;
 
-    /**
-     * 电话号码
-     */
+    @ApiModelProperty(value = "电话号码")
     private String telephone;
 
-    /**
-     * 密码
-     */
+    @ApiModelProperty(value = "密码")
     private String password;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
-    /**
-     * 头像
-     */
+    @ApiModelProperty(value = "头像")
     private String headPortrait;
 
-    /**
-     * 权限
-     */
+    @ApiModelProperty(value = "权限")
     private String roles;
 
-    /**
-     * 是否被冻结
-     */
+    @ApiModelProperty(value = "是否被冻结")
     private Integer status;
 
-
-    /**
-     * Mybatis plus @TableName实体中添加非数据库字段报错，如增加请在字段上加注解 @TableField(exist = false)
-     * */
     @TableField(exist = false)
+    @ApiModelProperty(value = "权限")
     private List<GrantedAuthority> authorities;
 
     public void setAuthorities(List<GrantedAuthority> authorities) {

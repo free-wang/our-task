@@ -1,18 +1,19 @@
 package com.water76016.ourtask.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author github:water76016
  * @since 2020-08-11
  */
@@ -23,31 +24,23 @@ public class TaskLabel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
+    @ApiModelProperty(value = "清单标签id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 清单id
-     */
+    @ApiModelProperty(value = "清单id")
     private Integer taskId;
 
-    /**
-     * 标签id
-     */
+    @ApiModelProperty(value = "标签id")
     private Integer labelId;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    /**
-     * 修改时间
-     */
-    private LocalDateTime updateTime;
+    @ApiModelProperty(value = "修改时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
     public TaskLabel(Integer taskId, Integer labelId) {
         this.taskId = taskId;

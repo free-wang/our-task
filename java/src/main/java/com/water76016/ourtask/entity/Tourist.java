@@ -1,5 +1,6 @@
 package com.water76016.ourtask.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,9 @@ import java.io.Serializable;
  **/
 @Data
 public class Tourist  implements Serializable {
+    @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "登录密码")
     private String password;
 }
