@@ -8,6 +8,7 @@ import com.water76016.ourtask.service.TouristService;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @program: our-task
- * @description: 针对游客能够调用接口的控制器
+ * @description: 针对游客对象能够调用接口的控制器
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/
@@ -29,13 +30,13 @@ public class TouristController {
 
     @ApiOperation("游客进行注册操作")
     @PostMapping("/register")
-    public RestResult register(@RequestBody Tourist tourist){
+    public RestResult register(@RequestBody @ApiParam("游客对象") Tourist tourist){
         return touristService.register(tourist);
     }
 
     @ApiOperation("游客进行登录操作")
     @PostMapping({"/login"})
-    public RestResult login(@RequestBody Tourist tourist, HttpServletResponse response) {
+    public RestResult login(@RequestBody @ApiParam("游客对象") Tourist tourist, HttpServletResponse response) {
         return touristService.login(tourist, response);
     }
 

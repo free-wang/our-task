@@ -1,24 +1,16 @@
 package com.water76016.ourtask.controller;
 
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.RestResult;
-import com.water76016.ourtask.entity.Category;
-import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.CategoryService;
-import com.water76016.ourtask.service.RedisService;
 import com.water76016.ourtask.service.TaskService;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -39,22 +31,24 @@ public class UserController {
 
     @ApiOperation("修改用户基本信息")
     @PostMapping("update/{id}")
-    public RestResult update(@PathVariable("id") Integer id, @RequestBody User user){
-        userService.updateById(user);
-        return RestResult.success("更新用户成功");
+    public RestResult update(@PathVariable("id") @ApiParam("用户id") Integer id,
+                             @RequestBody @ApiParam("用户对象") User user){
+        boolean flag = userService.updateById(user);
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("根据id返回一个用户信息")
     @GetMapping("/get/{id}")
-    public RestResult get(@PathVariable Integer id){
+    public RestResult get(@PathVariable @ApiParam("用户id") Integer id){
         User user = userService.getById(id);
-        user.setPassword("******");
-        return RestResult.success("查询用户成功", user);
+        return RestResult.success(user);
     }
 
     @ApiOperation("修改用户密码")
     @PostMapping("updatePassword/{id}")
-    public RestResult updatePassword(@PathVariable("id") Integer id, String oldPassword, String newPassword){
+    public RestResult updatePassword(@PathVariable("id") @ApiParam("用户id") Integer id,
+                                     @ApiParam("旧密码") String oldPassword,
+                                     @ApiParam("新密码") String newPassword){
         //先判断用户名和密码是否匹配
         BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
         User user = userService.getById(id);
@@ -63,9 +57,7 @@ public class UserController {
         }
         String password = bcp.encode(newPassword);
         user.setPassword(password);
-        userService.updateById(user);
-        return RestResult.success("修改用户密码成功");
+        boolean flag = userService.updateById(user);
+        return flag ? RestResult.success() : RestResult.error();
     }
-
-
 }

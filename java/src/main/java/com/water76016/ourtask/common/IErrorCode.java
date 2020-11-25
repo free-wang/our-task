@@ -11,7 +11,7 @@ public interface IErrorCode {
      * 得到状态码
      * @return:状态码
      */
-    long getCode();
+    int getCode();
 
     /**
      * 获取返回消息

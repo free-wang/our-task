@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @program: our-task
- * @description: task控制器的传输对象
+ * @description: 清单controller传输对象
  * @author: water76016
  * @create: 2020-09-24 16:45
  **/

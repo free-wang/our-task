@@ -15,6 +15,7 @@ import com.water76016.ourtask.service.TaskLabelService;
 import com.water76016.ourtask.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class TaskController {
 
     @ApiOperation("添加/更新一个清单")
     @PostMapping("/save")
-    public RestResult saveOrUpdate(@RequestBody TaskParam taskParam){
+    public RestResult saveOrUpdate(@RequestBody @ApiParam("清单controller传输对象") TaskParam taskParam){
         Task task = new Task(taskParam.getId(),taskParam.getUserId(), taskParam.getCategoryId(), taskParam.getName(),
                 taskParam.getDescription());
         taskService.saveOrUpdate(task);
@@ -53,23 +54,24 @@ public class TaskController {
 
     @ApiOperation("逻辑删除/完成一个清单")
     @GetMapping("/delete/{id}")
-    public RestResult deleteTaskById(@PathVariable("id") Integer id){
+    public RestResult deleteTaskById(@PathVariable("id") @ApiParam("清单id") Integer id){
         Task task = taskService.getById(id);
         task.setRun(0);
-        taskService.updateById(task);
-        return RestResult.success("已经成功删除/完成一个清单");
+        boolean flag = taskService.updateById(task);
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("对清单进行更新")
     @PostMapping("/update/{id}")
-    public RestResult updateTask(@PathVariable("id") Integer id, @RequestBody Task task){
-        taskService.updateById(task);
-        return RestResult.success("更新清单成功");
+    public RestResult updateTask(@PathVariable("id") @ApiParam("清单id") Integer id,
+                                 @RequestBody @ApiParam("清单对象") Task task){
+        boolean flag = taskService.updateById(task);
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("查询当前用户的所有清单")
     @GetMapping("getAllList/{userId}")
-    public RestResult getAllList(@PathVariable("userId") Integer userId){
+    public RestResult getAllList(@PathVariable("userId") @ApiParam("用户id") Integer userId){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("run", 1);
@@ -87,25 +89,26 @@ public class TaskController {
             taskParam.setDescription(task.getDescription());
             taskParamList.add(taskParam);
         }
-        return RestResult.success("得到当前用户所有未完成清单成功", taskParamList);
+        return RestResult.success(taskParamList);
     }
 
     @ApiOperation("查询当前用户当前分类的所有未完成清单")
     @GetMapping("getAllList/{userId}/{categoryId}")
-    public RestResult getTaskList(@PathVariable("userId") Integer userId, @PathVariable("categoryId") Integer categoryId){
+    public RestResult getTaskList(@PathVariable("userId") @ApiParam("用户id") Integer userId,
+                                  @PathVariable("categoryId") @ApiParam("分类id") Integer categoryId){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("category_id", categoryId);
         queryWrapper.eq("run", 1);
         List<Task> taskList = taskService.list(queryWrapper);
-        return RestResult.success(taskList);
+        return taskList != null ? RestResult.success(taskList) : RestResult.error();
     }
 
     @ApiOperation("查询当前用户，当前页的所有未完成的清单，也可根据条件进行查询")
     @PostMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
-    public RestResult getPageList(@PathVariable("userId") Integer userId,
-                                  @PathVariable("pageCurrent") Integer pageCurrent,
-                                  @PathVariable("pageSize") Integer pageSize,
+    public RestResult getPageList(@PathVariable("userId") @ApiParam("用户id") Integer userId,
+                                  @PathVariable("pageCurrent") @ApiParam("当前页") Integer pageCurrent,
+                                  @PathVariable("pageSize") @ApiParam("每页大小") Integer pageSize,
                                   @RequestBody SelectCondition selectCondition){
         QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
@@ -134,26 +137,26 @@ public class TaskController {
             List<Integer> labelIdList = taskLabelService.getLableListByTaskId(taskId);
             task.setLabelList(labelIdList);
         }
-        return RestResult.success("得到当前分页清单成功", taskPage);
+        return RestResult.success(taskPage);
     }
 
     @ApiOperation("获取最近一周的清单完成情况")
     @GetMapping("/countTaskForDay/{userId}")
-    public RestResult countTaskForDay(@PathVariable("userId") Integer userId){
+    public RestResult countTaskForDay(@PathVariable("userId") @ApiParam("用户id") Integer userId){
         List<TreeMap<String, String>> result = taskService.countTaskForDay(userId);
         return RestResult.success(result);
     }
 
     @ApiOperation("获取最近七周的清单完成情况")
     @GetMapping("/countTaskForWeek/{userId}")
-    public RestResult countTaskForWeek(@PathVariable("userId") Integer userId){
+    public RestResult countTaskForWeek(@PathVariable("userId") @ApiParam("用户id") Integer userId){
         List<TreeMap<String, String>> result = taskService.countTaskForWeek(userId);
         return RestResult.success(result);
     }
 
     @ApiOperation("获取用户清单的使用情况")
     @GetMapping("/getStatistics/{userId}")
-    public RestResult getStatistics(@PathVariable("userId") Integer userId){
+    public RestResult getStatistics(@PathVariable("userId") @ApiParam("用户id") Integer userId){
         Statistics statistics = taskService.getStatistics(userId);
         return RestResult.success(statistics);
     }

@@ -3,10 +3,12 @@ package com.water76016.ourtask.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.common.ResultCode;
 import com.water76016.ourtask.entity.User;
 import com.water76016.ourtask.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,29 +37,30 @@ public class AdminController {
 
     @ApiOperation("管理员冻结一个用户")
     @GetMapping("/freezeUser/{id}")
-    public RestResult freezeUserById(@PathVariable Integer id){
+    public RestResult freezeUserById(@PathVariable @ApiParam("用户id") Integer id){
         User user = userService.getById(id);
         user.setStatus(0);
-        userService.updateById(user);
-        return new RestResult(200, "冻结用户成功");
+        boolean flag = userService.updateById(user);
+        return flag ? RestResult.success() : RestResult.error();
+
     }
 
     @ApiOperation("查询所有用户信息")
     @GetMapping("listAllUser")
     public RestResult listAllUser(){
         List<User> userList = userService.list();
-        return RestResult.success("查询所有用户信息成功", userList);
+        return userList != null ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("查询所有冻结/未冻结的用户信息")
     @GetMapping("listUser/{status}")
-    public RestResult listUserByStatus(@PathVariable Integer status){
+    public RestResult listUserByStatus(@PathVariable @ApiParam("传入用户状态") Integer status){
         if (status != 0 && status != 1){
             return RestResult.error("错误的传值");
         }
         Map<String, Object> map = new HashMap<>(5);
         map.put("status", status);
-        List<User> userList = (List<User>)userService.listByMap(map);
-        return RestResult.success("查询成功", userList);
+        List<User> userList = userService.listByMap(map);
+        return userList != null ? RestResult.success() : RestResult.error();
     }
 }

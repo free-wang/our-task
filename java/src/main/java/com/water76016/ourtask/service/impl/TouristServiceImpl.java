@@ -48,10 +48,7 @@ public class TouristServiceImpl implements TouristService {
         String encodePassword = bcp.encode(password);
         user.setPassword(encodePassword);
         boolean flag = userService.save(user);
-        if (flag){
-            return RestResult.success("添加用户成功");
-        }
-        return RestResult.error("添加用户失败");
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     /**

@@ -1,11 +1,5 @@
 package com.water76016.ourtask.common;
 
-
-
-
-
-import com.water76016.ourtask.common.constant.HttpStatus;
-
 import java.util.HashMap;
 
 /**
@@ -103,7 +97,7 @@ public class RestResult extends HashMap<String, Object>
      */
     public static RestResult success(String msg, Object data)
     {
-        return new RestResult(HttpStatus.SUCCESS, msg, data);
+        return new RestResult(ResultCode.SUCCESS.getCode(), msg, data);
     }
 
     /**
@@ -113,7 +107,7 @@ public class RestResult extends HashMap<String, Object>
      */
     public static RestResult error()
     {
-        return RestResult.error("操作失败");
+        return RestResult.error("操作出错");
     }
 
     /**
@@ -136,7 +130,7 @@ public class RestResult extends HashMap<String, Object>
      */
     public static RestResult error(String msg, Object data)
     {
-        return new RestResult(HttpStatus.ERROR, msg, data);
+        return new RestResult(ResultCode.ERROR.getCode(), msg, data);
     }
 
     /**

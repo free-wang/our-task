@@ -40,34 +40,35 @@ public class CategoryController {
     @PostMapping("add")
     public RestResult add(@RequestBody @ApiParam("新增分类对象") Category category){
         boolean flag = categoryService.save(category);
-        if (flag){
-            return RestResult.success(category);
-        }
-        return RestResult.error();
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("逻辑删除一个分类")
     @GetMapping("delete/{id}")
-    public RestResult delete(@PathVariable("id") Integer id){
-        categoryService.removeById(id);
-        return RestResult.success();
+    public RestResult delete(@PathVariable("id") @ApiParam("分类id") Integer id){
+        boolean flag = categoryService.removeById(id);
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("修改分类的名称")
     @PostMapping("update/{id}")
-    public RestResult update(@PathVariable("id") Integer id, @RequestBody Category category){
-        categoryService.updateById(category);
-        return RestResult.success();
+    public RestResult update(@PathVariable("id") @ApiParam("分类id") Integer id,
+                             @RequestBody @ApiParam("分类对象") Category category){
+        boolean flag = categoryService.updateById(category);
+        return flag ? RestResult.success() : RestResult.error();
     }
 
     @ApiOperation("查询当前用户的所有分类")
     @GetMapping("listAll/{userId}")
-    public RestResult listAll(@PathVariable("userId") Integer userId){
+    public RestResult listAll(@PathVariable("userId") @ApiParam("用户id") Integer userId){
         Category category = new Category(userId);
         category.setRun(1);
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(category);
         List<Category> categoryList = categoryService.list(queryWrapper);
+        if (categoryList == null){
+            return RestResult.error();
+        }
         //下面是根据分类id,找到所属的清单总数
         List<CategoryParam> categoryParamList = new ArrayList<>();
         for(Category cate : categoryList){
@@ -84,15 +85,16 @@ public class CategoryController {
 
     @ApiOperation("根据分类id查询分类对象")
     @GetMapping("get/{categoryId}")
-    public Category getCategoryById(@PathVariable("categoryId") String categoryId){
-        return categoryService.getById(Integer.valueOf(categoryId));
+    public RestResult getCategoryById(@PathVariable("categoryId") @ApiParam("分类id") String categoryId){
+        Category result = categoryService.getById(Integer.valueOf(categoryId));
+        return result != null ? RestResult.success(result) : RestResult.error();
     }
 
     @ApiOperation("查询当前用户，当前页的分类列表")
     @GetMapping("/getPageList/{userId}/{pageCurrent}/{pageSize}")
-    public RestResult getPageList(@PathVariable("userId") Integer userId,
-                                  @PathVariable("pageCurrent") Integer pageCurrent,
-                                  @PathVariable("pageSize") Integer pageSize){
+    public RestResult getPageList(@PathVariable("userId") @ApiParam("用户id") Integer userId,
+                                  @PathVariable("pageCurrent") @ApiParam("当前页") Integer pageCurrent,
+                                  @PathVariable("pageSize") @ApiParam("每页大小") Integer pageSize){
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("run", 1);
@@ -106,7 +108,7 @@ public class CategoryController {
             Integer countTask = taskService.countTask(userId, categoryId);
             category.setTaskCount(countTask);
         }
-        return RestResult.success("得到当前分页清单成功", categoryPage);
+        return RestResult.success(categoryPage);
     }
 
 }
