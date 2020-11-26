@@ -32,6 +32,13 @@
         </div>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <div>
+          <ve-waterfall :data="today" :settings="chartSettings" />
+        </div>
+      </el-col>
+    </el-row>
   </div>
 
 </template>
@@ -42,16 +49,22 @@ export default {
     this.chartSettings = {
       labelMap: {
         day: '每日完成数量',
-        week: '每周完成数量'
+        dayNeed: '每日剩余数量',
+        week: '每周完成数量',
+        count: '               当日分类统计'
       }
     }
     return {
       dayData: {
-        columns: ['date', 'day'],
+        columns: ['date', 'day', 'dayNeed'],
         rows: null
       },
       weekData: {
         columns: ['date', 'week'],
+        rows: null
+      },
+      today: {
+        columns: ['categoryName', 'count'],
         rows: null
       },
       statistics: {
@@ -66,6 +79,7 @@ export default {
     this.getDayData()
     this.getWeekData()
     this.getStatistics()
+    this.getToday()
   },
   methods: {
     getDayData() {
@@ -93,6 +107,15 @@ export default {
         }
       }).then((res) => {
         this.statistics = res.data.data
+      })
+    },
+    getToday() {
+      this.$axios.get(`task/countTodayForCategory/${this.global.user.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then((res) => {
+        this.today.rows = res.data.data
       })
     }
   }

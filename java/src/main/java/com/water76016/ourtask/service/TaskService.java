@@ -1,17 +1,18 @@
 package com.water76016.ourtask.service;
 
+import com.water76016.ourtask.dto.CategoryParam;
 import com.water76016.ourtask.dto.Statistics;
+import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.entity.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
  * <p>
- * 服务类
+ * 清单Service
  * </p>
  *
  * @author github :water76016
@@ -25,7 +26,7 @@ public interface TaskService extends IService<Task> {
      * @param categoryId the category id
      * @return the integer
      */
-    public Integer countTask(Integer userId, Integer categoryId);
+    Integer countTask(Integer userId, Integer categoryId);
 
     /**
      * 根据标签id，找到所含的清单总数
@@ -34,7 +35,7 @@ public interface TaskService extends IService<Task> {
      * @param labelId the label id
      * @return the integer
      */
-    public Integer countTaskByLabelId(Integer userId, Integer labelId);
+    Integer countTaskByLabelId(Integer userId, Integer labelId);
 
     /**
      * 查询某个用户，最近七天的完成情况
@@ -42,7 +43,7 @@ public interface TaskService extends IService<Task> {
      * @param userId the user id
      * @return the list
      */
-    public List<TreeMap<String, String>> countTaskForDay(Integer userId);
+    List<TreeMap<String, String>> countTaskForDay(Integer userId);
 
     /**
      * 查询某个用户，最近七周的完成情况
@@ -50,7 +51,7 @@ public interface TaskService extends IService<Task> {
      * @param userId the user id
      * @return the list
      */
-    public List<TreeMap<String, String>> countTaskForWeek(Integer userId);
+    List<TreeMap<String, String>> countTaskForWeek(Integer userId);
 
     /**
      * 查询某个用户的统计情况
@@ -58,7 +59,20 @@ public interface TaskService extends IService<Task> {
      * @param userId the user id
      * @return the statistics
      */
-    public Statistics getStatistics(Integer userId);
+    Statistics getStatistics(Integer userId);
 
+
+    /**
+     * 根据分类列表，查询分类传输对象CategoryParam列表
+     * @param
+     * @return 分类传输对象列表
+     */
+    List<CategoryParam> getCategoryParamList(List<Category> categoryList);
+
+    /**
+     * 查询用户在当天的每个分类清单的完成情况
+     * @return
+     */
+    List<Map<String, String>> countTodayForCategory(Integer userId);
 
 }

@@ -1,6 +1,7 @@
 package com.water76016.ourtask.controller;
 
 
+import ch.qos.logback.core.pattern.util.RestrictedEscapeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -159,5 +161,12 @@ public class TaskController {
     public RestResult getStatistics(@PathVariable("userId") @ApiParam("用户id") Integer userId){
         Statistics statistics = taskService.getStatistics(userId);
         return RestResult.success(statistics);
+    }
+
+    @ApiOperation("查询用户在当天的每个分类清单的完成情况")
+    @GetMapping("/countTodayForCategory/{userId}")
+    public RestResult countTodayForCategory(@PathVariable("userId") @ApiParam("用户id") Integer userId){
+        List<Map<String, String>> result = taskService.countTodayForCategory(userId);
+        return RestResult.success(result);
     }
 }

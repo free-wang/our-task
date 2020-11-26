@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //配置权限
                 .authorizeRequests()
                 // 对于登录login 验证码captchaImage 允许匿名访问
-                .antMatchers("/login").anonymous()
+                .antMatchers("/login", "/register").anonymous()
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",
@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
 //                需要对外暴露的资源路径
-                .antMatchers("login")
+                .antMatchers("login", "register")
 //                user角色和admin角色都可以访问
                 .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("user/*", "task/*", "category/*")

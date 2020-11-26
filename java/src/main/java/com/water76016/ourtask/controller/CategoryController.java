@@ -1,6 +1,5 @@
 package com.water76016.ourtask.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -69,17 +68,8 @@ public class CategoryController {
         if (categoryList == null){
             return RestResult.error();
         }
-        //下面是根据分类id,找到所属的清单总数
-        List<CategoryParam> categoryParamList = new ArrayList<>();
-        for(Category cate : categoryList){
-            Integer categoryId = cate.getId();
-            QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
-            taskQueryWrapper.eq("user_id", userId);
-            taskQueryWrapper.eq("category_id", categoryId);
-            Integer countTask = taskService.count(taskQueryWrapper);
-            CategoryParam categoryParam = new CategoryParam(cate.getId(), cate.getName(), countTask);
-            categoryParamList.add(categoryParam);
-        }
+        //根据分类列表,设置分类传输对象列表
+        List<CategoryParam> categoryParamList = taskService.getCategoryParamList(categoryList);
         return RestResult.success(categoryParamList);
     }
 
@@ -102,7 +92,6 @@ public class CategoryController {
         page.setCurrent(pageCurrent);
         page.setSize(pageSize);
         IPage<Category> categoryPage = categoryService.page(page, queryWrapper);
-
         for (Category category : categoryPage.getRecords()){
             Integer categoryId = category.getId();
             Integer countTask = taskService.countTask(userId, categoryId);

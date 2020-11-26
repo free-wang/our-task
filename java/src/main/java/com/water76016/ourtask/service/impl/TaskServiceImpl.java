@@ -4,16 +4,18 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.water76016.ourtask.common.constant.Common;
+import com.water76016.ourtask.dto.CategoryParam;
 import com.water76016.ourtask.dto.Statistics;
+import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.entity.Task;
 import com.water76016.ourtask.mapper.TaskMapper;
+import com.water76016.ourtask.service.CategoryService;
 import com.water76016.ourtask.service.TaskService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.tomcat.jni.Local;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -26,6 +28,8 @@ import java.util.*;
  */
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
+    @Autowired
+    CategoryService categoryService;
 
     @Override
     public Integer countTask(Integer userId, Integer categoryId) {
@@ -56,7 +60,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         for (int i = Common.V_CHARTS_NUMBER; i >= 0; i--){
             QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
             taskQueryWrapper.eq("user_id", userId);
-            taskQueryWrapper.eq("run", 0);
             DateTime currentDay = DateUtil.offsetDay(date, -i);
             //一天的开始
             Date beginOfDay = DateUtil.beginOfDay(currentDay);
@@ -64,7 +67,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             Date endOfDay = DateUtil.endOfDay(currentDay);
             taskQueryWrapper.between("update_time", beginOfDay, endOfDay);
             taskQueryWrapper.ge("update_time", beginOfDay);
+            Integer total = count(taskQueryWrapper);
+            taskQueryWrapper.eq("run", 0);
             Integer count = count(taskQueryWrapper);
+            Integer dayNeed = total - count;
             String format = DateUtil.format(currentDay, "yyyy-MM-dd");
             if (i == 0){
                 format = "今天";
@@ -72,6 +78,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TreeMap<String, String> treeMap = new TreeMap<>();
             treeMap.put("date", format);
             treeMap.put("day", String.valueOf(count));
+            treeMap.put("dayNeed", String.valueOf(dayNeed));
             result.add(treeMap);
         }
         return result;
@@ -137,4 +144,38 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return new Statistics(totalFinished, unFinished, weekFinished, monthFinished);
     }
 
+    @Override
+    public List<CategoryParam> getCategoryParamList(List<Category> categoryList) {
+        List<CategoryParam> categoryParamList = new ArrayList<>();
+        for(Category cate : categoryList){
+            Integer categoryId = cate.getId();
+            QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
+            taskQueryWrapper.eq("category_id", categoryId);
+            Integer countTask = count(taskQueryWrapper);
+            CategoryParam categoryParam = new CategoryParam(cate.getId(), cate.getName(), countTask);
+            categoryParamList.add(categoryParam);
+        }
+        return categoryParamList;
+    }
+
+    @Override
+    public List<Map<String, String>> countTodayForCategory(Integer userId) {
+        List<Map<String, String>> result = new ArrayList<>();
+        //先查询该用户下，所有的分类
+        QueryWrapper<Category> categoryQueryWrapper = new QueryWrapper<>();
+        Category entity = new Category(userId);
+        categoryQueryWrapper.setEntity(entity);
+        List<Category> categoryList = categoryService.list(categoryQueryWrapper);
+        for (Category category : categoryList){
+            QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
+            taskQueryWrapper.eq("user_id", userId).eq("category_id", category.getId())
+                    .eq("run", 0);
+            Integer count = count(taskQueryWrapper);
+            Map<String, String> hashMap = new HashMap<>();
+            hashMap.put("categoryName", category.getName());
+            hashMap.put("count", String.valueOf(count));
+            result.add(hashMap);
+        }
+        return result;
+    }
 }
