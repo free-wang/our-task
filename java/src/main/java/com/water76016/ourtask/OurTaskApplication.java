@@ -2,6 +2,7 @@ package com.water76016.ourtask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * @program: our-task
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create: 2020-09-24 16:45
  **/
 @SpringBootApplication
+@ServletComponentScan
 public class OurTaskApplication {
 
     public static void main(String[] args) {

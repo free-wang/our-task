@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -48,8 +49,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * 需要加上这个，否则会被SpringSecurity拦截
+     * @param web
+     * @throws Exception
+     */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**", "/sign", "/druid/**");
+    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity.csrf().ignoringAntMatchers("/druid/*");
         httpSecurity
                 // 认证失败处理类
                 //.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -65,7 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
+                        "/**/*.ico",
                         "/swagger-resources/**",
+                        "/druid/**",
                         "/v2/api-docs/**"
                 )
                 .permitAll()
@@ -85,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // CRSF禁用，因为不使用session
                 //禁用跨站csrf攻击防御，否则无法登陆成功
-                .csrf().disable() ;
+                .csrf().disable();
         //登出功能
         httpSecurity.logout().logoutUrl("/logout");
         // 添加JWT filter
