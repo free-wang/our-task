@@ -63,6 +63,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.2.0</version>
         </dependency>
+<!--        引入freemarker模板引擎供mp生成代码-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
@@ -101,16 +102,10 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <!--JWT(Json Web Token)登录支持-->
-        <!-- jwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
 <!--        阿里巴巴fastJson-->
         <dependency>

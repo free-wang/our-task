@@ -83,13 +83,13 @@ export const constantRoutes = [
         path: 'category',
         name: 'Category',
         component: () => import('@/views/category/index'),
-        meta: { title: '分类列表', icon: 'tree' }
+        meta: { title: '分类列表', icon: 'category' }
       },
       {
         path: 'label',
         name: 'Label',
         component: () => import('@/views/label/index'),
-        meta: { title: '标签列表', icon: 'table' }
+        meta: { title: '标签列表', icon: 'label' }
       }
     ]
   },
@@ -104,7 +104,7 @@ export const constantRoutes = [
         path: 'feedback',
         name: 'feedback',
         component: () => import('@/views/feedback/index'),
-        meta: { title: '提交反馈', icon: 'user' }
+        meta: { title: '提交反馈', icon: 'feedback' }
       }
     ]
   }

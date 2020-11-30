@@ -15,19 +15,19 @@ const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    avatar: 'http://wx.qlogo.cn/mmopen/5gNE2LLibmx8t6DmRpRzbDVqSDstBnFMEJcDnFLibiamblSdQKaaKTYoMohkrxIY8YwicowK5YMnIn3Gs1icmeYibDMIibQFuiaDg1xq/64',
     name: 'Super Admin'
   },
   'editor-token': {
     roles: ['editor'],
     introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    avatar: 'http://wx.qlogo.cn/mmopen/5gNE2LLibmx8t6DmRpRzbDVqSDstBnFMEJcDnFLibiamblSdQKaaKTYoMohkrxIY8YwicowK5YMnIn3Gs1icmeYibDMIibQFuiaDg1xq/64',
     name: 'Normal Editor'
   },
   'user-token': {
     roles: ['user'],
     introduction: 'I am an user',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    avatar: 'http://wx.qlogo.cn/mmopen/5gNE2LLibmx8t6DmRpRzbDVqSDstBnFMEJcDnFLibiamblSdQKaaKTYoMohkrxIY8YwicowK5YMnIn3Gs1icmeYibDMIibQFuiaDg1xq/64',
     name: 'Normal User'
   }
 }

@@ -14,7 +14,7 @@
         <el-row>
           <el-col :span="6">待完成清单</el-col>
           <el-col :span="6">上周完成清单</el-col>
-          <el-col :span="6">上个月完成清单</el-col>
+          <el-col :span="6">上月完成清单</el-col>
           <el-col :span="6">已完成清单</el-col>
         </el-row>
       </div>
@@ -28,7 +28,7 @@
       </el-col>
       <el-col :span="12">
         <div>
-          <ve-line :data="weekData" :settings="chartSettings" />
+          <ve-histogram :data="weekData" :settings="chartSettings" />
         </div>
       </el-col>
     </el-row>
@@ -51,21 +51,22 @@ export default {
         day: '每日完成数量',
         dayNeed: '每日剩余数量',
         week: '每周完成数量',
-        count: '               当日分类统计'
+        count: '               当天完成统计'
       }
     }
     return {
       dayData: {
         columns: ['date', 'day', 'dayNeed'],
-        rows: null
+        // rows需要初始化为空列表，而不是Null，否则前端会认为这个为空而报错
+        rows: []
       },
       weekData: {
         columns: ['date', 'week'],
-        rows: null
+        rows: []
       },
       today: {
         columns: ['categoryName', 'count'],
-        rows: null
+        rows: []
       },
       statistics: {
         totalFinished: null,
