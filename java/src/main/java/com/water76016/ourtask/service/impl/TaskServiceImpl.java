@@ -70,7 +70,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             Integer total = count(taskQueryWrapper);
             taskQueryWrapper.eq("run", 0);
             Integer count = count(taskQueryWrapper);
-            Integer dayNeed = total - count;
             String format = DateUtil.format(currentDay, "yyyy-MM-dd");
             if (i == 0){
                 format = "今天";
@@ -78,7 +77,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             TreeMap<String, String> treeMap = new TreeMap<>();
             treeMap.put("date", format);
             treeMap.put("day", String.valueOf(count));
-            treeMap.put("dayNeed", String.valueOf(dayNeed));
+            treeMap.put("total", String.valueOf(total));
             result.add(treeMap);
         }
         return result;
@@ -169,16 +168,24 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         //获取当前时间
         Date currentDate = DateUtil.date();
         Date startDate = DateUtil.beginOfDay(currentDate);
+        //判断图表中，是否存在数据
+        boolean flag = false;
         for (Category category : categoryList){
             QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
             taskQueryWrapper.eq("user_id", userId).eq("category_id", category.getId())
                     .eq("run", 0);
             taskQueryWrapper.ge("update_time", startDate).le("update_time", currentDate);
             Integer count = count(taskQueryWrapper);
+            if (count > 0){
+                flag = true;
+            }
             Map<String, String> hashMap = new HashMap<>();
             hashMap.put("categoryName", category.getName());
             hashMap.put("count", String.valueOf(count));
             result.add(hashMap);
+        }
+        if (flag == false){
+            return null;
         }
         return result;
     }

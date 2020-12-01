@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <el-card>
@@ -23,19 +24,19 @@
     <el-row>
       <el-col :span="12">
         <div>
-          <ve-line :data="dayData" :settings="chartSettings" />
+          <ve-histogram :data="dayData" :settings="chartSettings" />
         </div>
       </el-col>
       <el-col :span="12">
         <div>
-          <ve-histogram :data="weekData" :settings="chartSettings" />
+          <ve-line :data="weekData" :settings="chartSettings" />
         </div>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
         <div>
-          <ve-waterfall :data="today" :settings="chartSettings" />
+          <ve-waterfall :data="today" :settings="chartSettings" :extend="chartExtend" />
         </div>
       </el-col>
     </el-row>
@@ -44,19 +45,30 @@
 </template>
 
 <script>
+import 'echarts/lib/component/title'
+import 'v-charts/lib/style.css'
+
 export default {
   data() {
+    this.chartExtend = {
+      title: {
+        text: '当天完成统计',
+        x: 'middle',		// 在图片中的x轴位置 left, right, middle
+        y: 'top',		// 在图片中的y轴位置 top, bottom
+        textAlign: 'center' // 整体（包括 text 和 subtext）的水平对齐 auto, left, right, center
+      }
+    }
     this.chartSettings = {
       labelMap: {
         day: '每日完成数量',
-        dayNeed: '每日剩余数量',
+        total: '每日创建数量',
         week: '每周完成数量',
-        count: '               当天完成统计'
+        count: '数量'
       }
     }
     return {
       dayData: {
-        columns: ['date', 'day', 'dayNeed'],
+        columns: ['date', 'day', 'total'],
         // rows需要初始化为空列表，而不是Null，否则前端会认为这个为空而报错
         rows: []
       },
