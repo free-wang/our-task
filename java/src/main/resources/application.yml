@@ -60,7 +60,6 @@ token:
   # 令牌自定义标识
   header: Authorization
   # 令牌秘钥
-  #  secret: abcdefghijklmnopqrstuvwxyz
   secret: (EMOK:)_$^11244^%$_(IS:)_@@++--(COOL:)_++++_.sds_(GUY:)
   # 令牌有效期
   expireTime: 3600000
@@ -72,6 +71,6 @@ redis:
     user: "user"
     task: "task"
   expire:
-    common: 86400 # 24小时
+    common: 43200 # 12小时
 server:
   port: 8888

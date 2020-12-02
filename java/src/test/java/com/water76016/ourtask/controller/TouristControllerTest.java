@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -33,17 +34,17 @@ class TouristControllerTest {
     void register() {
     }
 
+    /**
+     * 测试用户登录接口
+     * @throws Exception
+     */
     @Test
     void login() throws Exception {
         User user = new User("user", "123456");
         String content = JSONObject.toJSONString(user);
-        String result = mockMvc.perform(post("/login")
+        mockMvc.perform(post("/login")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(content))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        RestResult restResult = JSONObject.parseObject(result, RestResult.class);
-        assert restResult.get("code").equals(200);
-        System.out.println();
+                .andExpect(status().isOk());
     }
 }

@@ -48,7 +48,7 @@ public class LabelController {
         List<Label> labelList = labelService.list(queryWrapper);
         List<LabelParam> labelParamList = new ArrayList<>();
         for (Label label : labelList){
-            Integer labelId = label.getId();
+            int labelId = label.getId();
             QueryWrapper<TaskLabel> taskLabelQueryWrapper = new QueryWrapper<>();
             taskLabelQueryWrapper.eq("label_id", labelId);
             Integer count = taskLabelService.count(taskLabelQueryWrapper);

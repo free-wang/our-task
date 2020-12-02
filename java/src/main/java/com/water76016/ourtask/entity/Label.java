@@ -24,7 +24,7 @@ public class Label implements Serializable {
 
     @ApiModelProperty(value = "标签id")
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private int id;
 
     @ApiModelProperty(value = "用户id")
     private Integer userId;
@@ -48,4 +48,8 @@ public class Label implements Serializable {
     @TableField(exist = false)
     Integer taskCount;
 
+    public Label(Integer userId, String name) {
+        this.userId = userId;
+        this.name = name;
+    }
 }
