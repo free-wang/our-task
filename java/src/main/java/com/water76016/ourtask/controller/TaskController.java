@@ -58,17 +58,10 @@ public class TaskController {
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") @ApiParam("清单id") Integer id){
         Task task = taskService.getById(id);
+        //todo:这里要弄一个判断，空指针异常
         task.setRun(0);
-        boolean flag = taskService.updateById(task);
-        return flag ? RestResult.success() : RestResult.error();
-    }
-
-    @ApiOperation("对清单进行更新")
-    @PostMapping("/update/{id}")
-    public RestResult updateTask(@PathVariable("id") @ApiParam("清单id") Integer id,
-                                 @RequestBody @ApiParam("清单对象") Task task){
-        boolean flag = taskService.updateById(task);
-        return flag ? RestResult.success() : RestResult.error();
+        taskService.updateById(task);
+        return RestResult.success();
     }
 
     @ApiOperation("查询当前用户的所有清单")

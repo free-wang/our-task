@@ -1,9 +1,8 @@
 package com.water76016.ourtask.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.water76016.ourtask.entity.Label;
+import com.water76016.ourtask.entity.Category;
 import com.water76016.ourtask.entity.User;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class LabelControllerTest {
+class CategoryControllerTest {
     private MockMvc mockMvc;
     private String token;
     @Autowired
@@ -51,29 +50,27 @@ class LabelControllerTest {
         return token;
     }
 
-    @AfterEach
-    void tearDown() {
+    /**
+     * 把category添加、修改、删除三个操作放在一起
+     */
+    @Test
+    void categoryManage() throws Exception {
+        add();
+        update();
+        delete();
+
     }
 
-    @Test
-    void getAllList() throws Exception {
-        mockMvc.perform(get("/label/listAll/1")
-                .header("Authorization", token)
-                .accept(MediaType.APPLICATION_JSON))
+    void add() throws Exception {
+        Category category = new Category(1, "测试");
+        String content = JSONObject.toJSONString(category);
+        mockMvc.perform(post("/category/add")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(content))
                 .andExpect(status().isOk());
     }
 
-    /**
-     * 把label添加、修改、删除三个操作放在一起
-     */
-    @Test
-    void labelManage() throws Exception {
-        add();
-        update();
-        deleteLabelById();
-
-    }
-    void deleteLabelById() throws Exception {
+    void delete() {
         //todo:由于无法获取自动生成主键id，该方法暂时无法完成
     }
 
@@ -81,14 +78,20 @@ class LabelControllerTest {
         //todo:由于无法获取自动生成主键id，该方法暂时无法完成
     }
 
-    void add() throws Exception {
-        Label label = new Label(1, "测试");
-        String content = JSONObject.toJSONString(label);
-        mockMvc.perform(post("/label/add")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(content))
+    @Test
+    void listAll() throws Exception {
+        mockMvc.perform(get("/category/listAll/1")
+                .header("Authorization", token)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
 
+    @Test
+    void getCategoryById() throws Exception {
+        mockMvc.perform(get("/category/get/1")
+                .header("Authorization", token)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
