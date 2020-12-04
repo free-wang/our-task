@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.water76016.ourtask.common.RestResult;
+import com.water76016.ourtask.common.ResultCode;
 import com.water76016.ourtask.dto.SelectCondition;
 import com.water76016.ourtask.dto.Statistics;
 import com.water76016.ourtask.dto.TaskParam;
@@ -45,7 +46,7 @@ public class TaskController {
                 taskParam.getDescription());
         taskService.saveOrUpdate(task);
         Integer taskId = task.getId();
-        //准备往task_label表里面插值
+        //准备往task_label表里面插入新的
         List<Integer> labelList = taskParam.getLabelList();
         for (Integer labelId : labelList){
             TaskLabel taskLabel = new TaskLabel(taskId, labelId);
@@ -58,7 +59,9 @@ public class TaskController {
     @GetMapping("/delete/{id}")
     public RestResult deleteTaskById(@PathVariable("id") @ApiParam("清单id") Integer id){
         Task task = taskService.getById(id);
-        //todo:这里要弄一个判断，空指针异常
+        if (task == null){
+            return new RestResult(ResultCode.MOVED_PERM.getCode(), "资源已被移除");
+        }
         task.setRun(0);
         taskService.updateById(task);
         return RestResult.success();
