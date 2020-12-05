@@ -46,7 +46,11 @@ public class TaskController {
                 taskParam.getDescription());
         taskService.saveOrUpdate(task);
         Integer taskId = task.getId();
-        //准备往task_label表里面插入新的
+        //先删除之前的task和label对应关系
+        QueryWrapper<TaskLabel> taskLabelQueryWrapper = new QueryWrapper<>();
+        taskLabelQueryWrapper.eq("task_id", taskId);
+        taskLabelService.remove(taskLabelQueryWrapper);
+        //准备往task_label表里面插入新的task和label对应关系
         List<Integer> labelList = taskParam.getLabelList();
         for (Integer labelId : labelList){
             TaskLabel taskLabel = new TaskLabel(taskId, labelId);

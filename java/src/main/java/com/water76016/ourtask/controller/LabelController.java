@@ -77,7 +77,7 @@ public class LabelController {
     @PostMapping("add")
     public RestResult add(@RequestBody @ApiParam("标签对象") Label label){
         boolean flag = labelService.save(label);
-        return flag ? RestResult.success() : RestResult.error();
+        return flag ? RestResult.success(label) : RestResult.error();
     }
 
     @ApiOperation("查询当前用户，当前页的标签列表")

@@ -122,7 +122,7 @@ export default {
       this.$prompt('请输入新的标签名称', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        inputPattern: /^[\u4e00-\u9fffa-zA-Z]{1,6}$/,
+        inputPattern: /^[\u4e00-\u9fffa-zA-Z0-9]{1,6}$/,
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         var label = { id: null, userId: this.global.user.id, name: value }

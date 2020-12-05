@@ -39,7 +39,7 @@ public class CategoryController {
     @PostMapping("add")
     public RestResult add(@RequestBody @ApiParam("新增分类对象") Category category){
         boolean flag = categoryService.save(category);
-        return flag ? RestResult.success() : RestResult.error();
+        return flag ? RestResult.success(category) : RestResult.error();
     }
 
     @ApiOperation("逻辑删除一个分类")
