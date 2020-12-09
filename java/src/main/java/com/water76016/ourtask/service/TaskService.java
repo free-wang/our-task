@@ -29,15 +29,6 @@ public interface TaskService extends IService<Task> {
     Integer countTask(Integer userId, Integer categoryId);
 
     /**
-     * 根据标签id，找到所含的清单总数
-     *
-     * @param userId  the user id
-     * @param labelId the label id
-     * @return the integer
-     */
-    Integer countTaskByLabelId(Integer userId, Integer labelId);
-
-    /**
      * 查询某个用户，最近七天的完成情况
      *
      * @param userId the user id

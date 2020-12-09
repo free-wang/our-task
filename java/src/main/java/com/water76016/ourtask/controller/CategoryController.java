@@ -45,6 +45,7 @@ public class CategoryController {
     @ApiOperation("逻辑删除一个分类")
     @GetMapping("delete/{id}")
     public RestResult delete(@PathVariable("id") @ApiParam("分类id") Integer id){
+        //先统计该分类下清单的数目，如果数目大于0，则
         boolean flag = categoryService.removeById(id);
         return flag ? RestResult.success() : RestResult.error();
     }

@@ -31,4 +31,12 @@ public interface TaskLabelService extends IService<TaskLabel> {
      */
     public List<Integer> getTaskIdListByLabelIdList(List<Integer> labelIdList);
 
+    /**
+     * 根据标签id，获取所含的清单总数
+     * @param labelId
+     * @return
+     */
+    public int countTaskByLabelId(int labelId);
+
+
 }

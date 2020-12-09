@@ -47,4 +47,12 @@ public class TaskLabelServiceImpl extends ServiceImpl<TaskLabelMapper, TaskLabel
         return result;
     }
 
+    @Override
+    public int countTaskByLabelId(int labelId) {
+        QueryWrapper<TaskLabel> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("label_id", labelId);
+        int count = count(queryWrapper);
+        return count;
+    }
+
 }

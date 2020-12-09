@@ -29,6 +29,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     private String redisDatabase;
     @Value("${redis.key.category}")
     private String redisKeyCategory;
+    @Value("${redis.expire.common}")
+    private long expire;
     @Autowired
     RedisService redisService;
 
@@ -54,6 +56,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         for(Category category : categoryList){
             String save = JSONUtil.toJsonStr(category);
             redisService.lPush(key, save);
+            //设置键过期时间
+            redisService.expire(key, expire);
         }
         return categoryList;
     }
@@ -69,6 +73,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             String key = redisDatabase + ":" + redisKeyCategory + ":" + "list" + ":" + entity.getUserId();
             String save = JSONUtil.toJsonStr(entity);
             redisService.lPush(key, save);
+            redisService.expire(key, expire);
         }
         return flag;
     }
