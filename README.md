@@ -6,7 +6,7 @@ Our-Task项目想要打造一个完整的清单管理系统，用户在上面创
 
 ### Github地址
 
-[Github地址](https://github.com/water76016/our-task)
+[our-task：一个完整的清单管理系统](https://github.com/water76016/our-task)
 
 ### 预览地址
 
@@ -14,17 +14,19 @@ Our-Task项目想要打造一个完整的清单管理系统，用户在上面创
 
 [阿里云预览地址](http://www.daxingyong.cn:3000/)
 
-### 公众号文档
+### 项目部署文档
 
-[Our-Task安装运行需要的开发环境](https://mp.weixin.qq.com/s/7uBVRP77JlHnOXAS5Qn3eQ)
+[Our-Task部署运行需要的开发环境](https://juejin.cn/post/6904081101619200013)
 
-[Our-Task部署运行](https://mp.weixin.qq.com/s/fOSibwEupgwLO7PSfQxEeA)
+[ Our-Task部署运行详细文档](https://juejin.cn/post/6904085118059544590)
 
-### 学习文档
+### 项目学习文档
 
-[Our-Task用例图和ER图设计](https://mp.weixin.qq.com/s/O2AD8lbdYOb_S7jPl6qecA)
+[Our-Task用例图和ER图设计](https://juejin.cn/post/6904082047107596295)
 
-[盘点开发过程中遇到的问题](https://mp.weixin.qq.com/s/6lhlh1Z5Bocv6v98cobSHg)
+[Our-task盘点开发过程中遇到的问题](https://juejin.cn/post/6904076042315677704)
+
+[mybatis-plus如何自动填充字段创建时间和修改时间](https://juejin.cn/post/6904074648804294663)
 
 ## 项目介绍
 
