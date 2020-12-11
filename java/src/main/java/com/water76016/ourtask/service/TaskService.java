@@ -58,7 +58,7 @@ public interface TaskService extends IService<Task> {
      * @param
      * @return 分类传输对象列表
      */
-    List<CategoryParam> getCategoryParamList(List<Category> categoryList);
+    List<CategoryParam> getCategoryParamList(List<Map<Object, Object>> categoryList);
 
     /**
      * 查询用户在当天的每个分类清单的完成情况

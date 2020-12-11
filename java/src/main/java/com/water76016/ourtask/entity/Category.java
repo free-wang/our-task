@@ -34,7 +34,7 @@ public class Category implements Serializable {
     @ApiModelProperty(value = "用户id")
     private Integer userId;
 
-    @ApiModelProperty(value = "清单名称")
+    @ApiModelProperty(value = "分类名称")
     private String name;
 
     @TableField(fill = FieldFill.INSERT)

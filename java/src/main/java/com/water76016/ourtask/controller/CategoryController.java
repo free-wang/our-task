@@ -43,10 +43,10 @@ public class CategoryController {
     }
 
     @ApiOperation("逻辑删除一个分类")
-    @GetMapping("delete/{id}")
-    public RestResult delete(@PathVariable("id") @ApiParam("分类id") Integer id){
-        //先统计该分类下清单的数目，如果数目大于0，则
-        boolean flag = categoryService.removeById(id);
+    @GetMapping("delete/{id}/{userId}")
+    public RestResult delete(@PathVariable("id") @ApiParam("分类id") Integer id,
+                             @PathVariable("userId") @ApiParam("用户id") Integer userId){
+        boolean flag = categoryService.removeById(id, userId);
         return flag ? RestResult.success() : RestResult.error();
     }
 
@@ -61,11 +61,7 @@ public class CategoryController {
     @ApiOperation("查询当前用户的所有分类")
     @GetMapping("listAll/{userId}")
     public RestResult listAll(@PathVariable("userId") @ApiParam("用户id") Integer userId){
-        Category category = new Category(userId);
-        category.setRun(1);
-        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
-        queryWrapper.setEntity(category);
-        List<Category> categoryList = categoryService.list(queryWrapper);
+        List<Map<Object, Object>> categoryList = categoryService.list(userId);
         if (categoryList == null){
             return RestResult.error();
         }

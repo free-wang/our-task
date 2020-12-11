@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -38,9 +41,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * 用来获取当前用户下所有的分类
      * */
     @Override
-    public List<Category> list(Wrapper<Category> queryWrapper) {
-        Integer userId = queryWrapper.getEntity().getUserId();
+    public List<Map<Object, Object>> list(Integer userId) {
         String key = redisDatabase + ":" + redisKeyCategory + ":" + "list" + ":" + userId;
+        if (redisService.hasKey(key)){
+            //先获取该用户下所有的清单id
+            Set<Object> categoryIdSet = redisService.sMembers(key);
+            redisService.hge
+        }
+
+
+
+
         if (redisService.hasKey(key)){
             Long size = redisService.lSize(key);
             List<Object> save = redisService.lRange(key, 0, size);
@@ -69,15 +80,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public boolean save(Category entity) {
         //添加一个实体，会自动把数据库中的id传值回来
         boolean flag = super.save(entity);
-        if (flag){
-            String key = redisDatabase + ":" + redisKeyCategory + ":" + "list" + ":" + entity.getUserId();
-            String save = JSONUtil.toJsonStr(entity);
-            redisService.lPush(key, save);
-            redisService.expire(key, expire);
+        if (flag == false){
+            return flag;
         }
+        saveOrUpdateForRedis(entity);
+        //把这个分类的id，添加到redis的用户分类id集合里面
+        String key = redisDatabase + ":" + redisKeyCategory + ":" + entity.getUserId();
+        redisService.sAdd(key, entity.getId());
         return flag;
     }
-
 
     /**
      * 用来对一个分类进行更新
@@ -85,13 +96,49 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public boolean updateById(Category entity) {
         boolean flag = super.updateById(entity);
-        if (flag){
-            Integer userId = this.getById(entity.getId()).getUserId();
-            String key = redisDatabase + ":" + redisKeyCategory + ":" + "list" + ":" + userId;
-            //更新的时候直接删除这个键，等后面查询所有自动更新那么redis没有键，会自动跑到mysql中去查询，
-            // 然后自动添加到redis
-            redisService.del(key);
+        if (flag == false){
+            return false;
         }
+        saveOrUpdateForRedis(entity);
         return flag;
+    }
+
+    /**
+     * 针对redis里面存储的category，进行添加或者更新
+     * @param entity
+     */
+    public void saveOrUpdateForRedis(Category entity){
+        String key = redisDatabase + ":" + redisKeyCategory + ":" + entity.getId();
+        redisService.expire(key, expire);
+        redisService.hSet(key, "id", entity.getId());
+        redisService.hSet(key, "userId", entity.getUserId());
+        redisService.hSet(key, "name", entity.getName());
+        redisService.hSet(key, "createTime", entity.getCreateTime());
+        redisService.hSet(key, "updateTime", entity.getUpdateTime());
+        redisService.hSet(key, "taskCount", entity.getTaskCount());
+    }
+
+    @Override
+    public boolean removeById(Integer id, Integer userId) {
+        //如果该分类下，清单数目大于0，则该清单不能被删除
+        String key = redisDatabase + ":" + redisKeyCategory + ":" + id;
+        String userCategory = redisDatabase + ":" + redisKeyCategory + ":" + userId;
+        if (redisService.hasKey(key)){
+            int taskCount = (int)redisService.hGet(key, "taskCount");
+            if (taskCount > 0){
+                return false;
+            }
+        }
+        Category category = super.getById(id);
+        if (category.getTaskCount() <= 0){
+            removeById(id);
+            redisService.sRemove(userCategory, id);
+            return true;
+        }
+        //发现这个分类清单数不为0，并且不在redis中，顺便存进去
+        saveOrUpdateForRedis(category);
+        redisService.sAdd(userCategory, id);
+
+        return false;
     }
 }
