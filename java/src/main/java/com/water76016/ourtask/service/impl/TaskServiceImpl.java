@@ -32,9 +32,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     CategoryService categoryService;
 
     @Override
-    public Integer countTask(Integer userId, Integer categoryId) {
+    public Integer countTask(Integer categoryId) {
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
-        taskQueryWrapper.eq("user_id", userId);
         taskQueryWrapper.eq("category_id", categoryId);
         taskQueryWrapper.eq("run", 1);
         Integer countTask = count(taskQueryWrapper);
@@ -134,14 +133,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public List<CategoryParam> getCategoryParamList(List<Category> categoryList) {
+    public List<CategoryParam> getCategoryParamList(List<Map<String, Object>> categoryList) {
         List<CategoryParam> categoryParamList = new ArrayList<>();
-        for(Category cate : categoryList){
-            Integer categoryId = cate.getId();
+        for(Map<String, Object> category : categoryList){
+            Integer categoryId = Integer.valueOf(category.get("id").toString());
             QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
             taskQueryWrapper.eq("category_id", categoryId);
             Integer countTask = count(taskQueryWrapper);
-            CategoryParam categoryParam = new CategoryParam(cate.getId(), cate.getName(), countTask);
+            CategoryParam categoryParam = new CategoryParam(Integer.valueOf(category.get("id").toString()),
+                    category.get("name").toString(), countTask);
             categoryParamList.add(categoryParam);
         }
         return categoryParamList;

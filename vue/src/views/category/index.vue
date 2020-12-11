@@ -81,7 +81,7 @@ export default {
         cancelButtonText: '取消',
         type: 'info'
       }).then(() => {
-        this.$axios.get(`category/delete/${categoryId}`, {
+        this.$axios.get(`category/delete/${categoryId}/${this.global.user.id}`, {
           headers: {
             'Authorization': localStorage.getItem('token')
           }

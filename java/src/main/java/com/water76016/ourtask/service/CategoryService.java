@@ -17,5 +17,5 @@ import java.util.Map;
 public interface CategoryService extends IService<Category> {
     boolean removeById(Integer id, Integer userId);
 
-    List<Map<Object, Object>> list(Integer userId);
+    List<Map<String, Object>> list(Integer userId);
 }

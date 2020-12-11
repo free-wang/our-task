@@ -47,7 +47,7 @@ public class CategoryController {
     public RestResult delete(@PathVariable("id") @ApiParam("分类id") Integer id,
                              @PathVariable("userId") @ApiParam("用户id") Integer userId){
         boolean flag = categoryService.removeById(id, userId);
-        return flag ? RestResult.success() : RestResult.error();
+        return flag ? RestResult.success() : RestResult.error("该分类下还有未完成的清单，不能删除");
     }
 
     @ApiOperation("修改分类的名称")
@@ -61,7 +61,7 @@ public class CategoryController {
     @ApiOperation("查询当前用户的所有分类")
     @GetMapping("listAll/{userId}")
     public RestResult listAll(@PathVariable("userId") @ApiParam("用户id") Integer userId){
-        List<Map<Object, Object>> categoryList = categoryService.list(userId);
+        List<Map<String, Object>> categoryList = categoryService.list(userId);
         if (categoryList == null){
             return RestResult.error();
         }
@@ -91,7 +91,7 @@ public class CategoryController {
         IPage<Category> categoryPage = categoryService.page(page, queryWrapper);
         for (Category category : categoryPage.getRecords()){
             Integer categoryId = category.getId();
-            Integer countTask = taskService.countTask(userId, categoryId);
+            Integer countTask = taskService.countTask(categoryId);
             category.setTaskCount(countTask);
         }
         return RestResult.success(categoryPage);

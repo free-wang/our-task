@@ -22,11 +22,10 @@ public interface TaskService extends IService<Task> {
     /**
      * 根据分类id，找到所含的清单总数
      *
-     * @param userId     the user id
      * @param categoryId the category id
      * @return the integer
      */
-    Integer countTask(Integer userId, Integer categoryId);
+    Integer countTask(Integer categoryId);
 
     /**
      * 查询某个用户，最近七天的完成情况
@@ -58,7 +57,7 @@ public interface TaskService extends IService<Task> {
      * @param
      * @return 分类传输对象列表
      */
-    List<CategoryParam> getCategoryParamList(List<Map<Object, Object>> categoryList);
+    List<CategoryParam> getCategoryParamList(List<Map<String, Object>> categoryList);
 
     /**
      * 查询用户在当天的每个分类清单的完成情况
