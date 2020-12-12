@@ -61,7 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.csrf().ignoringAntMatchers("/druid/*");
         httpSecurity
                 // 认证失败处理类
                 //.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

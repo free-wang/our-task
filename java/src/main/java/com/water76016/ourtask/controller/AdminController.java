@@ -42,7 +42,6 @@ public class AdminController {
         user.setStatus(0);
         boolean flag = userService.updateById(user);
         return flag ? RestResult.success() : RestResult.error();
-
     }
 
     @ApiOperation("查询所有用户信息")
