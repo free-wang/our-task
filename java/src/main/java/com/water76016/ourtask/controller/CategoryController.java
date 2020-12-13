@@ -61,6 +61,7 @@ public class CategoryController {
     @ApiOperation("查询当前用户的所有分类")
     @GetMapping("listAll/{userId}")
     public RestResult listAll(@PathVariable("userId") @ApiParam("用户id") Integer userId){
+        //todo；这里有报错，需要修复
         List<Map<String, Object>> categoryList = categoryService.list(userId);
         if (categoryList == null){
             return RestResult.error();
