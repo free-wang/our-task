@@ -40,15 +40,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * */
     @Override
     public List<Map<String, Object>> list(Integer userId) {
-        String key = redisDatabase + ":" + redisKeyCategory + ":set:" + userId;
+        String categoryIdSetKey = redisDatabase + ":" + redisKeyCategory + ":set:" + userId;
         List<Map<String, Object>> result = new ArrayList<>();
-        if (redisService.hasKey(key)){
+        if (redisService.hasKey(categoryIdSetKey)){
             //先获取该用户下所有的清单id
-            Set<Object> categoryIdSet = redisService.sMembers(key);
-            String original = redisDatabase + ":" + redisKeyCategory + ":hash:";
+            Set<Object> categoryIdSet = redisService.sMembers(categoryIdSetKey);
+            String originalkey = redisDatabase + ":" + redisKeyCategory + ":hash:";
             for (Object id : categoryIdSet){
-                String currentKey = original + id;
-                Map<Object, Object> tempCateogry = redisService.hGetAll(currentKey);
+                String categoryKey = originalkey + id;
+                Map<Object, Object> tempCateogry = redisService.hGetAll(categoryKey);
                 Map<String, Object> category = new HashMap<>();
                 for (Map.Entry<Object, Object> entrySet : tempCateogry.entrySet()){
                     category.put(entrySet.getKey().toString(), entrySet.getValue());
@@ -79,11 +79,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         }
         saveOrUpdateForRedis(entity);
         //把这个分类的id，添加到redis的用户分类id集合里面
-        String key = redisDatabase + ":" + redisKeyCategory + ":set:" + entity.getUserId();
-        redisService.sAdd(key, entity.getId().toString());
+        String categoryIdSetKey = redisDatabase + ":" + redisKeyCategory + ":set:" + entity.getUserId();
+        redisService.sAdd(categoryIdSetKey, entity.getId().toString());
+        redisService.expire(categoryIdSetKey, expire);
         //把这个分类下的清单数置为0
-        String taskCount = redisDatabase + ":" + redisKeyCategory + ":string:" + entity.getId();
-        redisService.set(taskCount, "0");
+        String taskCountKey = redisDatabase + ":" + redisKeyCategory + ":string:" + entity.getId();
+        redisService.set(taskCountKey, "0");
+        redisService.expire(taskCountKey, expire);
         return flag;
     }
 
@@ -105,35 +107,38 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * @param entity
      */
     public void saveOrUpdateForRedis(Category entity){
-        String key = redisDatabase + ":" + redisKeyCategory + ":hash:" + entity.getId();
-        redisService.expire(key, expire);
-        redisService.hSet(key, "id", entity.getId().toString());
-        redisService.hSet(key, "userId", entity.getUserId().toString());
-        redisService.hSet(key, "name", entity.getName());
-        redisService.hSet(key, "createTime", entity.getCreateTime().toString());
-        redisService.hSet(key, "updateTime", entity.getUpdateTime().toString());
+        String categoryKey = redisDatabase + ":" + redisKeyCategory + ":hash:" + entity.getId();
+        redisService.hSet(categoryKey, "id", entity.getId().toString());
+        redisService.hSet(categoryKey, "userId", entity.getUserId().toString());
+        redisService.hSet(categoryKey, "name", entity.getName());
+        redisService.hSet(categoryKey, "createTime", entity.getCreateTime().toString());
+        redisService.hSet(categoryKey, "updateTime", entity.getUpdateTime().toString());
+        redisService.expire(categoryKey, expire);
     }
 
     public void saveRedis(Map<String, Object> category){
-        String key = redisDatabase + ":" + redisKeyCategory + ":hash:" + category.get("id");
-        String taskCount = redisDatabase + ":" + redisKeyCategory + ":string:" + category.get("id");
-        String categoryIdSet = redisDatabase + ":" + redisKeyCategory + ":set:" + category.get("user_id");
-        redisService.expire(key, expire);
+        String categoryKey = redisDatabase + ":" + redisKeyCategory + ":hash:" + category.get("id");
+        String taskCountKey = redisDatabase + ":" + redisKeyCategory + ":string:" + category.get("id");
+        String categoryIdSetKey = redisDatabase + ":" + redisKeyCategory + ":set:" + category.get("user_id");
         for (Map.Entry<String, Object> entry : category.entrySet()){
-            redisService.hSet(key, entry.getKey(), entry.getValue().toString());
+            redisService.hSet(categoryKey, entry.getKey(), entry.getValue().toString());
         }
         //把每个分类下清单的数量也存到redis中去
         Integer countTask = taskService.countTask(Integer.valueOf(category.get("id").toString()));
-        redisService.set(taskCount, countTask.toString());
+        redisService.set(taskCountKey, countTask.toString());
         //把该用户的分类id集合也更新一下
-        redisService.sAdd(categoryIdSet, category.get("id").toString());
+        redisService.sAdd(categoryIdSetKey, category.get("id").toString());
+        //设置键的过期时间
+        redisService.expire(categoryKey, expire);
+        redisService.expire(taskCountKey, expire);
+        redisService.expire(categoryIdSetKey, expire);
     }
 
     @Override
     public boolean removeById(Integer id, Integer userId) {
         //如果该分类下，清单数目大于0，则该清单不能被删除
-        String key = redisDatabase + ":" + redisKeyCategory + ":hash:" + id;
-        String userCategory = redisDatabase + ":" + redisKeyCategory + ":set:" + userId;
+        String categoryKey = redisDatabase + ":" + redisKeyCategory + ":hash:" + id;
+        String categoryIdSetKey = redisDatabase + ":" + redisKeyCategory + ":set:" + userId;
         String taskCountKey = redisDatabase + ":" + redisKeyCategory + ":string:" + id;
         if (redisService.hasKey(taskCountKey)){
             if (Integer.valueOf(redisService.get(taskCountKey).toString()) > 0){
@@ -141,8 +146,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             }
             removeById(id);
             redisService.del(taskCountKey);
-            redisService.sRemove(userCategory, id.toString());
-            redisService.del(key);
+            redisService.sRemove(categoryIdSetKey, id.toString());
+            redisService.del(categoryKey);
             return true;
         }
 
@@ -151,13 +156,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         if (count > 0){
             redisService.set(taskCountKey, count.toString());
             saveOrUpdateForRedis(category);
-            redisService.sAdd(userCategory, id.toString());
+            redisService.sAdd(categoryIdSetKey, id.toString());
+            redisService.expire(taskCountKey, expire);
+            redisService.expire(categoryIdSetKey, expire);
             return false;
         }
         removeById(id);
         redisService.del(taskCountKey);
-        redisService.sRemove(userCategory, userCategory);
-        redisService.del(key);
+        redisService.sRemove(categoryIdSetKey, id.toString());
+        redisService.del(categoryKey);
         return true;
     }
 }
