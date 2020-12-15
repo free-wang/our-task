@@ -9,7 +9,7 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="changeLabel(scope.row)">编辑修改</el-button>
               <el-divider direction="vertical" />
-              <el-button type="text" size="small" @click="deleteLabelById(scope.row.id)">删除标签</el-button>
+              <el-button type="text" size="small" @click="deleteLabelById(scope.row.id, scope.row.taskCount)">删除标签</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -75,7 +75,11 @@ export default {
     handleCurrentChange(val) {
       this.getlabelData(val, this.labelData.size)
     },
-    deleteLabelById(labelId) {
+    deleteLabelById(labelId, taskCount) {
+      if (taskCount > 0) {
+        this.warning('该标签下还有未完成清单，不能删除')
+        return
+      }
       this.$confirm('您正在删除该标签, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -152,6 +156,12 @@ export default {
       this.$message({
         message: message,
         type: 'success'
+      })
+    },
+    warning(message) {
+      this.$message({
+        message: message,
+        type: 'warning'
       })
     }
 

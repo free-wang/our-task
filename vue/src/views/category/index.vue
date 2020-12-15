@@ -9,7 +9,7 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="changeCategory(scope.row)">编辑修改</el-button>
               <el-divider direction="vertical" />
-              <el-button type="text" size="small" @click="deleteCategoryById(scope.row.id)">删除分类</el-button>
+              <el-button type="text" size="small" @click="deleteCategoryById(scope.row.id, scope.row.taskCount)">删除分类</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -75,7 +75,11 @@ export default {
     handleCurrentChange(val) {
       this.getUsercategoryDataList(val, this.categoryData.size)
     },
-    deleteCategoryById(categoryId) {
+    deleteCategoryById(categoryId, taskCount) {
+      if (taskCount > 0) {
+        this.warning('该分类下还有未完成清单，不能删除')
+        return
+      }
       this.$confirm('您正在删除该分类, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -154,6 +158,12 @@ export default {
       this.$message({
         message: message,
         type: 'success'
+      })
+    },
+    warning(message) {
+      this.$message({
+        message: message,
+        type: 'warning'
       })
     }
 

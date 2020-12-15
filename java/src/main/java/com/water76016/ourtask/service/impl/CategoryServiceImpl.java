@@ -141,9 +141,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         String categoryIdSetKey = redisDatabase + ":" + redisKeyCategory + ":set:" + userId;
         String taskCountKey = redisDatabase + ":" + redisKeyCategory + ":string:" + id;
         if (redisService.hasKey(taskCountKey)){
-            if (Integer.valueOf(redisService.get(taskCountKey).toString()) > 0){
-                return false;
-            }
             removeById(id);
             redisService.del(taskCountKey);
             redisService.sRemove(categoryIdSetKey, id.toString());
