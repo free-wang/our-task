@@ -29,8 +29,7 @@ public class FeedbackController {
     @ApiOperation("增加一条反馈信息")
     @PostMapping("add")
     public RestResult add(@RequestBody @ApiParam("反馈对象") Feedback feedback){
-        Feedback feed = new Feedback(feedback.getUserId(), feedback.getTitle(), feedback.getDescription());
-        boolean flag = feedbackService.save(feed);
+        boolean flag = feedbackService.save(feedback);
         return flag ? RestResult.success() : RestResult.error();
     }
 }

@@ -152,7 +152,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         List<Map<String, String>> result = new ArrayList<>();
         //先查询该用户下，所有的分类
         QueryWrapper<Category> categoryQueryWrapper = new QueryWrapper<>();
-        Category entity = new Category(userId);
+        Category entity = Category.builder().userId(userId).build();
         categoryQueryWrapper.setEntity(entity);
         List<Category> categoryList = categoryService.list(categoryQueryWrapper);
         //获取当前时间

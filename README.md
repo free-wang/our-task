@@ -16,19 +16,23 @@ Our-Task项目想要打造一个完整的清单管理系统，用户在上面创
 
 [ Our-Task部署运行详细文档](https://juejin.cn/post/6904085118059544590)
 
-### 项目学习文档
+### 项目架构文档
 
 [Our-Task用例图和ER图设计](https://juejin.cn/post/6904082047107596295)
+
+[Mybatis-Plus如何自动生成代码](https://juejin.cn/post/6904516234654679054)
+
+### 项目学习文档
 
 [Our-task盘点开发过程中遇到的问题](https://juejin.cn/post/6904076042315677704)
 
 [mybatis-plus如何自动填充字段创建时间和修改时间](https://juejin.cn/post/6904074648804294663)
 
-[Mybatis-Plus如何自动生成代码](https://juejin.cn/post/6904516234654679054)
-
 [Redis各种键的典型使用场景，不清楚的都来看一下](https://juejin.cn/post/6904800718067073037/)
 
 [接口被SpringSecurity拦截了，怎么使用PostMan调用](https://juejin.cn/post/6906009342550474765)
+
+[Lombok常用注解分享](https://juejin.cn/post/6906340280040390663)
 
 ## 项目介绍
 

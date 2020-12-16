@@ -7,8 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,8 +15,9 @@ import lombok.experimental.Accessors;
  * @since 2020-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Label implements Serializable {
 
     private static final long serialVersionUID = 1L;

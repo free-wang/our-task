@@ -56,7 +56,7 @@ class FeedbackControllerTest {
      */
     @Test
     void add() throws Exception {
-        Feedback feedback = new Feedback(1, "测试", "测试");
+        Feedback feedback = Feedback.builder().userId(1).title("测试").description("测试").build();
         String content = JSONObject.toJSONString(feedback);
         mockMvc.perform(post("/feedback/add")
                 .header("Authorization", token)

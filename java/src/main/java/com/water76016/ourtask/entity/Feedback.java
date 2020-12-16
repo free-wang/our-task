@@ -9,8 +9,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -22,8 +21,9 @@ import lombok.experimental.Accessors;
  * @since 2020-09-07
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Feedback implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -47,10 +47,4 @@ public class Feedback implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
-
-    public Feedback(Integer userId, String title, String description) {
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-    }
 }

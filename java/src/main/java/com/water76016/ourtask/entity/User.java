@@ -11,10 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @since 2020-07-21
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable, UserDetails {

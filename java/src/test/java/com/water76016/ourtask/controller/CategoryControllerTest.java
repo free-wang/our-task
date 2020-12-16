@@ -60,7 +60,7 @@ class CategoryControllerTest {
     }
 
     void add() throws Exception {
-        Category category = new Category(1, "测试");
+        Category category = Category.builder().id(1).name("测试").build();
         String content = JSONObject.toJSONString(category);
         mockMvc.perform(post("/category/add")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
