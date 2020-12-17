@@ -56,23 +56,4 @@ public class Task implements Serializable {
     @TableField(exist = false)
     List<Integer> labelList;
 
-    public Task(Integer userId, Integer categoryId, String name) {
-        this.userId = userId;
-        this.categoryId = categoryId;
-        this.name = name;
-    }
-
-    public Task(Integer id, Integer run) {
-        this.id = id;
-        this.run = run;
-    }
-
-    public Task(Integer id, Integer userId, Integer categoryId, String name, String description) {
-        this.id = id;
-        this.userId = userId;
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-    }
-
 }

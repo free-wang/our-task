@@ -47,9 +47,4 @@ public class Label implements Serializable {
     @ApiModelProperty(value = "所含清单总数")
     @TableField(exist = false)
     Integer taskCount;
-
-    public Label(Integer userId, String name) {
-        this.userId = userId;
-        this.name = name;
-    }
 }

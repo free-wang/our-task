@@ -38,7 +38,7 @@ class CategoryControllerTest {
      * @throws Exception
      */
     String login() throws Exception {
-        User user = new User("user", "123456");
+        User user = User.builder().username("user").password("123456").build();
         String content = JSONObject.toJSONString(user);
         String token = mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

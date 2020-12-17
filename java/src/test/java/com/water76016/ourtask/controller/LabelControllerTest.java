@@ -41,7 +41,7 @@ class LabelControllerTest {
      * @throws Exception
      */
     String login() throws Exception {
-        User user = new User("user", "123456");
+        User user = User.builder().username("user").password("123456").build();
         String content = JSONObject.toJSONString(user);
         String token = mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -82,7 +82,7 @@ class LabelControllerTest {
     }
 
     void add() throws Exception {
-        Label label = new Label(1, "测试");
+        Label label = Label.builder().userId(1).name("测试").build();
         String content = JSONObject.toJSONString(label);
         mockMvc.perform(post("/label/add")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

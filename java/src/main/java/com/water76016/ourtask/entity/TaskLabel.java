@@ -41,9 +41,4 @@ public class TaskLabel implements Serializable {
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
-
-    public TaskLabel(Integer taskId, Integer labelId) {
-        this.taskId = taskId;
-        this.labelId = labelId;
-    }
 }

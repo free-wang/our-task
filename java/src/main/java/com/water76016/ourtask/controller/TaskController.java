@@ -42,8 +42,9 @@ public class TaskController {
     @ApiOperation("添加/更新一个清单")
     @PostMapping("/save")
     public RestResult saveOrUpdate(@RequestBody @ApiParam("清单controller传输对象") TaskParam taskParam){
-        Task task = new Task(taskParam.getId(),taskParam.getUserId(), taskParam.getCategoryId(), taskParam.getName(),
-                taskParam.getDescription());
+        Task task = Task.builder().id(taskParam.getId()).userId(taskParam.getUserId())
+                .categoryId(taskParam.getCategoryId()).name(taskParam.getName())
+                .description(taskParam.getDescription()).build();
         taskService.saveOrUpdate(task);
         Integer taskId = task.getId();
         //先删除之前的task和label对应关系
@@ -53,7 +54,7 @@ public class TaskController {
         //准备往task_label表里面插入新的task和label对应关系
         List<Integer> labelList = taskParam.getLabelList();
         for (Integer labelId : labelList){
-            TaskLabel taskLabel = new TaskLabel(taskId, labelId);
+            TaskLabel taskLabel = TaskLabel.builder().taskId(taskId).labelId(labelId).build();
             taskLabelService.save(taskLabel);
         }
         return RestResult.success();
