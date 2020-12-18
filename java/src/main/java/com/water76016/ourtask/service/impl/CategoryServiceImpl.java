@@ -84,7 +84,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         redisService.expire(categoryIdSetKey, expire);
         //把这个分类下的清单数置为0
         String taskCountKey = redisDatabase + ":" + redisKeyCategory + ":string:" + entity.getId();
-        redisService.set(taskCountKey, "0");
+        redisService.incr(taskCountKey, 1);
         redisService.expire(taskCountKey, expire);
         return flag;
     }
@@ -136,28 +136,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public boolean removeById(Integer id, Integer userId) {
-        //如果该分类下，清单数目大于0，则该清单不能被删除
         String categoryKey = redisDatabase + ":" + redisKeyCategory + ":hash:" + id;
         String categoryIdSetKey = redisDatabase + ":" + redisKeyCategory + ":set:" + userId;
         String taskCountKey = redisDatabase + ":" + redisKeyCategory + ":string:" + id;
-        if (redisService.hasKey(taskCountKey)){
-            removeById(id);
-            redisService.del(taskCountKey);
-            redisService.sRemove(categoryIdSetKey, id.toString());
-            redisService.del(categoryKey);
-            return true;
-        }
-
-        Category category = super.getById(id);
-        Integer count = taskService.countTask(id);
-        if (count > 0){
-            redisService.set(taskCountKey, count.toString());
-            saveOrUpdateForRedis(category);
-            redisService.sAdd(categoryIdSetKey, id.toString());
-            redisService.expire(taskCountKey, expire);
-            redisService.expire(categoryIdSetKey, expire);
-            return false;
-        }
         removeById(id);
         redisService.del(taskCountKey);
         redisService.sRemove(categoryIdSetKey, id.toString());
