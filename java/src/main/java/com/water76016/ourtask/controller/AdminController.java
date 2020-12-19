@@ -30,10 +30,6 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     UserService userService;
-    /**
-     * @param
-     * @return 返回结果消息
-     */
 
     @ApiOperation("管理员冻结一个用户")
     @GetMapping("/freezeUser/{id}")
