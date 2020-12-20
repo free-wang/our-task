@@ -169,7 +169,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             if (count > 0){
                 flag = true;
             }
-            Map<String, String> hashMap = new HashMap<>();
+            Map<String, String> hashMap = new HashMap<>(10);
             hashMap.put("categoryName", category.getName());
             hashMap.put("count", String.valueOf(count));
             result.add(hashMap);

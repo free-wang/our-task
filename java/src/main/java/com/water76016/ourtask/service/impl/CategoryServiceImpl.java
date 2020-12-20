@@ -49,7 +49,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             for (Object id : categoryIdSet){
                 String categoryKey = originalkey + id;
                 Map<Object, Object> tempCateogry = redisService.hGetAll(categoryKey);
-                Map<String, Object> category = new HashMap<>();
+                Map<String, Object> category = new HashMap<>(10);
                 for (Map.Entry<Object, Object> entrySet : tempCateogry.entrySet()){
                     category.put(entrySet.getKey().toString(), entrySet.getValue());
                 }
