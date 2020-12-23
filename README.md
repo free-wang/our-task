@@ -34,6 +34,8 @@ Our-Task项目想要打造一个完整的清单管理系统，用户在上面创
 
 [Lombok常用注解分享](https://juejin.cn/post/6906340280040390663)
 
+[SpringBoot整合Swagger2](https://juejin.cn/post/6909262661528059918)
+
 ## 项目介绍
 
 Our-Task项目是一个清单管理系统，包括前台系统使用及后台管理系统，基于SpringBoot+MyBatis实现。该系统前台包括首页、清单管理、分类管理、标签管理、帮助中心等模块。
