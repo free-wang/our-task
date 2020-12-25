@@ -37,8 +37,8 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("SwaggerUI演示")
-                .description("mall-tiny")
-                .contact(new Contact("macro", null, null))
+                .description("our-task")
+                .contact(new Contact("water76016", null, null))
                 .version("1.0")
                 .build();
     }
@@ -52,9 +52,12 @@ public class Swagger2Config {
     }
 
     private List<SecurityContext> securityContexts() {
-        //设置需要登录认证的路径
+        /**
+         * 设置需要登录认证的路径
+         * 也就是在Swagger配置的Authorization，能够生效的那些路径
+         */
         List<SecurityContext> result = new ArrayList<>();
-        result.add(getContextByPath("/brand/.*"));
+        result.add(getContextByPath("/.*/.*"));
         return result;
     }
 
