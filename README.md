@@ -20,15 +20,19 @@ QQ群号：729935246，群里提供电子书下载，欢迎大家来和我一起
 
 [ Our-Task部署运行详细文档](https://juejin.cn/post/6904085118059544590)
 
-### 项目架构文档
-
-[Our-Task用例图和ER图设计](https://juejin.cn/post/6904082047107596295)
+### 项目Demo文档
 
 [Mybatis-Plus如何自动生成代码](https://juejin.cn/post/6904516234654679054)
+
+[SpringBoot整合Swagger2](https://juejin.cn/post/6909262661528059918)
+
+[Our-Task项目：SpringBoot整合Redis](https://juejin.cn/post/6911510555471642632)
 
 ### 项目学习文档
 
 [Our-task盘点开发过程中遇到的问题](https://juejin.cn/post/6904076042315677704)
+
+[Our-Task用例图和ER图设计](https://juejin.cn/post/6904082047107596295)
 
 [mybatis-plus如何自动填充字段创建时间和修改时间](https://juejin.cn/post/6904074648804294663)
 
@@ -37,8 +41,6 @@ QQ群号：729935246，群里提供电子书下载，欢迎大家来和我一起
 [接口被SpringSecurity拦截了，怎么使用PostMan调用](https://juejin.cn/post/6906009342550474765)
 
 [Lombok常用注解分享](https://juejin.cn/post/6906340280040390663)
-
-[SpringBoot整合Swagger2](https://juejin.cn/post/6909262661528059918)
 
 [一文了解JWT](https://juejin.cn/post/6911192991084314637)
 
