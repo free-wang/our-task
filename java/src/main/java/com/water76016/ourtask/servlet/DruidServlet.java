@@ -6,8 +6,11 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * druid连接池Servlet类
- */
+ * @program: our-task
+ * @description: druid连接池Servlet类
+ * @author: water76016
+ * @create: 2020-09-24 16:45
+ **/
 @WebServlet(urlPatterns="/druid/*",
         initParams={
                 // IP白名单(没有配置或者为空，则允许所有访问)

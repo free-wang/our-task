@@ -13,6 +13,7 @@ import com.water76016.ourtask.service.CategoryService;
 import com.water76016.ourtask.service.TaskService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,6 +31,13 @@ import java.util.*;
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
     @Autowired
     CategoryService categoryService;
+
+    @Value("${redis.database}")
+    private String redisDatabase;
+    @Value("${redis.key.task}")
+    private String redisKeyTask;
+    @Value("${redis.expire.common}")
+    private long expire;
 
     @Override
     public Integer countTask(Integer categoryId) {

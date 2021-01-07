@@ -54,13 +54,14 @@ public interface TaskService extends IService<Task> {
 
     /**
      * 根据分类列表，查询分类传输对象CategoryParam列表
-     * @param
-     * @return 分类传输对象列表
+     * @param categoryList
+     * @return
      */
     List<CategoryParam> getCategoryParamList(List<Map<String, Object>> categoryList);
 
     /**
-     * 查询用户在当天的每个分类清单的完成情况
+     *查询用户在当天的每个分类清单的完成情况
+     * @param userId
      * @return
      */
     List<Map<String, String>> countTodayForCategory(Integer userId);

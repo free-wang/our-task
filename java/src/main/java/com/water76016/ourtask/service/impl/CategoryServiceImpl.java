@@ -124,7 +124,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             redisService.hSet(categoryKey, entry.getKey(), entry.getValue().toString());
         }
         //把每个分类下清单的数量也存到redis中去
-        Integer countTask = taskService.countTask(Integer.valueOf(category.get("id").toString()));
+        Integer categoryId = Integer.valueOf(category.get("id").toString());
+        Integer countTask = taskService.countTask(categoryId);
         redisService.set(taskCountKey, countTask.toString());
         //把该用户的分类id集合也更新一下
         redisService.sAdd(categoryIdSetKey, category.get("id").toString());
