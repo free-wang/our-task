@@ -36,6 +36,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     private String redisDatabase;
     @Value("${redis.key.task}")
     private String redisKeyTask;
+    @Value("${redis.key.label}")
+    private String redisKeyLabel;
     @Value("${redis.expire.common}")
     private long expire;
 
