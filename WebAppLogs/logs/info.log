@@ -1,0 +1,31 @@
+[12:32:03:877] - [restartedMain] [INFO] - c.w.ourtask.OurTaskApplication - Starting OurTaskApplication on LAPTOP-QUCGL4QE with PID 15184 (D:\study\java\our-task\java\target\classes started by daxingyong in D:\study\java\our-task)
+[12:32:03:878] - [restartedMain] [INFO] - c.w.ourtask.OurTaskApplication - The following profiles are active: dev
+[12:32:03:911] - [restartedMain] [INFO] - o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[12:32:03:912] - [restartedMain] [INFO] - o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[12:32:05:189] - [restartedMain] [INFO] - o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+[12:32:05:192] - [restartedMain] [INFO] - o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[12:32:05:229] - [restartedMain] [INFO] - o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23ms. Found 0 Redis repository interfaces.
+[12:32:05:847] - [restartedMain] [INFO] - o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8888 (http)
+[12:32:05:855] - [restartedMain] [INFO] - o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8888"]
+[12:32:05:855] - [restartedMain] [INFO] - o.a.catalina.core.StandardService - Starting service [Tomcat]
+[12:32:05:855] - [restartedMain] [INFO] - o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.36]
+[12:32:05:857] - [restartedMain] [INFO] - o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+[12:32:05:857] - [restartedMain] [INFO] - o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+[12:32:05:858] - [restartedMain] [INFO] - o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+[12:32:05:861] - [restartedMain] [INFO] - o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+[12:32:05:991] - [restartedMain] [INFO] - o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[12:32:05:991] - [restartedMain] [INFO] - o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2079 ms
+[12:32:07:626] - [restartedMain] [INFO] - o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+[12:32:07:783] - [restartedMain] [INFO] - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/css/**'], []
+[12:32:07:783] - [restartedMain] [INFO] - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/sign'], []
+[12:32:07:783] - [restartedMain] [INFO] - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/druid/**'], []
+[12:32:07:806] - [restartedMain] [INFO] - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@49237e03, org.springframework.security.web.context.SecurityContextPersistenceFilter@558c27a0, org.springframework.security.web.header.HeaderWriterFilter@3624eac9, org.springframework.security.web.authentication.logout.LogoutFilter@d4d7216, com.water76016.ourtask.config.security.jwt.JwtAuthTokenFilter@717b3f54, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31680f31, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6f719214, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@683f3221, org.springframework.security.web.session.SessionManagementFilter@6b65cd7b, org.springframework.security.web.access.ExceptionTranslationFilter@6d301aab, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2ea54287]
+[12:32:07:880] - [restartedMain] [INFO] - o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[12:32:07:907] - [restartedMain] [INFO] - o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[12:32:08:181] - [restartedMain] [INFO] - o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8888"]
+[12:32:08:196] - [restartedMain] [INFO] - o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8888 (http) with context path ''
+[12:32:08:424] - [restartedMain] [INFO] - c.w.ourtask.OurTaskApplication - Started OurTaskApplication in 5.066 seconds (JVM running for 6.162)
+[12:32:08:789] - [RMI TCP Connection(3)-172.27.96.1] [INFO] - o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[12:32:08:789] - [RMI TCP Connection(3)-172.27.96.1] [INFO] - o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[12:32:08:805] - [RMI TCP Connection(3)-172.27.96.1] [INFO] - o.s.web.servlet.DispatcherServlet - Completed initialization in 16 ms
+[12:32:09:529] - [RMI TCP Connection(5)-172.27.96.1] [INFO] - c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
