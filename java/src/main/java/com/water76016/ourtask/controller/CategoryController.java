@@ -31,7 +31,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
-//    static final Logger logger = LoggerFactory.getLogger(getC)
+    static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     @Autowired
     TaskService taskService;
@@ -42,7 +42,14 @@ public class CategoryController {
     @PostMapping("add")
     public RestResult add(@RequestBody @ApiParam("新增分类对象") Category category){
         boolean flag = categoryService.save(category);
-        return flag ? RestResult.success(category) : RestResult.error();
+        if (flag){
+            logger.debug("添加分类成功" + category);
+            logger.info("添加分类成功" + category);
+            return RestResult.success(category);
+        }
+        logger.debug("添加分类失败" + category);
+        logger.info("添加分类失败" + category);
+        return RestResult.error();
     }
 
     @ApiOperation("逻辑删除一个分类")

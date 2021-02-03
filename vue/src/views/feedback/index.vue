@@ -37,11 +37,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.post('feedback/add', this.feedback, {
-            headers: {
-              'Authorization': localStorage.getItem('token')
-            }
-          }).then((res) => {
+          this.$axios.post('feedback/add', this.feedback).then((res) => {
             this.success('您的反馈我们已经收到，感谢您的支持')
             this.resetForm('feedback')
           })

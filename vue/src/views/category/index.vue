@@ -61,11 +61,7 @@ export default {
   },
   methods: {
     getUsercategoryDataList(currentPage, pageSize) {
-      this.$axios.get(`category/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`, {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
-      }).then((res) => {
+      this.$axios.get(`category/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`).then((res) => {
         this.categoryData = res.data.data
       })
     },
@@ -85,11 +81,7 @@ export default {
         cancelButtonText: '取消',
         type: 'info'
       }).then(() => {
-        this.$axios.get(`category/delete/${categoryId}/${this.global.user.id}`, {
-          headers: {
-            'Authorization': localStorage.getItem('token')
-          }
-        }).then((res) => {
+        this.$axios.get(`category/delete/${categoryId}/${this.global.user.id}`).then((res) => {
           this.getUsercategoryDataList(1, 5)
         })
         this.success('删除分类成功')
@@ -109,12 +101,7 @@ export default {
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         category.name = value
-
-        this.$axios.post(`category/update/${category.id}`, category, {
-          headers: {
-            'Authorization': localStorage.getItem('token')
-          }
-        }).then((res) => {
+        this.$axios.post(`category/update/${category.id}`, category).then((res) => {
           this.success('分类名修改成功:' + value)
         })
       }).catch(() => {
@@ -132,11 +119,7 @@ export default {
         inputErrorMessage: '长度不能超过6个字符或不能存在空格'
       }).then(({ value }) => {
         var category = { id: null, userId: this.global.user.id, name: value }
-        this.$axios.post('category/add/', category, {
-          headers: {
-            'Authorization': localStorage.getItem('token')
-          }
-        }).then((res) => {
+        this.$axios.post('category/add/', category).then((res) => {
           category.id = res.data.data.id
           category.taskCount = 0
           // 如果超过当前页的大小，则弹出一个，再添加进去

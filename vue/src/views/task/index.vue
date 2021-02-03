@@ -118,29 +118,18 @@ export default {
   },
   methods: {
     getTaskDataByUserId(currentPage, pageSize, selectCondition) {
-      this.$axios.post(`task/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`, this.selectCondition, {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
-      }).then((res) => {
-        this.taskData = res.data.data
-      })
+      this.$axios.post(`task/getPageList/${this.global.user.id}/${currentPage}/${pageSize}`, this.selectCondition)
+        .then((res) => {
+          this.taskData = res.data.data
+        })
     },
     getUserCategoryParamList() {
-      this.$axios.get(`category/listAll/${this.global.user.id}`, {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
-      }).then((res) => {
+      this.$axios.get(`category/listAll/${this.global.user.id}`).then((res) => {
         this.categoryParamList = res.data.data
       })
     },
     getLabelParamList() {
-      this.$axios.get(`label/listAll/${this.global.user.id}`, {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
-      }).then((res) => {
+      this.$axios.get(`label/listAll/${this.global.user.id}`).then((res) => {
         this.labelParamList = res.data.data
       })
     },
@@ -151,11 +140,7 @@ export default {
       this.getTaskDataByUserId(val, this.taskData.size, this.selectCondition)
     },
     deleteTaskById(taskId) {
-      this.$axios.get(`task/delete/${taskId}`, {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
-      }).then((res) => {
+      this.$axios.get(`task/delete/${taskId}`).then((res) => {
         // 标记完成之后，要重新进行一次查找，这样才会在当前页显示足够的清单数
         this.success('该清单标记完成')
         this.getTaskDataByUserId(1, 5, this.selectCondition)
